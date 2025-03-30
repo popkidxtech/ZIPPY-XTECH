@@ -21,7 +21,7 @@ async (conn, mek, m, { from, quoted, reply }) => {
 
         // Send the ping result
         await conn.sendMessage(from, { 
-            text: `> 𝐏𝐎𝐏𝐊𝐈𝐅-𝐗𝐓𝐄𝐂𝐇🚀⚡: ${ping}ms`, 
+            text: `> 𝐏𝐎𝐏𝐊𝐈𝐃-𝐗𝐓𝐄𝐂𝐇🚀⚡: ${ping}ms`, 
             contextInfo: {
                 mentionedJid: [m.sender],
                 forwardingScore: 999,
