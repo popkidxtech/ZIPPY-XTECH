@@ -41,7 +41,7 @@
     "ALWAYS_ONLINE": {
       "description": "Make it true if want always online.",
       "required": false,
-      "value": "false"  
+      "value": "true"  
     },    
   
     "AUTO_VOICE": {
@@ -72,7 +72,7 @@
     "AUTO_STATUS_REPLY": {
       "description": "Make it true for auto reply msg on status seen.",
       "required": true,
-      "value": "false"
+      "value": "true"
     }, 
 
     "AUTO_STATUS__MSG": {
@@ -97,7 +97,7 @@
     "BOT_NAME": {
       "description": "Type here the bot name.",
       "required": false,
-      "value": "✦ POPKID ✦ XTECH✦ BOT ✦"
+      "value": "✞︎ POPKID ✦ XTECH✦ BOT ✞︎"
 
       }, 
 
@@ -117,7 +117,7 @@
      "DESCRIPTION": {
       "description": "add caption for menu and other",
       "required": false,
-      "value": "*© ✦ Popkid ✦ Xtech ✦ Bot ✦*"
+      "value": "*© ✞︎ Popkid ✦ Xtech ✦ Bot ✞︎*"
     },
 
       "DELETE_LINKS": {
