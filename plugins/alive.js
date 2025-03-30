@@ -27,7 +27,7 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
 ┃ *👨‍💻𝖮ᴡɴᴇʀ* : *𝐩𝐨𝐩𝐤𝐢𝐝*
 ┃ *🧬𝖵ᴇʀsɪᴏɴ* : *𝟣.𝟢.𝟢 𝖡𝖤𝖳𝖠*
 ╰──────────────────────┈⊷
-> ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴘᴏᴘᴋɪᴅ xᴛᴇᴄɢ`;
+> ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴘᴏᴘᴋɪᴅ xᴛᴇᴄʜ`;
 
         // Send image + caption + audio combined
         await conn.sendMessage(from, { 
