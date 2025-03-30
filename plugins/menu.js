@@ -8,18 +8,18 @@ cmd({
     pattern: "menu",
     desc: "menu the bot",
     category: "menu",
-    react: "🐇",
+    react: "❣️",
     filename: __filename
 }, 
 async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
     try {
-        let dec = `╭━━━《 *𝐂𝐀𝐒𝐄𝐘𝐑𝐇𝐎𝐃𝐄𝐒 𝐗𝐌𝐃* 》━━━┈⊷
+        let dec = `╭━━━《 *𝐏𝐎𝐏𝐊𝐈𝐃 𝐗𝐓𝐄𝐂𝐇* 》━━━┈⊷
 ┃❍⁠⁠⁠⁠╭──────────────
 ┃❍⁠⁠⁠⁠│▸  *Usᴇʀ* : ${config.OWNER_NAME}
 ┃❍⁠⁠⁠⁠│▸  *ʙᴀɪʟᴇʏs* : 𝐌𝐮𝐥𝐭𝐢 𝐝𝐞𝐯𝐢𝐜𝐞
 ┃❍⁠⁠⁠⁠│▸  *𝖳ʏᴘᴇ* : 𝐍𝐨𝐝𝐞𝐣𝐬
 ┃❍⁠⁠⁠⁠│▸  *ᴘʟᴀᴛғᴏʀᴍ* : 𝐇𝐞𝐫𝐨𝐤𝐮
-┃❍⁠⁠⁠⁠│▸  *𝖣ᴇᴠᴇʟᴏᴘᴇʀ* : ᴄᴀsᴇʏʀʜᴏᴅᴇs ᴛᴇᴄʜ
+┃❍⁠⁠⁠⁠│▸  *𝖣ᴇᴠᴇʟᴏᴘᴇʀ* : 𝐏𝐨𝐩𝐤𝐢𝐝 𝐓𝐞𝐜𝐡
 ┃❍⁠⁠⁠⁠│▸  *𝖬ᴏᴅᴇ* : [${config.MODE}]
 ┃❍⁠⁠⁠⁠│▸  *𝖯ʀᴇғɪx* : [${config.PREFIX}]
 ┃❍⁠⁠⁠⁠│▸  *𝖵ᴇʀsɪᴏɴ* : 𝟏.𝟎.𝟎
@@ -53,15 +53,15 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
         await conn.sendMessage(
             from,
             {
-                image: { url: `https://files.catbox.moe/52dotx.jpg` },
+                image: { url: `https://files.catbox.moe/nk71o3.jpg` },
                 caption: dec,
                 contextInfo: {
                     mentionedJid: [m.sender],
                     forwardingScore: 999,
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363351424590490@newsletter',
-                        newsletterName: '𝐂𝐀𝐒𝐄𝐘𝐑𝐇𝐎𝐃𝐄𝐒-𝐗𝐌𝐃👻⚡',
+                        newsletterJid: '120363290715861418@newsletter',
+                        newsletterName: '𝐏𝐎𝐏𝐊𝐈𝐃👻⚡',
                         serverMessageId: 143
                     }
                 }
@@ -135,15 +135,15 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
         await conn.sendMessage(
             from,
             {
-                image: { url: `https://i.ibb.co/1YCH2Dd9/lordcasey.jpg` },
+                image: { url: `https://files.catbox.moe/nk71o3.jpg` },
                 caption: dec,
                 contextInfo: {
                     mentionedJid: [m.sender],
                     forwardingScore: 999,
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363351424590490@newsletter',
-                        newsletterName: 'CASEYRHODES-XMD💖🦄',
+                        newsletterJid: '120363290715861418@newsletter',
+                        newsletterName: 'POPKID-XTECH ❤️💯',
                         serverMessageId: 143
                     }
                 }
@@ -213,15 +213,15 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
         await conn.sendMessage(
             from,
             {
-                image: { url: `https://i.ibb.co/8gHCXCV9/IMG-20250216-WA0009.jpg` },
+                image: { url: `https://files.catbox.moe/nk71o3.jpg` },
                 caption: dec,
                 contextInfo: {
                     mentionedJid: [m.sender],
                     forwardingScore: 999,
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363351424590490@newsletter',
-                        newsletterName: 'CASEYRHODES-XMD 💖🦄',
+                        newsletterJid: '120363290715861418@newsletter',
+                        newsletterName: 'POPKID-XTECH ❤️💯',
                         serverMessageId: 143
                     }
                 }
@@ -279,15 +279,15 @@ async (conn, mek, m, { from, quoted, reply }) => {
         await conn.sendMessage(
             from,
             {
-                image: { url: `https://files.catbox.moe/52dotx.jpg` },
+                image: { url: `https://files.catbox.moe/nk71o3.jpg` },
                 caption: dec,
                 contextInfo: {
                     mentionedJid: [m.sender],
                     forwardingScore: 999,
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363351424590490@newsletter',
-                        newsletterName: 'CASEYRHODES-XMD 💖🦄',
+                        newsletterJid: '120363290715861418@newsletter',
+                        newsletterName: 'POPKID-XTECH ❤️💯',
                         serverMessageId: 144
                     }
                 }
@@ -351,15 +351,15 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
         await conn.sendMessage(
             from,
             {
-                image: { url: `https://i.ibb.co/8gHCXCV9/IMG-20250216-WA0009.jpg` },
+                image: { url: `https://files.catbox.moe/nk71o3.jpg` },
                 caption: dec,
                 contextInfo: {
                     mentionedJid: [m.sender],
                     forwardingScore: 999,
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363351424590490@newsletter',
-                        newsletterName: 'CASEYRHODES-XMD 💖🦄',
+                        newsletterJid: '120363290715861418@newsletter',
+                        newsletterName: 'POPKID-XTECH ❤️💯',
                         serverMessageId: 143
                     }
                 }
@@ -415,15 +415,15 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
         await conn.sendMessage(
             from,
             {
-                image: { url: `https://i.ibb.co/27X4G1Cd/lordcasey.jpg` },
+                image: { url: `https://files.catbox.moe/nk71o3.jpg` },
                 caption: dec,
                 contextInfo: {
                     mentionedJid: [m.sender],
                     forwardingScore: 999,
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363351424590490@newsletter',
-                        newsletterName: 'CASEYRHODES-XMD',
+                        newsletterJid: '120363290715861418@newsletter',
+                        newsletterName: 'POPKID-XTECH ❤️💯',
                         serverMessageId: 143
                     }
                 }
@@ -474,15 +474,15 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
         await conn.sendMessage(
             from,
             {
-                image: { url: `https://i.ibb.co/8gHCXCV9/IMG-20250216-WA0009.jpg` },
+                image: { url: `https://files.catbox.moe/nk71o3.jpg` },
                 caption: dec,
                 contextInfo: {
                     mentionedJid: [m.sender],
                     forwardingScore: 999,
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363351424590490@newsletter',
-                        newsletterName: 'CASEYRHODES-XMD 💖🦄',
+                        newsletterJid: '120363290715861418@newsletter',
+                        newsletterName: 'POPKID-XTECH ❤️💯',
                         serverMessageId: 143
                     }
                 }
@@ -526,15 +526,15 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
         await conn.sendMessage(
             from,
             {
-               image: { url: `https://i.ibb.co/8gHCXCV9/IMG-20250216-WA0009.jpg` },
+               image: { url: `https://files.catbox.moe/nk71o3.jpg` },
                 caption: dec,
                 contextInfo: {
                     mentionedJid: [m.sender],
                     forwardingScore: 999,
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363351424590490@newsletter',
-                        newsletterName: 'CASEYRHODES-XMD 💖🦄',
+                        newsletterJid: '120363290715861418@newsletter',
+                        newsletterName: 'POPKID-XTECH ❤️💯',
                         serverMessageId: 143
                     }
                 }
@@ -592,15 +592,15 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
         await conn.sendMessage(
             from,
             {
-                image: { url: `https://i.ibb.co/8gHCXCV9/IMG-20250216-WA0009.jpg` },
+                image: { url: `https://files.catbox.moe/nk71o3.jpg` },
                 caption: dec,
                 contextInfo: {
                     mentionedJid: [m.sender],
                     forwardingScore: 999,
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363351424590490@newsletter',
-                        newsletterName: 'CASEYRHODES-XMD 💖🦄',
+                        newsletterJid: '120363290715861418@newsletter',
+                        newsletterName: 'POPKID-XTECH ❤️💯',
                         serverMessageId: 143
                     }
                 }
@@ -641,15 +641,15 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
         await conn.sendMessage(
             from,
             {
-                image: { url: `https://i.ibb.co/8gHCXCV9/IMG-20250216-WA0009.jpg` },
+                image: { url: `https://files.catbox.moe/nk71o3.jpg` },
                 caption: dec,
                 contextInfo: {
                     mentionedJid: [m.sender],
                     forwardingScore: 999,
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363351424590490@newsletter',
-                        newsletterName: 'CASEYRHODES-XMD 💖🦄',
+                        newsletterJid: '120363290715861418@newsletter',
+                        newsletterName: 'POPKID-XTECH ❤️💯',
                         serverMessageId: 143
                     }
                 }
@@ -710,15 +710,15 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
         await conn.sendMessage(
             from,
             {
-                image: { url: `https://i.ibb.co/8gHCXCV9/IMG-20250216-WA0009.jpg` },
+                image: { url: `https://files.catbox.moe/nk71o3.jpg` },
                 caption: dec,
                 contextInfo: {
                     mentionedJid: [m.sender],
                     forwardingScore: 999,
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363351424590490@newsletter',
-                        newsletterName: 'CASEYRHODES-XMD 💖🦄',
+                        newsletterJid: '120363290715861418@newsletter',
+                        newsletterName: 'POPKID-XTECH ❤️💯',
                         serverMessageId: 143
                     }
                 }
@@ -761,15 +761,15 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
         await conn.sendMessage(
             from,
             {
-                image: { url: `https://i.ibb.co/8gHCXCV9/IMG-20250216-WA0009.jpg` },
+                image: { url: `https://files.catbox.moe/nk71o3.jpg` },
                 caption: dec,
                 contextInfo: {
                     mentionedJid: [m.sender],
                     forwardingScore: 999,
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363351424590490@newsletter',
-                        newsletterName: 'CASEYRHODES-XMD 💖🦄',
+                        newsletterJid: '120363290715861418@newsletter',
+                        newsletterName: 'POPKID-XTECH ❤️💯',
                         serverMessageId: 143
                     }
                 }
