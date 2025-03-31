@@ -1,58 +1,249 @@
-const axios = require('axios');
-const config = require('../config');
-const { cmd, commands } = require('../command');
-const { downloadMediaMessage } = require('../lib/msg');
-const fs = require("fs");
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const {
+  cmd,
+  commands
+} = require("../command");
+const path = require('path');
 cmd({
-  pattern: "save",
-  desc: "Save a status/photo/video and send it to your private chat (Owner only).",
-  category: "utility",
-  filename: __filename,
-}, async (conn, mek, m, { isOwner, reply, quoted }) => {
-  if (!isOwner) return reply("❌ You are not the owner!");
-
+  'pattern': "save",
+  'react': '📁',
+  'alias': ["store"],
+  'desc': "Save and send back a media file (image, video, or audio).",
+  'category': "media",
+  'use': ".save <caption>",
+  'filename': __filename
+}, async (_0x2ecf0f, _0x3c0350, _0x2b9c8c, {
+  quoted: _0x2103b0,
+  q: _0x435112,
+  reply: _0x4f53e2
+}) => {
   try {
-    if (!quoted) {
-      return reply("Please reply to a status, photo, or video message to save it.");
+    if (!_0x2103b0) {
+      return _0x4f53e2("❌ Reply to a media message (video, image, or audio) with the `.save` command.");
     }
-
-    // Extract the mimetype from the quoted message
-    let mime = (quoted.msg || quoted).mimetype || "";
-    console.log("Extracted mimetype:", mime); // Debugging: Log the mimetype
-
-    let mediaType = "";
-    if (mime.startsWith("image")) {
-      mediaType = "image";
-    } else if (mime.startsWith("video")) {
-      mediaType = "video";
-    } else if (mime.startsWith("audio")) {
-      mediaType = "audio";
+    const _0x3debb4 = _0x2103b0.mtype;
+    let _0x21e1be;
+    if (/video/.test(_0x3debb4)) {
+      _0x21e1be = "video";
     } else {
-      console.log("Unsupported mimetype detected:", mime); // Debugging: Log unsupported mimetype
-      return reply("❌ Unsupported media type. Please reply to a status, photo, or video message.");
+      if (/image/.test(_0x3debb4)) {
+        _0x21e1be = "image";
+      } else {
+        if (/audio/.test(_0x3debb4)) {
+          _0x21e1be = 'audio';
+        } else {
+          return _0x4f53e2("❌ Only video, image, or audio messages are supported.");
+        }
+      }
     }
-
-    // Download the media
-    const mediaBuffer = await downloadMediaMessage(quoted);
-    if (!mediaBuffer) return reply("❌ Failed to download the media.");
-
-    // Prepare the message options based on the media type
-    let messageOptions = {};
-    if (mediaType === "image") {
-      messageOptions = { image: mediaBuffer, mimetype: mime };
-    } else if (mediaType === "video") {
-      messageOptions = { video: mediaBuffer, mimetype: mime };
-    } else if (mediaType === "audio") {
-      messageOptions = { audio: mediaBuffer, mimetype: mime };
-    }
-
-    // Send the media to the owner's private chat
-    await conn.sendMessage(m.sender, messageOptions, { quoted: m });
-    reply("✅ Media saved and sent to your private chat!");
-
-  } catch (error) {
-    console.error("Error in save command:", error); // Debugging: Log the error
-    reply("❌ An error occurred while saving the media.");
+    const _0x1a523a = await _0x2ecf0f.downloadAndSaveMediaMessage(_0x2103b0);
+    const _0x5af1b3 = path.resolve(_0x1a523a);
+    const _0x4acfdc = {
+      'caption': _0x435112 || ''
+    };
+    _0x4acfdc[_0x21e1be] = {
+      'url': 'file://' + _0x5af1b3
+    };
+    await _0x2ecf0f.sendMessage(_0x2b9c8c.sender, _0x4acfdc, {
+      'quoted': _0x3c0350
+    });
+    await _0x4f53e2("Popkid xmd Successfully save and sent the media file.");
+  } catch (_0x1791ca) {
+    console.error(_0x1791ca);
+    _0x4f53e2("❌ Failed to save and send the media. Please try again.");
   }
 });
