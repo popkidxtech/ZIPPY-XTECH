@@ -72,7 +72,7 @@
     "AUTO_STATUS_REPLY": {
       "description": "Make it true for auto reply msg on status seen.",
       "required": true,
-      "value": "true"
+      "value": "false"
     }, 
 
     "AUTO_STATUS__MSG": {
@@ -147,14 +147,14 @@
     "OWNER_REACT": {
       "description": "Make it true if you only want react on Owner Massages.",
       "required": false,
-      "value": "true"
+      "value": "false"
       
     }, 
     
     "CUSTOM_REACT": {
       "description": "Make it true if you want custom reactions.",
       "required": false,
-      "value": "true"
+      "value": "false"
       
     }, 
     
