@@ -45,7 +45,7 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
 ┃❍┃• *𝗣𝗶𝗻𝗴*
 ┃❍┃• *𝗔𝗹𝗶𝘃𝗲*
 ┃❍┃• *𝖫σgσ <𝙩𝙚𝙭𝙩>*
-┃❍┃• *𝗨𝗿𝗹*
+┃❍┃• *𝗣𝗿𝗮𝘆𝗲𝗿𝘁𝗶𝗺𝗲*
 ┃❍└───────────┈⊷
 ╰──────────────┈⊷
 > ${config.DESCRIPTION}`;
