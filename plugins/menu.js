@@ -22,7 +22,7 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
 *┃❍* *ᴅᴇᴠ* : *ᴘᴏᴘᴋɪᴅ ᴛᴇᴄʜ*
 *┃❍* *ᴠᴇʀsɪᴏɴs* : *1.0.0*
 *╰════════════════⊷*
-*╭────❒⁠⁠⁠⁠* *DOWNLOADER-CMD* *❒⁠⁠⁠⁠* 
+*╭────❒⁠⁠⁠⁠* *DOWNLOAD-CMD* *❒⁠⁠⁠⁠* 
 *├⬡* *.ғʙ*
 *├⬡* *.ɪɴꜱᴛᴀ*
 *├⬡* *.ᴠɪᴅᴇᴏ*
@@ -104,22 +104,23 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
 *├⬡* *.ꜱᴛᴀᴛᴜꜱ*
 *├⬡* *.ᴘɪɴɢ*
 *├⬡* *.ꜱʏꜱᴛᴇᴍ*
+*├⬡* *.ᴜᴘᴛɪᴍᴇ*
 *┕──────────────❒*
 *╭────❒⁠⁠⁠⁠* *BOT-CMD* *❒⁠⁠⁠⁠* 
 *├⬡* *.ʀᴇᴘᴏ*
 *├⬡* *.ᴍᴇɴᴜ*
 *├⬡* *.ᴜᴘᴅᴀᴛᴇ*
-*├⬡* *.ᴍᴇɴᴜ2*
 *├⬡* *.ᴍᴏᴅᴇ*
-*├⬡* *.ᴀᴜᴛᴏᴛʏᴘɪɴɢ*
+*├⬡* *.ᴀᴜᴛᴏ-ᴛʏᴘɪɴɢ*
 *├⬡* *.ᴀʟᴡᴀʏsᴏɴʟɪɴᴇ*
-*├⬡* *.ᴀᴜᴛᴏʀᴇᴄᴏʀᴅɪɴɢ*
+*├⬡* *.ᴀᴜᴛᴏ-ʀᴇᴄᴏʀᴅɪɴɢ*
 *├⬡* *.ᴀᴜᴛᴏʀᴇᴀᴅsᴛᴀᴛᴜs*
 *├⬡* *.ᴀɴᴛɪʙᴀᴅ*
 *├⬡* *.ᴀᴜᴛᴏsᴛɪᴄᴋᴇʀ*
 *├⬡* *.ᴀᴜᴛᴏʀᴇᴘʟʏ*
 *├⬡* *.ᴀᴜᴛᴏʀᴇᴀᴄᴛ*
 *├⬡* *.ᴀɴᴛɪʟɪɴᴋ*
+*├⬡* *.ᴀᴜᴛᴏʀᴇᴀᴅ*
 *┕──────────────❒*
 *╭────❒⁠⁠⁠⁠* *CONVERTER-CMD* *❒⁠⁠⁠⁠* 
 *├⬡* *.sᴛɪᴄᴋᴇʀ*
@@ -177,7 +178,7 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
                         newsletterJid: '120363290715861418@newsletter',
-                        newsletterName: 'Popkid',
+                        newsletterName: 'PᴏᴘᴋɪᴅXᴛᴇᴄʜ',
                         serverMessageId: 143
                     }
                 }
