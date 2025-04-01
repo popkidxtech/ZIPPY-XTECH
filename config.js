@@ -9,7 +9,7 @@ SESSION_ID: process.env.SESSION_ID || "",
 // add your Session Id 
 PREFIX: process.env.PREFIX || ".",
 // add your prifix for bot
-BOT_NAME: process.env.BOT_NAME || "✦ Popkid ✦ Xtech ✦ Bot ✦",
+BOT_NAME: process.env.BOT_NAME || "𝗣𝗢𝗣𝗞𝗜𝗗-𝗫𝗧𝗘𝗖𝗛",
 // add bot namw here for menu
 CUSTOM_REACT: process.env.CUSTOM_REACT || "false",
 // make this true for custum emoji react    
@@ -19,9 +19,9 @@ DELETE_LINKS: process.env.DELETE_LINKS || "false",
 // automatic delete links witho remove member 
 OWNER_NUMBER: process.env.OWNER_NUMBER || "254732297194",
 // add your bot owner number
-OWNER_NAME: process.env.OWNER_NAME || "✦ Popkid ✦ Xtech ✦ Bot ✦",
+OWNER_NAME: process.env.OWNER_NAME || "𝗣𝗢𝗣𝗞𝗜𝗗-𝗫𝗧𝗘𝗖𝗛",
 // add bot owner name
-DESCRIPTION: process.env.DESCRIPTION || "*© ✦ popkid ✦ xtech ✦ bot ✦*",
+DESCRIPTION: process.env.DESCRIPTION || "*© 𝗣𝗢𝗣𝗞𝗜𝗗-𝗫𝗧𝗘𝗖𝗛*",
 // add bot owner name    
 ALIVE_IMG: process.env.ALIVE_IMG || "https://files.catbox.moe/nk71o3.jpg",
 // add img for alive msg
