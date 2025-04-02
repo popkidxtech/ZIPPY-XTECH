@@ -33,7 +33,7 @@ OWNER_NAME: process.env.OWNER_NAME || "Pᴏᴘᴋɪᴅ Xᴛᴇᴄʜ",
 // add bot owner name
 DESCRIPTION: process.env.DESCRIPTION || "*© ᴘᴏᴡᴇʀᴇᴅ ʙʏ Pᴏᴘᴋɪᴅ Xᴛᴇᴄʜ*",
 // add bot owner name    
-ALIVE_IMG: process.env.ALIVE_IMG || "https://files.catbox.moe/149k8x.jpg",
+ALIVE_IMG: process.env.ALIVE_IMG || "https://files.catbox.moe/nk71o3.jpg",
 // add img for alive msg
 LIVE_MSG: process.env.LIVE_MSG || "> You are using *POPKID-MD*⚡",
 // add alive msg here 
