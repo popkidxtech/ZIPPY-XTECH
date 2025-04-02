@@ -62,7 +62,7 @@ cmd({
 });
 
 cmd({
-    pattern: "auto-typing",
+    pattern: "autotyping",
     description: "Enable or disable auto-typing feature.",
     category: "settings",
     filename: __filename
