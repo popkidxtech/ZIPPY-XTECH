@@ -170,7 +170,7 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
 *├⬡* *.Aɢᴇ*
 *├⬡* *.Cᴏɴᴠᴇʀᴛ*
 *├⬡* *.ᴛɪɴʏ*
-*├⬡* *.ᴍᴏᴠɪʀ*
+*├⬡* *.ᴍᴏᴠɪᴇ*
 *┕─────────────❒*
 *╭────❒⁠⁠⁠⁠* *RANDOM-CMD* *❒⁠⁠⁠⁠* 
 *├⬡* *.ᴀɴɪᴍᴇ*
