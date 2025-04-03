@@ -110,7 +110,19 @@ console.log("Session downloaded ✅")
   console.log('Plugins installed successful ✅')
   console.log('Bot connected to whatsapp ✅')
   
-  let up = `*Hello there ✞︎ POPKID ✞︎ XTECH ✞︎ BOT ✞︎ User! \ud83d\udc4b\ud83c\udffb* \n\n> This is auser friendly whatsapp bot created by POPKID XTECH INC. \ud83c\udf8a, Meet ✞︎ POPKID XTECH ✞︎ WhatsApp Bot.\n\n *Thanks for using ✞︎ POPKID ✞︎ XTECH BOT ✞︎ \ud83d\udea9* \n\n> follow WhatsApp Channel :- 🧊\n \nhttps://whatsapp.com/channel/0029VadQrNI8KMqo79BiHr3l\n\n- *YOUR PREFIX:* = ${prefix}\n\nDont forget to give star to repo ⬇️\n\nhttps://github.com/Popkiddevs/POPKID-XTECH\n\n> © Powered BY ✞︎ POPKID ✞︎ XTECH ✞︎ \ud83d\udda4`;
+  let up = `*𝐇𝐄𝐘 👋🏻 𝐋𝐄𝐆𝐄𝐍𝐃 𝐏𝐎𝐏𝐊𝐈𝐃-𝐗𝐓𝐄𝐂𝐇 𝐁𝐎𝐓*
+*𝐂𝐎𝐍𝐍𝐄𝐂𝐓𝐄𝐃 𝐒𝐔𝐂𝐂𝐄𝐒𝐒𝐅𝐔𝐋𝐋𝐘!*
+  
+╭───━━━━───━━━━──┉┈⚆
+│• 𝐓𝐘𝐏𝐄 .𝐌𝐄𝐍𝐔 𝐓𝐎 𝐒𝐄𝐄 𝐋𝐈𝐒𝐓 •
+│• 𝐁𝐎𝐓 𝐀𝐌𝐀𝐙𝐈𝐍𝐆 𝐅𝐄𝐀𝐓𝐔𝐑𝐄𝐒 •
+│• 🪀𝐃𝐄𝐕𝐄𝐋𝐎𝐏𝐄𝐑 : 𝐌𝐑 𝐏𝐎𝐏𝐊𝐈𝐃
+│• ⏰𝐀𝐋𝐖𝐀𝐘𝐒 𝐎𝐍𝐋𝐈𝐍𝐄 : ${online}
+│• 📜𝐏𝐑𝐄𝐅𝐈𝐗 : ${prefix}
+│• 🪩𝐌𝐎𝐃𝐄 : ${mode}
+│• 👽𝐒𝐓𝐀𝐓𝐔𝐒 𝐕𝐈𝐄𝐖𝐒 : ${status}
+│• 👾𝐕𝐄𝐑𝐒𝐈𝐎𝐍 : 𝟑.𝟎.𝟎
+┗───━━━━───━━━━──┉┈⚆`;
   conn.sendMessage(conn.user.id, { image: { url: `https://files.catbox.moe/nk71o3.jpg` }, caption: up })
   }
   })
