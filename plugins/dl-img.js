@@ -1,49 +1,52 @@
-const { cmd, commands } = require("../command");
+const { cmd } = require("../command");
 const axios = require("axios");
 
 cmd({
     pattern: "img",
-    alias: ["pinterest", "image", "searchpin"],
-    react: "🚀",
-    desc: "Search and download Pinterest images using the API.",
+    alias: ["image", "googleimage", "searchimg"],
+    react: "🦋",
+    desc: "Search and download Google images",
     category: "fun",
-    use: ".pin <keywords>",
+    use: ".img <keywords>",
     filename: __filename
 }, async (conn, mek, m, { reply, args, from }) => {
     try {
         const query = args.join(" ");
         if (!query) {
-            return reply("*Please provide a search query.*");
+            return reply("🖼️ Please provide a search query\nExample: .img cute cats");
         }
 
-        
-        await reply(`*🔎 Downloading Images For ${query}...*`);
+        await reply(`🔍 Searching images for "${query}"...`);
 
-
-        const url = `https://api.diioffc.web.id/api/search/pinterest?query=${encodeURIComponent(query)}`;
+        const url = `https://apis.davidcyriltech.my.id/googleimage?query=${encodeURIComponent(query)}`;
         const response = await axios.get(url);
 
         // Validate response
-        if (!response.data || !response.data.result || response.data.result.length === 0) {
-            return reply("*No results found. Please try another keyword.*");
+        if (!response.data?.success || !response.data.results?.length) {
+            return reply("❌ No images found. Try different keywords");
         }
 
-        const results = response.data.result;  
-        const selectedImages = results.sort(() => 0.5 - Math.random()).slice(0, 5);
-      
-        for (let i = 0; i < selectedImages.length; i++) {
-            const image = selectedImages[i];
+        const results = response.data.results;
+        // Get 5 random images
+        const selectedImages = results
+            .sort(() => 0.5 - Math.random())
+            .slice(0, 5);
+
+        for (const imageUrl of selectedImages) {
             await conn.sendMessage(
                 from,
-                {
-                    image: { url: image.src },
-                    caption: `*Results For:* ${query}\n\n> *BY POPKID MD ❤️‍🩹*`
+                { 
+                    image: { url: imageUrl },
+                    caption: `📷 Result for: ${query}\n> © Powered by PopkidXtech💖`
                 },
                 { quoted: mek }
             );
+            // Add delay between sends to avoid rate limiting
+            await new Promise(resolve => setTimeout(resolve, 1000));
         }
+
     } catch (error) {
-        console.error(error);
-        reply("*❌ An error occurred while processing your request. Please try again later.*");
+        console.error('Image Search Error:', error);
+        reply(`❌ Error: ${error.message || "Failed to fetch images"}`);
     }
 });
