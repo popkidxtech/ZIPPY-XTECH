@@ -84,7 +84,7 @@
     "OWNER_NAME": {
       "description": "Type Bot Owner Name.",
       "required": false,
-      "value": "Silva Spark"
+      "value": "𝗣𝗢𝗣𝗞𝗜𝗗"
 }, 
 
     "OWNER_NUMBER": {
@@ -97,7 +97,7 @@
     "BOT_NAME": {
       "description": "Type here the bot name.",
       "required": false,
-      "value": "✦ POPKID ✦ XTECH✦ BOT ✦"
+      "value": "𝗣𝗢𝗣𝗞𝗜𝗗-𝗠𝗗"
 
       }, 
 
@@ -117,7 +117,7 @@
      "DESCRIPTION": {
       "description": "add caption for menu and other",
       "required": false,
-      "value": "*© ✦ Popkid ✦ Xtech ✦ Bot ✦*"
+      "value": "*© 𝗣𝗢𝗣𝗞𝗜𝗗-𝗠𝗗*"
     },
 
       "DELETE_LINKS": {
@@ -154,7 +154,7 @@
     "CUSTOM_REACT": {
       "description": "Make it true if you want custom reactions.",
       "required": false,
-      "value": "true"
+      "value": "false"
       
     }, 
     
