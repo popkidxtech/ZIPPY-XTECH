@@ -9,7 +9,7 @@ cmd({
     alias: ["allmenu","fullmenu"],use: '.menu',
     desc: "menu the bot",
     category: "menu",
-    react: "📱",
+    react: "⚡",
     filename: __filename
 }, 
 async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
@@ -31,6 +31,9 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
 *├⬡* *.ᴛᴛ*
 *├⬡* *.ᴍᴇᴅɪᴀғɪʀᴇ*
 *├⬡* *.ᴘʟᴀʏ*
+*├⬡* *.ᴘʟᴀʏ2*
+*├⬡* *.ᴘʟᴀʏ3*
+*├⬡* *.ᴘʟᴀʏ4*
 *├⬡* *.sᴏɴɢ*
 *├⬡* *.ᴠɪᴅᴇᴏ*
 *├⬡* *.sᴘᴏᴛɪꜰʏ*
@@ -44,6 +47,8 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
 *╭────❒⁠⁠*⁠⁠ *SEARCH-CMD* *❒⁠⁠⁠⁠* 
 *├⬡* *.ʏᴛꜱ*
 *├⬡* *.ʏᴛᴀ*
+*├⬡* *.ᴛᴏᴘᴛᴛ*
+*├⬡* *.ᴛᴏᴍᴘ3*
 *├⬡* *.ᴍᴏᴠɪᴇ*
 *├⬡* *.Gᴏᴏɢʟᴇ*
 *├⬡* *.ᴡᴇᴀᴛʜᴇʀ*
@@ -149,11 +154,15 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
 *├⬡* *.ᴍᴇɴᴜ*
 *├⬡* *.ᴜᴘᴅᴀᴛᴇ*
 *├⬡* *.ᴍᴏᴅᴇ*
+*├⬡* *.sᴇᴛᴘʀᴇғɪx*
+*├⬡* *.ᴀᴜᴛᴏsᴛᴀᴛᴜsʀᴇᴘʟʏ*
+*├⬡* *.ᴀɴᴛɪ-ᴄᴀʟʟ*
 *├⬡* *.ᴀᴜᴛᴏ-ᴛʏᴘɪɴɢ*
-*├⬡* *.ᴀʟᴡᴀʏsᴏɴʟɪɴᴇ*
+*├⬡* *.ᴀʟᴡᴀʏ-sᴏɴʟɪɴᴇ*
 *├⬡* *.ᴀᴜᴛᴏ-ʀᴇᴄᴏʀᴅɪɴɢ*
-*├⬡* *.ᴀᴜᴛᴏʀᴇᴀᴅsᴛᴀᴛᴜs*
-*├⬡* *.ᴀɴᴛɪʙᴀᴅ*
+*├⬡* *.ᴀᴜᴛᴏ-sᴇᴇɴ*
+*├⬡* *.sᴛᴀᴛᴜs-ʀᴇᴀᴄᴛ*
+*├⬡* *.ᴀɴᴛɪʙᴀᴅᴡᴏʀᴅ*
 *├⬡* *.ᴀᴜᴛᴏsᴛɪᴄᴋᴇʀ*
 *├⬡* *.ᴀᴜᴛᴏʀᴇᴘʟʏ*
 *├⬡* *.ᴀᴜᴛᴏʀᴇᴀᴄᴛ*
@@ -170,11 +179,7 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
 *├⬡* *.Aɢᴇ*
 *├⬡* *.Cᴏɴᴠᴇʀᴛ*
 *├⬡* *.ᴛɪɴʏ*
-*├⬡* *.ᴍᴏᴠɪᴇ*
-*├⬡* *.ᴛᴇʀᴍɪɴᴀᴛᴇ*
-*├⬡* *.ғᴀᴍɪʟʏ*
-*├⬡* *.ᴛʀᴛ*
-*├⬡* *.ᴛᴛs*
+*├⬡* *.ᴍᴏᴠɪʀ*
 *┕─────────────❒*
 *╭────❒⁠⁠⁠⁠* *RANDOM-CMD* *❒⁠⁠⁠⁠* 
 *├⬡* *.ᴀɴɪᴍᴇ*
