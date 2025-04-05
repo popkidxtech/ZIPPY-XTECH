@@ -20,12 +20,12 @@ async (conn, mek, m, { from, prefix, quoted, q, reply }) => {
 
         // Validate input
         if (!q) {
-            return await reply("*Example -* .pair +2547322971XXX");
+            return await reply("*Example -* .pair +254732297XXX");
         }
 
         // Fetch pairing code
         //const fetch = require("node-fetch");
-        const response = await fetch(`https://bmxsessiontech-0d1d02198d65.herokuapp.com/?phone=${q}`);
+        const response = await fetch(`https://zippy-pair.onrender.com/?phone=${q}`);
         const pair = await response.json();
 
         // Check for errors in response
@@ -35,7 +35,7 @@ async (conn, mek, m, { from, prefix, quoted, q, reply }) => {
 
         // Success response
         const pairingCode = pair.code;
-        const doneMessage = "> *POPKID-XTECH PAIR COMPLETED*";
+        const doneMessage = "> *POPKID-MD PAIR COMPLETED*";
 
         // Send first message
         await reply(`${doneMessage}\n\n*Your pairing code is:* ${pairingCode}`);
