@@ -4,9 +4,9 @@
   "description": "A WhatsApp Bot Created By Popkid",
   "main": "index.js",
   "scripts": {
-    "start": "pm2 start index.js --deep-monitoring --attach --name POPKID_XTECH",
-    "stop": "pm2 stop POPKID_XTECH",
-    "restart": "pm2 restart POPKID_XTECH"
+    "start": "pm2 start index.js --deep-monitoring --attach --name ZIPPY-XTECH",
+    "stop": "pm2 stop ZIPPY-XTECH",
+    "restart": "pm2 restart ZIPPY-XTECH"
   },
   "dependencies": {
     "@whiskeysockets/baileys": "6.7.16",
