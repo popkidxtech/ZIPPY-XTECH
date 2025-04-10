@@ -1,11 +1,11 @@
 
 {
     "bot-name": "ZIPPY XMD",
-    "description": "Whiskey Sockets Baileys Whatsapp bot By Mr Frank",
+    "description": "Whiskey Sockets Baileys Whatsapp bot By Mr popkid",
     "logo": "https://files.catbox.moe/nk71o3.jpg",
     "keywords": ["bot"],
     "documentation-link": "https://paircase.onrender.com/pair",
-    "owner-verification": "kenyapopkid@gmail.com",
+    "owner-verification": "popkidbotdeployment@gmail.com",
   
     "env": {
       "SESSION_ID": {
