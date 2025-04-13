@@ -93,6 +93,7 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
 *╭────👻⁠⁠⁠⁠* *AI-CMD* *👻⁠⁠⁠* 
 *├🚀* *.ɢᴘᴛ*
 *├⬡* *.ᴀɪ*
+*├⬡* *.ɪᴍᴀɢᴇsᴄᴀɴ*
 *├🚀* *.ɪᴍᴀɢɪɴᴇ*
 *┕──────────────❒*
 *╭────🕳️⁠⁠* *OWNER-CMD* *🕳️⁠⁠⁠* 
