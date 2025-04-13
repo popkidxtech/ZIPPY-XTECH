@@ -2,7 +2,7 @@ const { cmd } = require('../command');
 
 cmd({
     pattern: "remove",
-    alias: ["kick", "k", "out"],
+    alias: ["kick", "k"],
     desc: "Removes a member from the group",
     category: "admin",
     react: "❌",
