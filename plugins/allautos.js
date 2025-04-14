@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------
-//           POPKID-MD  
+//           POPKID MD  
 //---------------------------------------------------------------------------
 //  ⚠️ DO NOT MODIFY THIS FILE ⚠️  
 //---------------------------------------------------------------------------
@@ -100,6 +100,32 @@ async (conn, mek, m, { from, args, isOwner, reply }) => {
     await conn.sendPresenceUpdate(status === "on" ? "available" : "unavailable", from);
     return reply(`Bot is now ${status === "on" ? "online" : "offline"}.`);
 });
+
+//autovoice
+
+cmd({
+    pattern: "auto-voice",
+    alias: ["autovoice"],
+    desc: "Enable or disable auto voice replies",
+    category: "settings",
+    filename: __filename
+},    
+async (conn, mek, m, { from, args, isOwner, reply }) => {
+    if (!isOwner) return reply("*📛 ᴏɴʟʏ ᴛʜᴇ ᴏᴡɴᴇʀ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ!*");
+
+    const status = args[0]?.toLowerCase();
+    // Default value for AUTO_VOICE is "false"
+    if (status === "on") {
+        config.AUTO_VOICE = "true";
+        return reply("Auto voice replies are now enabled.");
+    } else if (status === "off") {
+        config.AUTO_VOICE = "false";
+        return reply("Auto voice replies are now disabled.");
+    } else {
+        return reply(`Example: . auto-voice on`);
+    }
+});
+
 //--------------------------------------------
 //  AUTO_RECORDING COMMANDS
 //--------------------------------------------
@@ -377,107 +403,6 @@ async (conn, mek, m, { from, args, isOwner, reply }) => {
         return reply(`*🫟 ᴇxᴀᴍᴘʟᴇ:  .sᴛᴀᴛᴜs-ʀᴇᴘʟʏ ᴏɴ*`);
     }
 });
-//--------------------------------------------
-//  ANTILINK1 COMMANDS
-//--------------------------------------------
-cmd({
-    pattern: "antilink1",
-    desc: "Enable Antilink (warn/delete/kick) or turn off",
-    category: "group",
-    filename: __filename
-}, async (conn, mek, m, { q, reply }) => {
-    if (!q) {
-        return reply(`*Current Antilink Action:* ${antilinkAction.toUpperCase()}\n\nUse *antilink warn/delete/kick/off* to change it.`);
-    }
-
-    const action = q.toLowerCase();
-    if (["warn", "delete", "kick", "off"].includes(action)) {
-        antilinkAction = action;
-        return reply(`*Antilink action set to:* ${action.toUpperCase()}`);
-    } else {
-        return reply("❌ *Invalid option!* Use *antilink warn/delete/kick/off*.");
-    }
-});
-cmd({
-    on: "body"
-}, async (conn, mek, m, { from, body, isGroup, sender, isBotAdmins, isAdmins, reply }) => {
-    if (!isGroup || antilinkAction === "off") return;
-    
-    if (isUrl(body)) { // Using isUrl to detect links
-        if (!isBotAdmins || isAdmins) return;
-
-        return reply(`⚠️ *Warning! Links are not allowed here.*`);
-        await conn.sendMessage(from, { delete: mek.key });
-
-        switch (antilinkAction) {
-            case "warn":
-                warnCount[sender] = (warnCount[sender] || 0) + 1;
-                if (warnCount[sender] >= 3) {
-                    delete warnCount[sender];
-                    await conn.groupParticipantsUpdate(from, [sender], "remove");
-                }
-                break;
-
-            case "kick":
-                await conn.groupParticipantsUpdate(from, [sender], "remove");
-                break;
-        }
-    }
-});
-
-
-let antibotAction = "off"; // Default action is off
-let warnings = {}; // Store warning counts per user
-
-cmd({
-    pattern: "anti-bot",
-    alias: ["antibot"],
-    desc: "Enable Antibot and set action (off/warn/delete/kick)",
-    category: "group",
-    filename: __filename
-}, async (conn, mek, m, { q, reply }) => {
-    if (!q) {
-        return reply(`*Current Antibot Action:* ${antibotAction.toUpperCase()}\n\nUse *antibot off/warn/delete/kick* to change it.`);
-    }
-
-    const action = q.toLowerCase();
-    if (["off", "warn", "delete", "kick"].includes(action)) {
-        antibotAction = action;
-        return reply(`*Antibot action set to:* ${action.toUpperCase()}`);
-    } else {
-        return reply("*🫟 ᴇxᴀᴍᴘʟᴇ: . ᴀɴᴛɪ-ʙᴏᴛ ᴏғғ/ᴡᴀʀɴ/ᴅᴇʟᴇᴛᴇ/ᴋɪᴄᴋ*");
-    }
-});
-
-cmd({
-    on: "body"
-}, async (conn, mek, m, { from, isGroup, sender, isBotAdmins, isAdmins, reply }) => {
-    if (!isGroup || antibotAction === "off") return; // Check if antibot is enabled
-
-    const messageId = mek.key.id;
-    if (!messageId || !messageId.startsWith("3EB")) return; // Detect bot-generated messages
-
-    if (!isBotAdmins) return reply("*_I'm not an admin, so I can't take action!_*");
-    if (isAdmins) return; // Ignore admins
-
-    await conn.sendMessage(from, { delete: mek.key }); // Delete the detected bot message
-
-    switch (antibotAction) {
-        case "kick":
-            await conn.groupParticipantsUpdate(from, [sender], "remove");
-            break;
-
-        case "warn":
-            warnings[sender] = (warnings[sender] || 0) + 1;
-            if (warnings[sender] >= 3) {
-                delete warnings[sender]; // Reset warning count after kicking
-                await conn.groupParticipantsUpdate(from, [sender], "remove");
-            } else {
-                return reply(`⚠️ @${sender.split("@")[0]}, warning ${warnings[sender]}/3! Bots are not allowed!`, { mentions: [sender] });
-            }
-            break;
-    }
-});
 
 //--------------------------------------------
 // ACCEPT_ALL COMMANDS
@@ -649,149 +574,3 @@ cmd({
     return reply(`*An error occurred while processing your request.*\n\n_Error:_ ${e.message}`);
   }
 });
-
-//--------------------------------------------
-//  AUTO_RECORDING COMMANDS
-//--------------------------------------------
-cmd({
-    pattern: "invite",
-    alias: ["glink"],
-    desc: "Get group invite link.",
-    category: "group", // Already group
-    filename: __filename,
-}, async (conn, mek, m, { from, quoted, body, args, q, isGroup, sender, reply }) => {
-    try {
-        // Ensure this is being used in a group
-        if (!isGroup) return reply("𝐓𝐡𝐢𝐬 𝐅𝐞𝐚𝐭𝐮𝐫𝐞 𝐈𝐬 𝐎𝐧𝐥𝐲 𝐅𝐨𝐫 𝐆𝐫𝐨𝐮𝐩❗");
-
-        // Get the sender's number
-        const senderNumber = sender.split('@')[0];
-        const botNumber = conn.user.id.split(':')[0];
-        
-        // Check if the bot is an admin
-        const groupMetadata = isGroup ? await conn.groupMetadata(from) : '';
-        const groupAdmins = groupMetadata ? groupMetadata.participants.filter(member => member.admin) : [];
-        const isBotAdmins = isGroup ? groupAdmins.some(admin => admin.id === botNumber + '@s.whatsapp.net') : false;
-        
-        if (!isBotAdmins) return reply("𝐏𝐥𝐞𝐚𝐬𝐞 𝐏𝐫𝐨𝐯𝐢𝐝𝐞 𝐌𝐞 𝐀𝐝𝐦𝐢𝐧 𝐑𝐨𝐥𝐞 ❗");
-
-        // Check if the sender is an admin
-        const isAdmins = isGroup ? groupAdmins.some(admin => admin.id === sender) : false;
-        if (!isAdmins) return reply("𝐏𝐥𝐞𝐚𝐬𝐞 𝐏𝐫𝐨𝐯𝐢𝐝𝐞 𝐌𝐞 𝐀𝐝𝐦𝐢𝐧 𝐑𝐨𝐥𝐞 ❗");
-
-        // Get the invite code and generate the link
-        const inviteCode = await conn.groupInviteCode(from);
-        if (!inviteCode) return reply("Failed to retrieve the invite code.");
-
-        const inviteLink = `https://chat.whatsapp.com/${inviteCode}`;
-
-        // Reply with the invite link
-        return reply(`*Here is your group invite link:*\n${inviteLink}`);
-        
-    } catch (error) {
-        console.error("Error in invite command:", error);
-        reply(`An error occurred: ${error.message || "Unknown error"}`);
-    }
-});
-
-//--------------------------------------------
-//  GINFO COMMANDS
-//--------------------------------------------
-cmd({
-    pattern: "ginfo",
-    desc: "Get group information.",
-    category: "group",
-    filename: __filename,
-}, async (conn, mek, m, { from, quoted, body, args, q, isGroup, sender, reply }) => {
-    try {
-        if (!isGroup) return reply("𝐓𝐡𝐢𝐬 𝐅𝐞𝐚𝐭𝐮𝐫𝐞 𝐈𝐬 𝐎𝐧𝐥𝐲 𝐅𝐨𝐫 𝐆𝐫𝐨𝐮𝐩❗");
-
-        // Get group metadata
-        const groupMetadata = await conn.groupMetadata(from);
-        const groupName = groupMetadata.subject;
-        const groupAdmins = groupMetadata.participants.filter(member => member.admin);
-        const memberCount = groupMetadata.participants.length;
-        const adminList = groupAdmins.map(admin => `│ ∘  @${admin.id.split('@')[0]}`).join("\n") || "│ ∘ No admins";
-
-        // Format the output
-        let textt = `
-╭───「 KHAN MD 」───◆  
-│ ∘ ɢʀᴏᴜᴘ: ${groupName}  
-│ ∘ ɢʀᴏᴜᴘ ɪᴅ: ${from}  
-│ ∘ ᴛᴏᴛᴀʟ ᴍᴇᴍʙᴇʀs: ${memberCount}  
-│ ∘ ─────────────────  
-${adminList}
-`;
-
-        // Send the group information
-        await conn.sendMessage(from, {
-            text: textt,
-            mentions: groupAdmins.map(a => a.id),
-        }, { quoted: mek });
-
-    } catch (error) {
-        console.error("Error in ginfo command:", error);
-        reply("An error occurred while retrieving the group information.");
-    }
-});
-
-//--------------------------------------------
-//           BROADCAST COMMANDS
-//--------------------------------------------
-cmd({
-  pattern: "broadcast",
-  category: "group",
-  desc: "Bot makes a broadcast in all groups",
-  filename: __filename,
-  use: "<text for broadcast.>"
-}, async (conn, mek, m, { q, isGroup, isAdmins, reply }) => {
-  try {
-    if (!isGroup) return reply("❌ This command can only be used in groups!");
-    if (!isAdmins) return reply("❌ You need to be an admin to broadcast in this group!");
-
-    if (!q) return reply("❌ Provide text to broadcast in all groups!");
-
-    let allGroups = await conn.groupFetchAllParticipating();
-    let groupIds = Object.keys(allGroups); // Extract group IDs
-
-    reply(`📢 Sending Broadcast To ${groupIds.length} Groups...\n⏳ Estimated Time: ${groupIds.length * 1.5} seconds`);
-
-    for (let groupId of groupIds) {
-      try {
-        await sleep(1500); // Avoid rate limits
-        await conn.sendMessage(groupId, { text: q }); // Sends only the provided text
-      } catch (err) {
-        console.log(`❌ Failed to send broadcast to ${groupId}:`, err);
-      }
-    }
-
-    return reply(`✅ Successfully sent broadcast to ${groupIds.length} groups!`);
-    
-  } catch (err) {
-    await m.error(`❌ Error: ${err}\n\nCommand: broadcast`, err);
-  }
-});
-//--------------------------------------------
-//  AUTO_RECORDING COMMANDS
-//--------------------------------------------
-cmd({
-    pattern: "setgpp",
-    desc: "Set full-screen profile picture for groups.",
-    category: "group",
-    filename: __filename
-}, async (conn, mek, m, { quoted, isGroup, isAdmins, isBotAdmins, reply }) => {
-    if (!isGroup) return reply("⚠️ This command can only be used in a group.");
-    if (!isAdmins) return reply("❌ You must be an admin to use this command.");
-    if (!isBotAdmins) return reply("❌ I need to be an admin to change the group profile picture.");
-    if (!quoted || !quoted.image) return reply("⚠️ Reply to an image to set as the group profile picture.");
-
-    try {
-        let media = await quoted.download();
-        await conn.updateProfilePicture(m.chat, media);
-        reply("✅ Group profile picture updated successfully.");
-    } catch (e) {
-        console.error(e);
-        reply(`❌ Failed to update group profile picture: ${e.message}`);
-    }
-});
-
