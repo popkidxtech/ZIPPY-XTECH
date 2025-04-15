@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------
-//           POPKID MD  
+//           POPKID-MD  
 //---------------------------------------------------------------------------
 //  ⚠️ DO NOT MODIFY THIS FILE ⚠️  
 //---------------------------------------------------------------------------
@@ -11,8 +11,6 @@ const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, sleep, fetchJson
 const { writeFileSync } = require('fs');
 const path = require('path');
 
-let antilinkAction = "off"; // Default state
-let warnCount = {}; // Track warnings per user
 
 cmd({
     pattern: "setprefix",
@@ -21,8 +19,8 @@ cmd({
     desc: "Change the bot's command prefix.",
     category: "settings",
     filename: __filename,
-}, async (conn, mek, m, { from, args, isOwner, reply }) => {
-    if (!isOwner) return reply("*📛 Only the owner can use this command!*");
+}, async (conn, mek, m, { from, args, isCreator, reply }) => {
+    if (!isCreator) return reply("*📛 Only the owner can use this command!*");
 
     const newPrefix = args[0]; // Get the new prefix from the command arguments
     if (!newPrefix) return reply("❌ Please provide a new prefix. Example: `.setprefix !`");
@@ -40,8 +38,8 @@ cmd({
     desc: "Set bot mode to private or public.",
     category: "settings",
     filename: __filename,
-}, async (conn, mek, m, { from, args, isOwner, reply }) => {
-    if (!isOwner) return reply("*📛 Only the owner can use this command!*");
+}, async (conn, mek, m, { from, args, isCreator, reply }) => {
+    if (!isCreator) return reply("*📛 Only the owner can use this command!*");
 
     // Si aucun argument n'est fourni, afficher le mode actuel et l'usage
     if (!args[0]) {
@@ -67,8 +65,8 @@ cmd({
     category: "settings",
     filename: __filename
 },    
-async (conn, mek, m, { from, args, isOwner, reply }) => {
-    if (!isOwner) return reply("*📛 ᴏɴʟʏ ᴛʜᴇ ᴏᴡɴᴇʀ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ!*");
+async (conn, mek, m, { from, args, isCreator, reply }) => {
+    if (!isCreator) return reply("*📛 ᴏɴʟʏ ᴛʜᴇ ᴏᴡɴᴇʀ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ!*");
 
     const status = args[0]?.toLowerCase();
     if (!["on", "off"].includes(status)) {
@@ -88,8 +86,8 @@ cmd({
     category: "settings",
     filename: __filename
 },    
-async (conn, mek, m, { from, args, isOwner, reply }) => {
-    if (!isOwner) return reply("*📛 ᴏɴʟʏ ᴛʜᴇ ᴏᴡɴᴇʀ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ!*");
+async (conn, mek, m, { from, args, isCreator, reply }) => {
+    if (!isCreator) return reply("*📛 ᴏɴʟʏ ᴛʜᴇ ᴏᴡɴᴇʀ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ!*");
 
     const status = args[0]?.toLowerCase();
     if (!["on", "off"].includes(status)) {
@@ -100,32 +98,6 @@ async (conn, mek, m, { from, args, isOwner, reply }) => {
     await conn.sendPresenceUpdate(status === "on" ? "available" : "unavailable", from);
     return reply(`Bot is now ${status === "on" ? "online" : "offline"}.`);
 });
-
-//autovoice
-
-cmd({
-    pattern: "auto-voice",
-    alias: ["autovoice"],
-    desc: "Enable or disable auto voice replies",
-    category: "settings",
-    filename: __filename
-},    
-async (conn, mek, m, { from, args, isOwner, reply }) => {
-    if (!isOwner) return reply("*📛 ᴏɴʟʏ ᴛʜᴇ ᴏᴡɴᴇʀ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ!*");
-
-    const status = args[0]?.toLowerCase();
-    // Default value for AUTO_VOICE is "false"
-    if (status === "on") {
-        config.AUTO_VOICE = "true";
-        return reply("Auto voice replies are now enabled.");
-    } else if (status === "off") {
-        config.AUTO_VOICE = "false";
-        return reply("Auto voice replies are now disabled.");
-    } else {
-        return reply(`Example: . auto-voice on`);
-    }
-});
-
 //--------------------------------------------
 //  AUTO_RECORDING COMMANDS
 //--------------------------------------------
@@ -136,8 +108,8 @@ cmd({
     category: "settings",
     filename: __filename
 },    
-async (conn, mek, m, { from, args, isOwner, reply }) => {
-    if (!isOwner) return reply("*📛 ᴏɴʟʏ ᴛʜᴇ ᴏᴡɴᴇʀ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ!*");
+async (conn, mek, m, { from, args, isCreator, reply }) => {
+    if (!isCreator) return reply("*📛 ᴏɴʟʏ ᴛʜᴇ ᴏᴡɴᴇʀ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ!*");
 
     const status = args[0]?.toLowerCase();
     if (!["on", "off"].includes(status)) {
@@ -163,8 +135,8 @@ cmd({
     category: "settings",
     filename: __filename
 },    
-async (conn, mek, m, { from, args, isOwner, reply }) => {
-    if (!isOwner) return reply("*📛 ᴏɴʟʏ ᴛʜᴇ ᴏᴡɴᴇʀ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ!*");
+async (conn, mek, m, { from, args, isCreator, reply }) => {
+    if (!isCreator) return reply("*📛 ᴏɴʟʏ ᴛʜᴇ ᴏᴡɴᴇʀ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ!*");
 
     const status = args[0]?.toLowerCase();
     // Default value for AUTO_VIEW_STATUS is "false"
@@ -188,8 +160,8 @@ cmd({
     category: "settings",
     filename: __filename
 },    
-async (conn, mek, m, { from, args, isOwner, reply }) => {
-    if (!isOwner) return reply("*📛 ᴏɴʟʏ ᴛʜᴇ ᴏᴡɴᴇʀ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ!*");
+async (conn, mek, m, { from, args, isCreator, reply }) => {
+    if (!isCreator) return reply("*📛 ᴏɴʟʏ ᴛʜᴇ ᴏᴡɴᴇʀ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ!*");
 
     const status = args[0]?.toLowerCase();
     // Default value for AUTO_LIKE_STATUS is "false"
@@ -203,28 +175,7 @@ async (conn, mek, m, { from, args, isOwner, reply }) => {
         return reply(`Example: . status-react on`);
     }
 });
-cmd({
-    pattern: "anti-call",
-    alias: ["statusreaction"],
-    desc: "Enable or disable anti-call of statuses",
-    category: "settings",
-    filename: __filename
-},    
-async (conn, mek, m, { from, args, isOwner, reply }) => {
-    if (!isOwner) return reply("*📛 ᴏɴʟʏ ᴛʜᴇ ᴏᴡɴᴇʀ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ!*");
 
-    const status = args[0]?.toLowerCase();
-    // Default value for AUTO_LIKE_STATUS is "false"
-    if (args[0] === "on") {
-        config.ANTICALL = "true";
-        return reply("anti-call of statuses is now enabled.");
-    } else if (args[0] === "off") {
-        config.ANTICALL = "false";
-        return reply("anti-call of statuses is now disabled.");
-    } else {
-        return reply(`Example: .anti-call on`);
-    }
-});
 //--------------------------------------------
 //  READ-MESSAGE COMMANDS
 //--------------------------------------------
@@ -235,8 +186,8 @@ cmd({
     category: "settings",
     filename: __filename
 },    
-async (conn, mek, m, { from, args, isOwner, reply }) => {
-    if (!isOwner) return reply("*📛 ᴏɴʟʏ ᴛʜᴇ ᴏᴡɴᴇʀ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ!*");
+async (conn, mek, m, { from, args, isCreator, reply }) => {
+    if (!isCreator) return reply("*📛 ᴏɴʟʏ ᴛʜᴇ ᴏᴡɴᴇʀ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ!*");
 
     const status = args[0]?.toLowerCase();
     // Check the argument for enabling or disabling the anticall feature
@@ -251,28 +202,28 @@ async (conn, mek, m, { from, args, isOwner, reply }) => {
     }
 });
 
-// AUTO_STATUS_REPLY
+// AUTO_VOICE
 
 cmd({
-    pattern: "read-message",
-    alias: ["autoread"],
+    pattern: "auto-voice",
+    alias: ["autovoice"],
     desc: "enable or disable readmessage.",
     category: "settings",
     filename: __filename
 },    
-async (conn, mek, m, { from, args, isOwner, reply }) => {
-    if (!isOwner) return reply("*📛 ᴏɴʟʏ ᴛʜᴇ ᴏᴡɴᴇʀ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ!*");
+async (conn, mek, m, { from, args, isCreator, reply }) => {
+    if (!isCreator) return reply("*📛 ᴏɴʟʏ ᴛʜᴇ ᴏᴡɴᴇʀ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ!*");
 
     const status = args[0]?.toLowerCase();
     // Check the argument for enabling or disabling the anticall feature
     if (args[0] === "on") {
-        config.AUTO_STATUS_REPLY = "true";
-        return reply("readmessage feature is now enabled.");
+        config.AUTO_VOICE = "true";
+        return reply("AUTO_VOICE feature is now enabled.");
     } else if (args[0] === "off") {
-        config.AUTO_STATUS_REPLY = "false";
-        return reply("readmessage feature is now disabled.");
+        config.AUTO_VOICE = "false";
+        return reply("AUTO_VOICE feature is now disabled.");
     } else {
-        return reply(`_example:  .readmessage on_`);
+        return reply(`_example:  .autovoice on_`);
     }
 });
 
@@ -287,8 +238,8 @@ cmd({
     category: "settings",
     filename: __filename
 },    
-async (conn, mek, m, { from, args, isOwner, reply }) => {
-    if (!isOwner) return reply("*📛 ᴏɴʟʏ ᴛʜᴇ ᴏᴡɴᴇʀ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ!*");
+async (conn, mek, m, { from, args, isCreator, reply }) => {
+    if (!isCreator) return reply("*📛 ᴏɴʟʏ ᴛʜᴇ ᴏᴡɴᴇʀ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ!*");
 
     const status = args[0]?.toLowerCase();
     // Check the argument for enabling or disabling the anticall feature
@@ -312,8 +263,8 @@ cmd({
     category: "settings",
     filename: __filename
 },    
-async (conn, mek, m, { from, args, isOwner, reply }) => {
-    if (!isOwner) return reply("*📛 ᴏɴʟʏ ᴛʜᴇ ᴏᴡɴᴇʀ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ!*");
+async (conn, mek, m, { from, args, isCreator, reply }) => {
+    if (!isCreator) return reply("*📛 ᴏɴʟʏ ᴛʜᴇ ᴏᴡɴᴇʀ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ!*");
 
     const status = args[0]?.toLowerCase();
     // Check the argument for enabling or disabling the anticall feature
@@ -337,8 +288,8 @@ cmd({
     category: "settings",
     filename: __filename
 },    
-async (conn, mek, m, { from, args, isOwner, reply }) => {
-    if (!isOwner) return reply("*📛 ᴏɴʟʏ ᴛʜᴇ ᴏᴡɴᴇʀ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ!*");
+async (conn, mek, m, { from, args, isCreator, reply }) => {
+    if (!isCreator) return reply("*📛 ᴏɴʟʏ ᴛʜᴇ ᴏᴡɴᴇʀ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ!*");
 
     const status = args[0]?.toLowerCase();
     // Check the argument for enabling or disabling the anticall feature
@@ -363,8 +314,8 @@ cmd({
     category: "settings",
     filename: __filename
 },    
-async (conn, mek, m, { from, args, isOwner, reply }) => {
-    if (!isOwner) return reply("*📛 ᴏɴʟʏ ᴛʜᴇ ᴏᴡɴᴇʀ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ!*");
+async (conn, mek, m, { from, args, isCreator, reply }) => {
+    if (!isCreator) return reply("*📛 ᴏɴʟʏ ᴛʜᴇ ᴏᴡɴᴇʀ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ!*");
 
     const status = args[0]?.toLowerCase();
     // Check the argument for enabling or disabling the anticall feature
@@ -388,8 +339,8 @@ cmd({
     category: "settings",
     filename: __filename
 },    
-async (conn, mek, m, { from, args, isOwner, reply }) => {
-    if (!isOwner) return reply("*📛 ᴏɴʟʏ ᴛʜᴇ ᴏᴡɴᴇʀ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ!*");
+async (conn, mek, m, { from, args, isCreator, reply }) => {
+    if (!isCreator) return reply("*📛 ᴏɴʟʏ ᴛʜᴇ ᴏᴡɴᴇʀ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ!*");
 
     const status = args[0]?.toLowerCase();
     // Check the argument for enabling or disabling the anticall feature
@@ -405,72 +356,6 @@ async (conn, mek, m, { from, args, isOwner, reply }) => {
 });
 
 //--------------------------------------------
-// ACCEPT_ALL COMMANDS
-//--------------------------------------------
-cmd({
-  pattern: "acceptall",
-  alias: ["approve"],
-  category: "group",
-  desc: "Accept all participant requests in the group.",
-  filename: __filename,
-}, async (conn, mek, m, { from, isGroup, body, sender, groupMetadata, participants, config, reply }) => {
-  try {
-    if (!isGroup) {
-      return reply("This command can only be used in groups.");
-    }
-
-    const jid = from; // Group ID (from the message)
-    const groupParticipants = groupMetadata.participants; // List of participants in the group
-
-    const pendingRequests = groupParticipants.filter(p => p.isPending); // Filter pending participants
-
-    if (pendingRequests.length === 0) {
-      return reply("No pending participants to accept.");
-    }
-
-    const userJids = pendingRequests.map(p => p.id); // Get JIDs of the pending participants
-
-    const response = await conn.groupRequestParticipantsUpdate(jid, userJids, 'approve');
-    console.log(response);
-    reply(`${userJids.length} participant(s) have been accepted.`);
-  } catch (e) {
-    return reply(`*An error occurred while processing your request.*\n\n_Error:_ ${e.message}`);
-  }
-});
-//--------------------------------------------
-// REJECT_ALL COMMANDS
-//--------------------------------------------
-cmd({
-  pattern: "rejectall",
-  alias: ["rejects"],
-  category: "group",
-  desc: "Reject all participant requests in the group.",
-  filename: __filename,
-}, async (conn, mek, m, { from, isGroup, body, sender, groupMetadata, participants, config, reply }) => {
-  try {
-    if (!isGroup) {
-      return reply("This command can only be used in groups.");
-    }
-
-    const jid = from; // Group ID (from the message)
-    const groupParticipants = groupMetadata.participants; // List of participants in the group
-
-    const pendingRequests = groupParticipants.filter(p => p.isPending); // Filter pending participants
-
-    if (pendingRequests.length === 0) {
-      return reply("No pending participants to reject.");
-    }
-
-    const userJids = pendingRequests.map(p => p.id); // Get JIDs of the pending participants
-
-    const response = await conn.groupRequestParticipantsUpdate(jid, userJids, 'reject');
-    console.log(response);
-    reply(`${userJids.length} participant(s) have been rejected.`);
-  } catch (e) {
-    return reply(`*An error occurred while processing your request.*\n\n_Error:_ ${e.message}`);
-  }
-});
-//--------------------------------------------
 //  ANTILINK COMMANDS
 //--------------------------------------------
 cmd({
@@ -480,7 +365,7 @@ cmd({
   category: "group",
   react: "🚫",
   filename: __filename
-}, async (conn, mek, m, { from, l, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
+}, async (conn, mek, m, { from, l, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isCreator, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
   try {
     // Check for group, bot admin, and user admin permissions
     if (!isGroup) return reply('This command can only be used in a group.');
@@ -499,78 +384,5 @@ cmd({
     }
   } catch (error) {
     return reply(`*An error occurred while processing your request.*\n\n_Error:_ ${error.message}`);
-  }
-});
-//--------------------------------------------
-//   POLL COMMANDS
-//--------------------------------------------
-cmd({
-  pattern: "poll",
-  category: "group",
-  desc: "Create a poll with a question and options in the group.",
-  filename: __filename,
-}, async (conn, mek, m, { from, isGroup, body, sender, groupMetadata, participants, prefix, pushname, reply }) => {
-  try {
-    let [question, optionsString] = body.split(";");
-    
-    if (!question || !optionsString) {
-      return reply(`Usage: ${prefix}poll question;option1,option2,option3...`);
-    }
-
-    let options = [];
-    for (let option of optionsString.split(",")) {
-      if (option && option.trim() !== "") {
-        options.push(option.trim());
-      }
-    }
-
-    if (options.length < 2) {
-      return reply("*Please provide at least two options for the poll.*");
-    }
-
-    await conn.sendMessage(from, {
-      poll: {
-        name: question,
-        values: options,
-        selectableCount: 1,
-        toAnnouncementGroup: true,
-      }
-    }, { quoted: mek });
-  } catch (e) {
-    return reply(`*An error occurred while processing your request.*\n\n_Error:_ ${e.message}`);
-  }
-});
-
-//  NEW_GC COMMANDS
-//--------------------------------------------
-cmd({
-  pattern: "newgc",
-  category: "group",
-  desc: "Create a new group and add participants.",
-  filename: __filename,
-}, async (conn, mek, m, { from, isGroup, body, sender, groupMetadata, participants, reply }) => {
-  try {
-    if (!body) {
-      return reply(`Usage: !newgc group_name;number1,number2,...`);
-    }
-
-    const [groupName, numbersString] = body.split(";");
-    
-    if (!groupName || !numbersString) {
-      return reply(`Usage: !newgc group_name;number1,number2,...`);
-    }
-
-    const participantNumbers = numbersString.split(",").map(number => `${number.trim()}@s.whatsapp.net`);
-
-    const group = await conn.groupCreate(groupName, participantNumbers);
-    console.log('created group with id: ' + group.id); // Use group.id here
-
-    const inviteLink = await conn.groupInviteCode(group.id); // Use group.id to get the invite link
-
-    await conn.sendMessage(group.id, { text: 'hello there' });
-
-    reply(`Group created successfully with invite link: https://chat.whatsapp.com/${inviteLink}\nWelcome message sent.`);
-  } catch (e) {
-    return reply(`*An error occurred while processing your request.*\n\n_Error:_ ${e.message}`);
   }
 });
