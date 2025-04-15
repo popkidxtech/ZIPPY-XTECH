@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------
-//           POPKID-MD  
+//           popkid-MD  
 //---------------------------------------------------------------------------
 //  ⚠️ DO NOT MODIFY THIS FILE ⚠️  
 //---------------------------------------------------------------------------
@@ -76,6 +76,34 @@ async (conn, mek, m, { from, args, isCreator, reply }) => {
     config.AUTO_TYPING = status === "on" ? "true" : "false";
     return reply(`Auto typing has been turned ${status}.`);
 });
+
+//mention reply 
+
+
+cmd({
+    pattern: "mention-reply",
+    alias: ["menetionreply", "mee"],
+    description: "Set bot status to always online or offline.",
+    category: "settings",
+    filename: __filename
+},    
+async (conn, mek, m, { from, args, isCreator, reply }) => {
+    if (!isCreator) return reply("*📛 ᴏɴʟʏ ᴛʜᴇ ᴏᴡɴᴇʀ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ!*");
+
+    const status = args[0]?.toLowerCase();
+    // Check the argument for enabling or disabling the anticall feature
+    if (args[0] === "on") {
+        config.MENTION_REPLY = "true";
+        return reply("Mention Reply feature is now enabled.");
+    } else if (args[0] === "off") {
+        config.MENTION_REPLY = "false";
+        return reply("Mention Reply feature is now disabled.");
+    } else {
+        return reply(`_example:  .mee on_`);
+    }
+});
+
+
 //--------------------------------------------
 // ALWAYS_ONLINE COMMANDS
 //--------------------------------------------
