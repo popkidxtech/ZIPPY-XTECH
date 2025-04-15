@@ -116,7 +116,7 @@ ${readMore}
 
         // Send an image with the formatted info as a caption and context info
         await conn.sendMessage(from, {
-            image: { url: `https://files.catbox.moe/nk71o3.jpg` },
+            image: { url: `https://files.catbox.moe/nex0fm.jpg` },
             caption: formattedInfo,
             contextInfo: { 
                 mentionedJid: [m.sender],
@@ -132,7 +132,7 @@ ${readMore}
 
         // Send the audio file with context info
         await conn.sendMessage(from, {
-            audio: { url: 'https://cdn.ironman.my.id/i/wp4a7x.mp4' },
+            audio: { url: 'https://files.catbox.moe/10rp3b.m4a' },
             mimetype: 'audio/mp4',
             ptt: true,
             contextInfo: { 
