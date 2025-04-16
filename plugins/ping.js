@@ -1,62 +1,95 @@
 const config = require('../config');
-const { cmd, commands } = require('../command');
+const { cmd } = require('../command');
 
 cmd({
     pattern: "ping",
-    alias: "speed",
-    desc: "Check bot's response time.",
+    alias: ["speed", "pong"],
+    desc: "Check bot's response speed with 30 stylish formats",
     category: "main",
-    react: "🌏",
+    react: "⚡",
     filename: __filename
 },
-async (conn, mek, m, { from, quoted, reply }) => {
+async (conn, mek, m, { from, sender, reply }) => {
     try {
-        const startTime = Date.now();
+        const start = Date.now();
+        
+        // Emoji collections
+        const reactionEmojis = ['⚡', '🚀', '💨', '🎯', '💥', '🔹', '✨', '🌟', '🌀', '🎉'];
+        const textEmojis = ['💎', '🏆', '⚡️', '🚀', '🎶', '🌠', '🔱', '🛡️', '🔰', '🎯'];
+        
+        // Select unique emojis
+        let reactionEmoji = reactionEmojis[Math.floor(Math.random() * reactionEmojis.length)];
+        let textEmoji = textEmojis[Math.floor(Math.random() * textEmojis.length)];
+        while (textEmoji === reactionEmoji) {
+            textEmoji = textEmojis[Math.floor(Math.random() * textEmojis.length)];
+        }
 
-        // Add a short delay
-        await new Promise(resolve => setTimeout(resolve, 100)); // 100ms delay
+        // Send reaction
+        await conn.sendMessage(from, {
+            react: { text: reactionEmoji, key: mek.key }
+        });
 
-        const endTime = Date.now();
-        const ping = endTime - startTime;
+        const responseTime = (Date.now() - start) / 1000;
 
-        // Send the ping result
-        await conn.sendMessage(from, { 
-            text: `> 𝐏𝐎𝐏𝐊𝐈𝐃-𝐗𝐓𝐄𝐂𝐇🚀⚡: ${ping}ms`, 
+        // 30 Unique Ping Styles
+        const pingStyles = [
+            // 1-10: Basic Styles
+            `⚡ *${config.BOT_NAME} SPEED*: ${responseTime.toFixed(2)}ms ${textEmoji}`,
+            `╭───『 PING 』───⳹\n│\n│ ⚡ ${responseTime.toFixed(2)}ms\n│\n╰────────────────⳹`,
+            `🚀 *BLAST FAST!* 🚀\n${responseTime.toFixed(2)}ms ${textEmoji}`,
+            `▰▰▰ PING ▰▰▰\n${responseTime.toFixed(2)}ms ${textEmoji}`,
+            `• ${responseTime.toFixed(2)}ms • ${textEmoji}`,
+            `⚡ ${responseTime.toFixed(2)}ms ⚡`,
+            `✧ ${config.BOT_NAME} ✧\n${responseTime.toFixed(2)}ms ${textEmoji}`,
+            `> ${responseTime.toFixed(2)}ms < ${textEmoji}`,
+            `【 ${responseTime.toFixed(2)}ms 】${textEmoji}`,
+            `♢ ${responseTime.toFixed(2)}ms ♢ ${textEmoji}`,
+
+            // 11-20: Creative Styles
+            `╔═✦ ${config.BOT_NAME} ✦═╗\n║ ${responseTime.toFixed(2)}ms ${textEmoji} ║\n╚══════════╝`,
+            `▄▀▄▀▄ ${responseTime.toFixed(2)}ms ▄▀▄▀▄\n${textEmoji} ${config.BOT_NAME}`,
+            `✦・゜゜・${responseTime.toFixed(2)}ms・゜゜・✦\n${textEmoji}`,
+            `|~~~ ${responseTime.toFixed(2)}ms ~~~|\n${textEmoji}`,
+            `♡ ${responseTime.toFixed(2)}ms ♡\n${textEmoji}`,
+            `✧･ﾟ: *${responseTime.toFixed(2)}ms* :･ﾟ✧\n${textEmoji}`,
+            `★・・・・・・★\n ${responseTime.toFixed(2)}ms \n★・・・・・・★\n${textEmoji}`,
+            `≈≈≈≈≈≈≈≈≈≈≈≈≈\n  ${responseTime.toFixed(2)}ms  \n≈≈≈≈≈≈≈≈≈≈≈≈≈\n${textEmoji}`,
+            `▁ ▂ ▄ ▅ ▆ ▇ ${responseTime.toFixed(2)}ms ▇ ▆ ▅ ▄ ▂ ▁\n${textEmoji}`,
+            `◈◈◈ ${responseTime.toFixed(2)}ms ◈◈◈\n${textEmoji}`,
+
+            // 21-30: Fancy Styles
+            `╭┉┉┉┉┉┉┉┉╮\n┋ ${responseTime.toFixed(2)}ms ┋\n╰┉┉┉┉┉┉┉┉╯\n${textEmoji}`,
+            `▞▚ ${responseTime.toFixed(2)}ms ▞▚\n${textEmoji}`,
+            `▣▣▣▣▣▣▣▣\n ${responseTime.toFixed(2)}ms \n▣▣▣▣▣▣▣▣\n${textEmoji}`,
+            `✼ ҉ ✼ ${responseTime.toFixed(2)}ms ✼ ҉ ✼\n${textEmoji}`,
+            `◖ ${responseTime.toFixed(2)}ms ◗\n${textEmoji}`,
+            `▰▱▰▱ ${responseTime.toFixed(2)}ms ▰▱▰▱\n${textEmoji}`,
+            `≪ ${responseTime.toFixed(2)}ms ≫\n${textEmoji}`,
+            `◈◇◈ ${responseTime.toFixed(2)}ms ◈◇◈\n${textEmoji}`,
+            `▷▶ ${responseTime.toFixed(2)}ms ◀◁\n${textEmoji}`,
+            `✧⋄⋆ ${responseTime.toFixed(2)}ms ⋆⋄✧\n${textEmoji}`
+        ];
+
+        // Select random style
+        const selectedStyle = pingStyles[Math.floor(Math.random() * pingStyles.length)];
+
+        // Send ping response
+        await conn.sendMessage(from, {
+            text: selectedStyle,
             contextInfo: {
-                mentionedJid: [m.sender],
+                mentionedJid: [sender],
                 forwardingScore: 999,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
                     newsletterJid: '120363290715861418@newsletter',
-                    newsletterName: 'POPKID SPEED🥰🥰',
+                    newsletterName: config.OWNER_NAME || "PopkidXtech",
                     serverMessageId: 143
                 }
             }
         }, { quoted: mek });
+
     } catch (e) {
-        console.error(e);
-        reply(`An error occurred: ${e.message}`);
+        console.error("Ping Error:", e);
+        reply(`❌ Error: ${e.message}`);
     }
 });
-
-// ping2 
-
-cmd({
-    pattern: "ping2",
-    desc: "Check bot's response time.",
-    category: "main",
-    react: "💀",
-    filename: __filename
-},
-async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
-    try {
-        const startTime = Date.now()
-        const message = await conn.sendMessage(from, { text: '> *PINGIIING...*' })
-        const endTime = Date.now()
-        const ping = endTime - startTime
-        await conn.sendMessage(from, { text: `*POPKID-XTECH🚀🥰🥰 IS ALIVE : ${ping}ms*` }, { quoted: message })
-    } catch (e) {
-        console.log(e)
-        reply(`${e}`)
-    }
-})
