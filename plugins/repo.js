@@ -1,71 +1,12 @@
-
-
-/*
-const config = require('../config')
-const {cmd , commands} = require('../command')
-cmd({
-    pattern: "script",
-    alias: ["sc","repo","info"],
-    desc: "bot repo",
-    react: "🤖",
-    category: "main",
-    filename: __filename
-},
-async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
-try{
-let repo =`
-*╭──────────────●●►*
-> *BOT OWNER:*
-*|* *CASEYWEB*
-
-> *CASEYWEB REPO:*
-*|* https://github.com/caseyweb/CASEYRHODES XMD
-
-> *SUPPORT GROUP:*
-*|* https://whatsapp.com/channel/0029VaoRxGmJpe8lgCqT1T2h
-*╰──────────────●●►*
-
-> *CREATED BY CASEYRHODES TECH*
-`
-await conn.sendMessage(from, { text: repo ,
-  contextInfo: {
-    mentionedJid: [ '' ],
-    groupMentions: [],
-    forwardingScore: 999,
-    isForwarded: false,
-    forwardedNewsletterMessageInfo: {
-      newsletterJid: '120363318387454868@newsletter',
-      newsletterName: "𝐀ɭι̇ι̇ 𝐌Ɗ 🍁",
-      serverMessageId: 999
-    },
-externalAdReply: { 
-title: '𝐀ɭι̇ι̇ 𝐌Ɗ 🍁',
-body: `${pushname}`,
-mediaType: 1,
-sourceUrl: "https://github.com/itx-alii-raza/ALI-MD" ,
-thumbnailUrl: "https://i.ibb.co/8Dzbtwj2/mrfrankofc.jpg" ,
-renderLargerThumbnail: true,
-showAdAttribution: true
-}
-}}, { quoted: mek})}catch(e){
-console.log(e)
-reply(`${e}`)
-}
-});
-*/
-
-const more = String.fromCharCode(8206)
-const readMore = more.repeat(4001)
-
 const fetch = require('node-fetch');
-const config = require('../config');    
+const config = require('../config');
 const { cmd } = require('../command');
 
 cmd({
-    pattern: "script",
-    alias: ["repo", "sc", "info"],
-    desc: "Fetch information about a GitHub repository.",
-    react: "❤️",
+    pattern: "repo",
+    alias: ["sc", "script", "info"],
+    desc: "Fetch GitHub repository information",
+    react: "📂",
     category: "info",
     filename: __filename,
 },
@@ -73,64 +14,179 @@ async (conn, mek, m, { from, reply }) => {
     const githubRepoURL = 'https://github.com/Popkiddevs/POPKID-XTECH';
 
     try {
-        // Extract username and repo name from the URL
         const [, username, repoName] = githubRepoURL.match(/github\.com\/([^/]+)\/([^/]+)/);
-
-        // Fetch repository details using GitHub API
         const response = await fetch(`https://api.github.com/repos/${username}/${repoName}`);
         
-        if (!response.ok) {
-            throw new Error(`GitHub API request failed with status ${response.status}`);
-        }
-
+        if (!response.ok) throw new Error(`GitHub API error: ${response.status}`);
         const repoData = await response.json();
 
-        // Format the repository information
-        const formattedInfo = `*𝐇𝐄𝐋𝐋𝐎 𝐏𝐎𝐏𝐊𝐈𝐃 𝐋𝐎𝐕𝐄𝐑🩷* 
+        // Format 1: Classic Box
+        const style1 = `╭───『 ${config.BOT_NAME} REPO 』───⳹
+│
+│ 📦 *Repository*: ${repoData.name}
+│ 👑 *Owner*: ${repoData.owner.login}
+│ ⭐ *Stars*: ${repoData.stargazers_count}
+│ ⑂ *Forks*: ${repoData.forks_count}
+│ 🔗 *URL*: ${repoData.html_url}
+│
+│ 📝 *Description*:
+│ ${repoData.description || 'No description'}
+│
+╰────────────────⳹
+> ${config.DESCRIPTION}`;
 
-> *sɪᴍᴘʟᴇ, ᴊᴀᴠᴀsᴄʀɪᴘᴛ ʟᴏᴀᴅᴇᴅ ʙᴏᴛ ᴡɪᴛʜ ᴀᴍᴀᴢɪɴɢ ғᴇᴀᴛᴜʀᴇs, ᴘᴏᴘᴋɪᴅ ᴡʜᴀᴛsᴀᴘᴘ ʙᴏᴛ.* 🧊
+        // Format 2: Minimalist
+        const style2 = `•——[ GITHUB INFO ]——•
+  │
+  ├─ 🏷️ ${repoData.name}
+  ├─ 👤 ${repoData.owner.login}
+  ├─ ✨ ${repoData.stargazers_count} Stars
+  ├─ ⑂ ${repoData.forks_count} Forks
+  │
+  •——[ ${config.BOT_NAME} ]——•
+  > ${config.DESCRIPTION}`;
 
-*𝐓𝐇𝐀𝐍𝐊𝐒 𝐅𝐎𝐑 𝐔𝐒𝐈𝐍𝐆 𝐏𝐎𝐏𝐊𝐈𝐃 𝐁𝐎𝐓🩷* 
+        // Format 3: Fancy Borders
+        const style3 = `▄▀▄▀▄ REPOSITORY INFO ▄▀▄▀▄
 
-> *ᴅᴏɴ'ᴛ ғᴏʀɢᴇᴛ ᴛᴏ sᴛᴀʀ & ғᴏʀᴋ ᴛʜᴇ ʀᴇᴘᴏ🌟🍴*
+  ♢ *Project*: ${repoData.name}
+  ♢ *Author*: ${repoData.owner.login}
+  ♢ *Stars*: ${repoData.stargazers_count} ✨
+  ♢ *Forks*: ${repoData.forks_count} ⑂
+  ♢ *Updated*: ${new Date(repoData.updated_at).toLocaleDateString()}
+  
+  🔗 ${repoData.html_url}
+  
+  > ${config.DESCRIPTION}`;
 
-https://github.com/Popkiddevs/POPKID-XTECH
-──────────────────
-${readMore}
-\`BOT NAME:\`❄️
-> ${repoData.name}
+        // Format 4: Code Style
+        const style4 = `┌──────────────────────┐
+│  ⚡ ${config.BOT_NAME} REPO  ⚡  │
+├──────────────────────┤
+│ • Name: ${repoData.name}
+│ • Owner: ${repoData.owner.login}
+│ • Stars: ${repoData.stargazers_count}
+│ • Forks: ${repoData.forks_count}
+│ • URL: ${repoData.html_url}
+│ • Desc: ${repoData.description || 'None'}
+└──────────────────────┘
+> ${config.DESCRIPTION}`;
 
-\`OWNER NAME:\`👨‍💻
-> ${repoData.owner.login}
+        // Format 5: Modern Blocks
+        const style5 = `▰▰▰▰▰ REPO INFO ▰▰▰▰▰
 
-\`STARS:\`🌟
-> ${repoData.stargazers_count}
+  🏷️  *${repoData.name}*
+  👨‍💻  ${repoData.owner.login}
+  
+  ⭐ ${repoData.stargazers_count}  ⑂ ${repoData.forks_count}
+  🔗 ${repoData.html_url}
+  
+  📜 ${repoData.description || 'No description'}
+  
+  > ${config.DESCRIPTION}`;
 
-\`FORKS:\`🍴
-> ${repoData.forks_count}
+        // Format 6: Retro Terminal
+        const style6 = `╔══════════════════════╗
+║   ${config.BOT_NAME} REPO    ║
+╠══════════════════════╣
+║ > NAME: ${repoData.name}
+║ > OWNER: ${repoData.owner.login}
+║ > STARS: ${repoData.stargazers_count}
+║ > FORKS: ${repoData.forks_count}
+║ > URL: ${repoData.html_url}
+║ > DESC: ${repoData.description || 'None'}
+╚══════════════════════╝
+> ${config.DESCRIPTION}`;
 
-\`DESCRIPTION:\`📃
-> ${repoData.description || 'No description'}\n
-──────────────────
-\n> *© ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴘᴏᴘᴋɪᴅ* 🎐`;
+        // Format 7: Elegant
+        const style7 = `┌───────────────┐
+│  📂  REPO  │
+└───────────────┘
+│
+│ *Project*: ${repoData.name}
+│ *Author*: ${repoData.owner.login}
+│
+│ ✨ ${repoData.stargazers_count} Stars
+│ ⑂ ${repoData.forks_count} Forks
+│
+│ 🔗 ${repoData.html_url}
+│
+┌───────────────┐
+│  📝  DESC  │
+└───────────────┘
+${repoData.description || 'No description'}
 
-        // Send an image with the formatted info as a caption and context info
+> ${config.DESCRIPTION}`;
+
+        // Format 8: Social Media Style
+        const style8 = `✦ ${config.BOT_NAME} Repository ✦
+
+📌 *${repoData.name}*
+👤 @${repoData.owner.login}
+
+⭐ ${repoData.stargazers_count} Stars | ⑂ ${repoData.forks_count} Forks
+🔄 Last updated: ${new Date(repoData.updated_at).toLocaleDateString()}
+
+🔗 GitHub: ${repoData.html_url}
+
+${repoData.description || 'No description available'}
+
+> ${config.DESCRIPTION}`;
+
+        // Format 9: Fancy List
+        const style9 = `╔♫═🎧═♫══════════╗
+   ${config.BOT_NAME} REPO
+╚♫═🎧═♫══════════╝
+
+•・゜゜・* ✧  *・゜゜・•
+ ✧ *Name*: ${repoData.name}
+ ✧ *Owner*: ${repoData.owner.login}
+ ✧ *Stars*: ${repoData.stargazers_count}
+ ✧ *Forks*: ${repoData.forks_count}
+•・゜゜・* ✧  *・゜゜・•
+
+🔗 ${repoData.html_url}
+
+${repoData.description || 'No description'}
+
+> ${config.DESCRIPTION}`;
+
+        // Format 10: Professional
+        const style10 = `┏━━━━━━━━━━━━━━━━━━┓
+┃  REPOSITORY REPORT  ┃
+┗━━━━━━━━━━━━━━━━━━┛
+
+◈ Project: ${repoData.name}
+◈ Maintainer: ${repoData.owner.login}
+◈ Popularity: ★ ${repoData.stargazers_count} | ⑂ ${repoData.forks_count}
+◈ Last Update: ${new Date(repoData.updated_at).toLocaleDateString()}
+◈ URL: ${repoData.html_url}
+
+Description:
+${repoData.description || 'No description provided'}
+
+> ${config.DESCRIPTION}`;
+
+        const styles = [style1, style2, style3, style4, style5, style6, style7, style8, style9, style10];
+        const selectedStyle = styles[Math.floor(Math.random() * styles.length)];
+
+        // Send image with repo info
         await conn.sendMessage(from, {
-            image: { url: `https://files.catbox.moe/nex0fm.jpg` },
-            caption: formattedInfo,
+            image: { url: config.MENU_IMAGE_URL || 'https://files.catbox.moe/nex0fm.jpg' },
+            caption: selectedStyle,
             contextInfo: { 
                 mentionedJid: [m.sender],
                 forwardingScore: 999,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
                     newsletterJid: '120363290715861418@newsletter',
-                    newsletterName: '☇ 𝐗𝐭𝐞𝐜𝐡 𝐂𝐥𝐚𝐧  ⃪🤖͎᪳᪳𝆺𝅥',
+                    newsletterName: config.OWNER_NAME || 'Popkid Xtech',
                     serverMessageId: 143
                 }
             }
         }, { quoted: mek });
 
-        // Send the audio file with context info
+        // Send audio
         await conn.sendMessage(from, {
             audio: { url: 'https://files.catbox.moe/10rp3b.m4a' },
             mimetype: 'audio/mp4',
@@ -138,17 +194,12 @@ ${readMore}
             contextInfo: { 
                 mentionedJid: [m.sender],
                 forwardingScore: 999,
-                isForwarded: true,
-                forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363290715861418@newsletter',
-                    newsletterName: '☇ ⃪𝐗𝐭𝐞𝐜𝐡 𝐂𝐥𝐚𝐧🤖͎᪳᪳𝆺𝅥',
-                    serverMessageId: 143
-                }
+                isForwarded: true
             }
         }, { quoted: mek });
 
     } catch (error) {
-        console.error("Error in repo command:", error);
-        reply("Sorry, something went wrong while fetching the repository information. Please try again later.");
+        console.error("Repo command error:", error);
+        reply(`❌ Error: ${error.message}`);
     }
 });
