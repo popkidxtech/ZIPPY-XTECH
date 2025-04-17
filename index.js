@@ -113,7 +113,7 @@ const port = process.env.PORT || 9090;
   console.log('Bot connected to whatsapp ✅')
   
   let up = `*Hello there POPKID-MD User! \ud83d\udc4b\ud83c\udffb* \n\n> Simple , Straight Forward But Loaded With Features \ud83c\udf8a, Meet POPKID-MD WhatsApp Bot.\n\n *Thanks for using POPKID-XTECH \ud83d\udea9* \n\n> Join WhatsApp Channel :- ⤵️\n \nhttps://whatsapp.com/channel/0029VadQrNI8KMqo79BiHr3l\n\n- *YOUR PREFIX:* = ${prefix}\n\nDont forget to give star to repo ⬇️\n\nhttps://github.com/Popkiddevs/POPKID-XTECH\n\n> © Powered BY Popkid \ud83d\udda4`;
-    conn.sendMessage(conn.user.id, { image: { url: `https://files.catbox.moe/8xk9cz.jpg` }, caption: up })
+    conn.sendMessage(conn.user.id, { image: { url: `https://files.catbox.moe/lkmvah.jpg` }, caption: up })
   }
   })
   conn.ev.on('creds.update', saveCreds)
