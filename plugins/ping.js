@@ -1,95 +1,77 @@
 const config = require('../config');
-const { cmd } = require('../command');
+const { cmd, commands } = require('../command');
 
 cmd({
     pattern: "ping",
-    alias: ["speed", "pong"],
-    desc: "Check bot's response speed with 30 stylish formats",
+    alias: ["speed","pong"],use: '.ping',
+    desc: "Check bot's response time.",
     category: "main",
     react: "⚡",
     filename: __filename
 },
-async (conn, mek, m, { from, sender, reply }) => {
+async (conn, mek, m, { from, quoted, sender, reply }) => {
     try {
-        const start = Date.now();
-        
-        // Emoji collections
-        const reactionEmojis = ['⚡', '🚀', '💨', '🎯', '💥', '🔹', '✨', '🌟', '🌀', '🎉'];
-        const textEmojis = ['💎', '🏆', '⚡️', '🚀', '🎶', '🌠', '🔱', '🛡️', '🔰', '🎯'];
-        
-        // Select unique emojis
-        let reactionEmoji = reactionEmojis[Math.floor(Math.random() * reactionEmojis.length)];
+        const start = new Date().getTime();
+
+        const reactionEmojis = ['🔥', '⚡', '🚀', '💨', '🎯', '🎉', '🌟', '💥', '🕐', '🔹'];
+        const textEmojis = ['💎', '🏆', '⚡️', '🚀', '🎶', '🌠', '🌀', '🔱', '🛡️', '✨'];
+
+        const reactionEmoji = reactionEmojis[Math.floor(Math.random() * reactionEmojis.length)];
         let textEmoji = textEmojis[Math.floor(Math.random() * textEmojis.length)];
+
+        // Ensure reaction and text emojis are different
         while (textEmoji === reactionEmoji) {
             textEmoji = textEmojis[Math.floor(Math.random() * textEmojis.length)];
         }
 
-        // Send reaction
+        // Send reaction using conn.sendMessage()
         await conn.sendMessage(from, {
-            react: { text: reactionEmoji, key: mek.key }
+            react: { text: textEmoji, key: mek.key }
         });
 
-        const responseTime = (Date.now() - start) / 1000;
+        const end = new Date().getTime();
+        const responseTime = (end - start) / 1000;
 
-        // 30 Unique Ping Styles
-        const pingStyles = [
-            // 1-10: Basic Styles
-            `⚡ *${config.BOT_NAME} SPEED*: ${responseTime.toFixed(2)}ms ${textEmoji}`,
-            `╭───『 PING 』───⳹\n│\n│ ⚡ ${responseTime.toFixed(2)}ms\n│\n╰────────────────⳹`,
-            `🚀 *BLAST FAST!* 🚀\n${responseTime.toFixed(2)}ms ${textEmoji}`,
-            `▰▰▰ PING ▰▰▰\n${responseTime.toFixed(2)}ms ${textEmoji}`,
-            `• ${responseTime.toFixed(2)}ms • ${textEmoji}`,
-            `⚡ ${responseTime.toFixed(2)}ms ⚡`,
-            `✧ ${config.BOT_NAME} ✧\n${responseTime.toFixed(2)}ms ${textEmoji}`,
-            `> ${responseTime.toFixed(2)}ms < ${textEmoji}`,
-            `【 ${responseTime.toFixed(2)}ms 】${textEmoji}`,
-            `♢ ${responseTime.toFixed(2)}ms ♢ ${textEmoji}`,
+        const text = `> *POPKID-XTECH SPEED: ${responseTime.toFixed(2)}ms ${reactionEmoji}*`;
 
-            // 11-20: Creative Styles
-            `╔═✦ ${config.BOT_NAME} ✦═╗\n║ ${responseTime.toFixed(2)}ms ${textEmoji} ║\n╚══════════╝`,
-            `▄▀▄▀▄ ${responseTime.toFixed(2)}ms ▄▀▄▀▄\n${textEmoji} ${config.BOT_NAME}`,
-            `✦・゜゜・${responseTime.toFixed(2)}ms・゜゜・✦\n${textEmoji}`,
-            `|~~~ ${responseTime.toFixed(2)}ms ~~~|\n${textEmoji}`,
-            `♡ ${responseTime.toFixed(2)}ms ♡\n${textEmoji}`,
-            `✧･ﾟ: *${responseTime.toFixed(2)}ms* :･ﾟ✧\n${textEmoji}`,
-            `★・・・・・・★\n ${responseTime.toFixed(2)}ms \n★・・・・・・★\n${textEmoji}`,
-            `≈≈≈≈≈≈≈≈≈≈≈≈≈\n  ${responseTime.toFixed(2)}ms  \n≈≈≈≈≈≈≈≈≈≈≈≈≈\n${textEmoji}`,
-            `▁ ▂ ▄ ▅ ▆ ▇ ${responseTime.toFixed(2)}ms ▇ ▆ ▅ ▄ ▂ ▁\n${textEmoji}`,
-            `◈◈◈ ${responseTime.toFixed(2)}ms ◈◈◈\n${textEmoji}`,
-
-            // 21-30: Fancy Styles
-            `╭┉┉┉┉┉┉┉┉╮\n┋ ${responseTime.toFixed(2)}ms ┋\n╰┉┉┉┉┉┉┉┉╯\n${textEmoji}`,
-            `▞▚ ${responseTime.toFixed(2)}ms ▞▚\n${textEmoji}`,
-            `▣▣▣▣▣▣▣▣\n ${responseTime.toFixed(2)}ms \n▣▣▣▣▣▣▣▣\n${textEmoji}`,
-            `✼ ҉ ✼ ${responseTime.toFixed(2)}ms ✼ ҉ ✼\n${textEmoji}`,
-            `◖ ${responseTime.toFixed(2)}ms ◗\n${textEmoji}`,
-            `▰▱▰▱ ${responseTime.toFixed(2)}ms ▰▱▰▱\n${textEmoji}`,
-            `≪ ${responseTime.toFixed(2)}ms ≫\n${textEmoji}`,
-            `◈◇◈ ${responseTime.toFixed(2)}ms ◈◇◈\n${textEmoji}`,
-            `▷▶ ${responseTime.toFixed(2)}ms ◀◁\n${textEmoji}`,
-            `✧⋄⋆ ${responseTime.toFixed(2)}ms ⋆⋄✧\n${textEmoji}`
-        ];
-
-        // Select random style
-        const selectedStyle = pingStyles[Math.floor(Math.random() * pingStyles.length)];
-
-        // Send ping response
         await conn.sendMessage(from, {
-            text: selectedStyle,
+            text,
             contextInfo: {
                 mentionedJid: [sender],
                 forwardingScore: 999,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
                     newsletterJid: '120363290715861418@newsletter',
-                    newsletterName: config.OWNER_NAME || "PopkidXtech",
+                    newsletterName: "PopkidXtech",
                     serverMessageId: 143
                 }
             }
         }, { quoted: mek });
 
     } catch (e) {
-        console.error("Ping Error:", e);
-        reply(`❌ Error: ${e.message}`);
+        console.error("Error in ping command:", e);
+        reply(`An error occurred: ${e.message}`);
     }
 });
+
+// ping2 
+
+cmd({
+    pattern: "ping2",
+    desc: "Check bot's response time.",
+    category: "main",
+    react: "🍂",
+    filename: __filename
+},
+async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
+    try {
+        const startTime = Date.now()
+        const message = await conn.sendMessage(from, { text: '*PINGING...*' })
+        const endTime = Date.now()
+        const ping = endTime - startTime
+        await conn.sendMessage(from, { text: `*🔥 POPKID-MD SPEED : ${ping}ms*` }, { quoted: message })
+    } catch (e) {
+        console.log(e)
+        reply(`${e}`)
+    }
+})
