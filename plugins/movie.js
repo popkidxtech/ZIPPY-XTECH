@@ -1,59 +1,78 @@
-
-
 const axios = require('axios');
 const { cmd } = require('../command');
-const config = require('../config'); // Ensure your API key is in config
 
-// Command to fetch movie details
 cmd({
     pattern: "movie",
     desc: "Fetch detailed information about a movie.",
     category: "utility",
-    react: "🎞️",
+    react: "🎬",
     filename: __filename
-}, async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
+},
+async (conn, mek, m, { from, reply, sender, args }) => {
     try {
-        const movieName = args.join(' ');
+        // Properly extract the movie name from arguments
+        const movieName = args.length > 0 ? args.join(' ') : m.text.replace(/^[\.\#\$\!]?movie\s?/i, '').trim();
+        
         if (!movieName) {
-            return reply("📽️ Please provide the name of the movie.");
+            return reply("📽️ Please provide the name of the movie.\nExample: .movie Iron Man");
         }
 
-        const apiUrl = `http://www.omdbapi.com/?t=${encodeURIComponent(movieName)}&apikey=${config.OMDB_API_KEY}`;
+        const apiUrl = `https://apis.davidcyriltech.my.id/imdb?query=${encodeURIComponent(movieName)}`;
         const response = await axios.get(apiUrl);
-        const data = response.data;
 
-        if (data.Response === "False") {
-            return reply("! Movie not found.");
+        if (!response.data.status || !response.data.movie) {
+            return reply("🚫 Movie not found. Please check the name and try again.");
         }
 
-        const movieInfo = `
-*🎬POPKID MOVIES🎬*
+        const movie = response.data.movie;
+        
+        // Format the caption
+        const dec = `
+🎬 *${movie.title}* (${movie.year}) ${movie.rated || ''}
 
-*ᴛɪᴛʟᴇ:* ${data.Title}
-*ʏᴇᴀʀ:* ${data.Year}
-*ʀᴀᴛᴇᴅ:* ${data.Rated}
-*ʀᴇʟᴇᴀꜱᴇᴅ:* ${data.Released}
-*ʀᴜɴᴛɪᴍᴇ:* ${data.Runtime}
-*ɢᴇɴʀᴇ:* ${data.Genre}
-*ᴅɪʀᴇᴄᴛᴏʀ:* ${data.Director}
-*ᴡʀɪᴛᴇʀ:* ${data.Writer}
-*ᴀᴄᴛᴏʀꜱ:* ${data.Actors}
-*ʟᴀɴɢᴜᴀɢᴇ:* ${data.Language}
-*ᴄᴏᴜɴᴛʀʏ:* ${data.Country}
-*ᴀᴡᴀʀᴅꜱ:* ${data.Awards}
-*ɪᴍᴅʙ ʀᴀᴛɪɴɢ:* ${data.imdbRating}
+⭐ *IMDb:* ${movie.imdbRating || 'N/A'} | 🍅 *Rotten Tomatoes:* ${movie.ratings.find(r => r.source === 'Rotten Tomatoes')?.value || 'N/A'} | 💰 *Box Office:* ${movie.boxoffice || 'N/A'}
 
-> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴘᴏᴘᴋɪᴅ🧋*
+📅 *Released:* ${new Date(movie.released).toLocaleDateString()}
+⏳ *Runtime:* ${movie.runtime}
+🎭 *Genre:* ${movie.genres}
+
+📝 *Plot:* ${movie.plot}
+
+🎥 *Director:* ${movie.director}
+✍️ *Writer:* ${movie.writer}
+🌟 *Actors:* ${movie.actors}
+
+🌍 *Country:* ${movie.country}
+🗣️ *Language:* ${movie.languages}
+🏆 *Awards:* ${movie.awards || 'None'}
+
+[View on IMDb](${movie.imdbUrl})
 `;
 
-        const imageUrl = data.Poster && data.Poster !== 'N/A' ? data.Poster : config.ALIVE_IMG;
+        // Send message with the requested format
+        await conn.sendMessage(
+            from,
+            {
+                image: { 
+                    url: movie.poster && movie.poster !== 'N/A' ? movie.poster : 'https://files.catbox.moe/nex0fm.jpg'
+                },
+                caption: dec,
+                contextInfo: {
+                    mentionedJid: [sender],
+                    forwardingScore: 999,
+                    isForwarded: true,
+                    forwardedNewsletterMessageInfo: {
+                        newsletterJid: '120363290715861418@newsletter',
+                        newsletterName: 'PopkidXtech',
+                        serverMessageId: 143
+                    }
+                }
+            },
+            { quoted: mek }
+        );
 
-        await conn.sendMessage(from, {
-            image: { url: imageUrl },
-            caption: `${movieInfo}\n> CREATED BY POPKID TECH`
-        }, { quoted: mek });
     } catch (e) {
-        console.error(e);
+        console.error('Movie command error:', e);
         reply(`❌ Error: ${e.message}`);
     }
 });
