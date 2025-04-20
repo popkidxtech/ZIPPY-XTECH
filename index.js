@@ -112,7 +112,22 @@ const port = process.env.PORT || 9090;
   console.log('Plugins installed successful ✅')
   console.log('Bot connected to whatsapp ✅')
   
-  let up = `╭─────────────━┈⊷\n│ *𝗣𝗢𝗣𝗞𝗜𝗗 𝗫𝗧𝗘𝗖𝗛 𝗖𝗢𝗡𝗡𝗘𝗖𝗧𝗘𝗗*\n╰─────────────━┈⊷\n\n╭─────────────━┈⊷\n│🤖 ʙᴏᴛ ɴᴀᴍᴇ: *𝗣𝗢𝗣𝗞𝗜𝗗 𝗠𝗗*\n│👨‍💻 ᴏᴡɴᴇʀ : *𝗠𝗥 𝗣𝗢𝗣𝗞𝗜𝗗*\n╰─────────────━┈⊷\n\n*Join Whatsapp Channel For Updates*\n_https://whatsapp.com/channel/0029VadQrNI8KMqo79BiHr3l_`;
+  let up = `*✨ Hello, POPKID-XTECH Legend! ✨*
+
+╭─〔 *🤖 POPKID-XTECH BOT* 〕  
+├─▸ *Simplicity. Speed. Power!*  
+╰─➤ *Your New WhatsApp Sidekick is Here!*
+
+*❤️ Thank you for Choosing POPKID-MD!*
+
+╭──〔 🔗 *Quick Links* 〕  
+├─ 📢 *Join Our Channel:*  
+│   Click [**Here**](https://whatsapp.com/channel/0029VadQrNI8KMqo79BiHr3l) to join!  
+├─ ⭐ *Give Us a Star:*  
+│   Star Us [**Here**](https://github.com/Popkiddevs/POPKID-XTECH)!  
+╰─🛠️ *Prefix:* \`${prefix}\`
+
+> _© MADE BY POPKID_`;
     conn.sendMessage(conn.user.id, { image: { url: `https://files.catbox.moe/lkmvah.jpg` }, caption: up })
   }
   })
