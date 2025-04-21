@@ -15,27 +15,15 @@ cmd({
 }, 
 async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
     try {
-        let dec = `👋 *Hello  ${pushname}*
-
-╭━━〔 𝐏𝐎𝐏𝐊𝐈𝐃 𝐗𝐓𝐄𝐂𝐇 〕━━┈⊷
-┃◈╭─────────────────·๏
-┃◈┃• 👑 Owner : *${config.OWNER_NAME}*
-┃◈┃• ⚙️ Prefix : *[${config.PREFIX}]*
-┃◈┃• 📱 Number : *${config.OWNER_NUM}*
-┃◈┃• ★ Created by : *𝗣𝗢𝗣𝗞𝗜𝗗🩷*
-┃◈┃• 📅 Date : *${new Date().toLocaleDateString()}*
-┃◈┃• ⏰ Time : *${new Date().toLocaleTimeString()}*
-┃◈┃• 🌐 Platform : *${platform}*
-┃◈┃• 📦 Version : *2.0.0*
-┃◈┃• ⏱️ Runtime : *${runtime(process.uptime())}*
-┃◈╰─────────────────┈⊷
+        let dec = `╭━━〔 *${config.BOT_NAME}* 〕━━┈⊷
+┃✞︎╭─────────────────·๏
+┃✞︎┃• 👑 Owner : *${config.OWNER_NAME}*
+┃✞︎┃• ⚙️ Prefix : *[${config.PREFIX}]*
+┃✞︎┃• 🌐 Platform : *Heroku*
+┃✞︎┃• 📦 Version : *4.0.0*
+┃✞︎┃• ⏱️ Runtime : *${runtime(process.uptime())}*
+┃✞︎╰─────────────────┈⊷
 ╰━━━━━━━━━━━━━━━━━━━┈⊷
-✧⋄⋆⋅⋆⋄✧⋄⋆⋅⋆⋄✧⋄⋆⋅⋆⋄✧
-*𝗫𝗧𝗘𝗖𝗛 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*
-✧⋄⋆⋅⋆⋄✧⋄⋆⋅⋆⋄✧⋄⋆⋅⋆⋄✧
-
-
-
 ╭─⊳⋅🤖 𝕮𝖔𝖗𝖊 𝖀𝖙𝖎𝖑𝖘 ⋅⊲─╮
 ⌬ alive
 ⌬ menu
@@ -294,11 +282,7 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
 ⟹ ttstalk
 ⟹ ghstalk
 ╰─⊲⋅═════════⋅⊳─╯
-
-✧⋄⋆⋅⋆⋄✧⋄⋆⋅⋆⋄✧⋄⋆⋅⋆⋄✧
- *𝗣𝗢𝗣𝗞𝗜𝗗 𝗫𝗧𝗘𝗖𝗛*
-✧⋄⋆⋅⋆⋄✧⋄⋆⋅⋆⋄✧⋄⋆⋅⋆⋄✧
-`;
+> ${config.DESCRIPTION}`;
 
         await conn.sendMessage(
             from,
