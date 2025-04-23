@@ -3,8 +3,8 @@ const fg = require('api-dylux')
 const yts = require('yt-search')
 
 cmd({
-    pattern: "song2",
-    alias: ["play2"],
+    pattern: "song",
+    alias: ["play"],
     react: "🎼",
     desc: "Download high-quality music",
     category: "download",
@@ -64,7 +64,7 @@ reply(`🌀𝗘𝗥𝗥𝗢𝗥! ${e} 🌊`)
 
 // ======== VIDEO DL ========
 cmd({
-    pattern: "video2",
+    pattern: "video",
     react: "🎬",
     desc: "Download HD videos",
     category: "download",
