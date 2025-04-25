@@ -4,7 +4,7 @@ const yts = require('yt-search')
 
 cmd({
     pattern: "song",
-    alias: ["play"],
+    alias: ["play2"],
     react: "🎼",
     desc: "Download high-quality music",
     category: "download",
@@ -64,7 +64,7 @@ reply(`🌀𝗘𝗥𝗥𝗢𝗥! ${e} 🌊`)
 
 // ======== VIDEO DL ========
 cmd({
-    pattern: "video",
+    pattern: "video2",
     react: "🎬",
     desc: "Download HD videos",
     category: "download",
