@@ -1,8 +1,5 @@
-const config = require('../config');
 const { cmd } = require('../command');
 const { ytsearch } = require('@dark-yasiya/yt-dl.js');
-
-// MP4 video download
 
 cmd({ 
     pattern: "mp4", 
@@ -16,16 +13,18 @@ cmd({
     try { 
         if (!q) return await reply("Please provide a YouTube URL or video name.");
         
-        const yt = await ytsearch(q);
+        const yt = await ytsearch(q); // Search for video in parallel
         if (yt.results.length < 1) return reply("No results found!");
         
         let yts = yt.results[0];  
         let apiUrl = `https://apis.davidcyriltech.my.id/download/ytmp4?url=${encodeURIComponent(yts.url)}`;
+
+        // Start the API fetch concurrently
+        let [videoRes] = await Promise.all([
+            fetch(apiUrl).then((res) => res.json())  // Fetch the video data
+        ]);
         
-        let response = await fetch(apiUrl);
-        let data = await response.json();
-        
-        if (data.status !== 200 || !data.success || !data.result.download_url) {
+        if (videoRes.status !== 200 || !videoRes.success || !videoRes.result.download_url) {
             return reply("Failed to fetch the video. Please try again later.");
         }
 
@@ -41,20 +40,19 @@ cmd({
         await conn.sendMessage(
             from, 
             { 
-                video: { url: data.result.download_url }, 
+                video: { url: videoRes.result.download_url }, 
                 caption: ytmsg,
                 mimetype: "video/mp4"
             }, 
             { quoted: mek }
         );
-
     } catch (e) {
         console.log(e);
         reply("An error occurred. Please try again later.");
     }
 });
 
-// MP3 song download 
+// MP3 song download - Optimized for faster response
 
 cmd({ 
     pattern: "song", 
@@ -68,34 +66,36 @@ cmd({
     try {
         if (!q) return reply("Please provide a song name or YouTube link.");
 
-        const yt = await ytsearch(q);
+        const yt = await ytsearch(q);  // Search for song in parallel
         if (!yt.results.length) return reply("No results found!");
 
         const song = yt.results[0];
         const apiUrl = `https://apis.davidcyriltech.my.id/youtube/mp3?url=${encodeURIComponent(song.url)}`;
         
-        const res = await fetch(apiUrl);
-        const data = await res.json();
+        // Fetch song data concurrently
+        let [songRes] = await Promise.all([
+            fetch(apiUrl).then((res) => res.json())
+        ]);
 
-        if (!data?.result?.downloadUrl) return reply("Download failed. Try again later.");
+        if (!songRes?.result?.downloadUrl) return reply("Download failed. Try again later.");
 
-    await conn.sendMessage(from, {
-    audio: { url: data.result.downloadUrl },
-    mimetype: "audio/mpeg",
-    fileName: `${song.title}.mp3`,
-    contextInfo: {
-        externalAdReply: {
-            title: song.title.length > 25 ? `${song.title.substring(0, 22)}...` : song.title,
-            body: "Join our WhatsApp Channel",
-            mediaType: 1,
-            thumbnailUrl: song.thumbnail.replace('default.jpg', 'hqdefault.jpg'),
-            sourceUrl: 'https://whatsapp.com/channel/0029VadQrNI8KMqo79BiHr3l',
-            mediaUrl: 'https://whatsapp.com/channel/0029VadQrNI8KMqo79BiHr3l',
-            showAdAttribution: true,
-            renderLargerThumbnail: true
-        }
-    }
-}, { quoted: mek });
+        await conn.sendMessage(from, {
+            audio: { url: songRes.result.downloadUrl },
+            mimetype: "audio/mpeg",
+            fileName: `${song.title}.mp3`,
+            contextInfo: {
+                externalAdReply: {
+                    title: song.title.length > 25 ? `${song.title.substring(0, 22)}...` : song.title,
+                    body: "Join our WhatsApp Channel",
+                    mediaType: 1,
+                    thumbnailUrl: song.thumbnail.replace('default.jpg', 'hqdefault.jpg'),
+                    sourceUrl: 'https://whatsapp.com/channel/0029VadQrNI8KMqo79BiHr3l',
+                    mediaUrl: 'https://whatsapp.com/channel/0029VadQrNI8KMqo79BiHr3l',
+                    showAdAttribution: true,
+                    renderLargerThumbnail: true
+                }
+            }
+        }, { quoted: mek });
 
     } catch (error) {
         console.error(error);
