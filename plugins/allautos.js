@@ -79,7 +79,7 @@ async (conn, mek, m, { from, quoted, reply, isCreator }) => {
         await conn.sendMessage(
             from,
             {
-                image: { url: config.MENU_IMAGE_URL },
+                image: { url: config.MENU_IMAGE_URL || 'https://files||.catbox.moe/e6rhto.jpg' },
                 caption: envSettings,
                 contextInfo: {
                     mentionedJid: [m.sender],
