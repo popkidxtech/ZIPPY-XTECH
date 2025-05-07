@@ -29,8 +29,8 @@ async (conn, mek, m, { from }) => {
 
         // Send the owner contact message with image and audio
         await conn.sendMessage(from, {
-            image: { url: 'https://files.catbox.moe/nk71o3.jpg' }, // Image URL from your request
-            caption: `╭━━〔 *POPKID-MD* 〕━━┈⊷
+            image: { url: 'https://files.catbox.moe/e6rhto.jpg' }, // Image URL from your request
+            caption: `╭━━〔 *ᴘᴏᴘᴋɪᴅ xᴍᴅ* 〕━━┈⊷
 ┃◈╭─────────────·๏
 ┃◈┃• *Here is the owner details*
 ┃◈┃• *Name* - ${ownerName}
@@ -38,14 +38,14 @@ async (conn, mek, m, { from }) => {
 ┃◈┃• *Version*: 2.0.0 Beta
 ┃◈└───────────┈⊷
 ╰──────────────┈⊷
-> © ᴘᴏᴡᴇʀᴇᴅ ʙʏ Popkid`, // Display the owner's details
+> © ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴘᴏᴘᴋɪᴅ`, // Display the owner's details
             contextInfo: {
                 mentionedJid: [`${ownerNumber.replace('+', '')}@s.whatsapp.net`], 
                 forwardingScore: 999,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
                     newsletterJid: '120363290715861418@newsletter',
-                    newsletterName: 'Popkid',
+                    newsletterName: 'ᴘᴏᴘᴋɪᴅ xᴍᴅ',
                     serverMessageId: 143
                 }            
             }
