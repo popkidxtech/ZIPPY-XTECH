@@ -24,10 +24,15 @@ async (conn, mek, m, { from, args, q, reply }) => {
         const { title, like, comment, share, author, meta } = data.data;
         const videoUrl = meta.media.find(v => v.type === "video").org;
         
-        const caption = `🎵 *TikTok Video* 🎵\n\n` +
-                        `👤 *User:* ${author.nickname} (@${author.username})\n` +
-                        `📖 *Title:* ${title}\n` +
-                        `👍 *Likes:* ${like}\n💬 *Comments:* ${comment}\n🔁 *Shares:* ${share}`;
+        const caption = `╭───〔 *TikTok Video Downloader* 〕───◆\n` +
+                        `│\n` +
+                        `├‣ 👤 *User:* ${author.nickname} (@${author.username})\n` +
+                        `├‣ 🎬 *Title:* ${title}\n` +
+                        `├‣ ❤️ *Likes:* ${like}\n` +
+                        `├‣ 💬 *Comments:* ${comment}\n` +
+                        `├‣ 🔁 *Shares:* ${share}\n` +
+                        `│\n` +
+                        `╰──────◇`;
         
         await conn.sendMessage(from, {
             video: { url: videoUrl },
@@ -40,4 +45,3 @@ async (conn, mek, m, { from, args, q, reply }) => {
         reply(`An error occurred: ${e.message}`);
     }
 });
-          
