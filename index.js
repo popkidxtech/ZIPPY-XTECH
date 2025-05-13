@@ -115,11 +115,11 @@ const port = process.env.PORT || 9090;
   let up = `*✨ Hello, POPKID-XTECH Legend! ✨*
 
 ╭─〔 *🤖 POPKID-XTECH BOT* 〕  
-├─▸ *Simplicity. Speed. Power. BY JOSEPH.  
-|    MWANGI!*  
+├─▸ *Simplicity. Speed. Power. BY POPKID.  
+|    XTECH!*  
 ╰─➤ *Your New WhatsApp Sidekick is Here!*
 
-*❤️ Thank you for Choosing JOEX-MD!*
+*❤️ Thank you for Choosing POPKID-MD!*
 
 ╭──〔 🔗 *Quick Links* 〕  
 ├─ 📢 *Join Our Channel:*  
