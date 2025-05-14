@@ -1,14 +1,20 @@
-const { runtime } = require('../lib/myfunc');
-const os = require('os');
-const config = require('../config');
+const config = require('../config')
+const { cmd, commands } = require('../command');
+const os = require("os")
+const {runtime} = require('../lib/functions')
+const axios = require('axios')
 
-module.exports = {
-  name: "popkid",
-  description: "Displays bot command menu",
-  category: "main",
-  start: async (m, { prefix, pushName, botName }) => {
-
-    let menu = `
+cmd({
+    pattern: "popkid",
+    alias: ["pop","popsmenu"],use: '.menu',
+    desc: "menu the bot",
+    category: "menu",
+    react: "📱",
+    filename: __filename
+}, 
+async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
+    try {
+        let dec = `
 ╭━━━〔 *✨ ${config.BOT_NAME.toUpperCase()} MENU ✨* 〕━━━╮
 ┃
 ┃ ⏱️ *Uptime:* ${runtime(process.uptime())}
@@ -122,8 +128,8 @@ module.exports = {
 ✨ Powered by *POPKID TECH*
 `;
 
-    await conn.sendMessage(
-            from,await
+        await conn.sendMessage(
+            from,
             {
                 image: { url: `https://files.catbox.moe/e6rhto.jpg` },
                 caption: dec,
