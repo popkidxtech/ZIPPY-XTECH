@@ -122,6 +122,34 @@ module.exports = {
 ✨ Powered by *POPKID TECH*
 `;
 
-    await m.reply(menu);
-  }
-};
+    await conn.sendMessage(
+            from,await
+            {
+                image: { url: `https://files.catbox.moe/e6rhto.jpg` },
+                caption: dec,
+                contextInfo: {
+                    mentionedJid: [m.sender],
+                    forwardingScore: 999,
+                    isForwarded: true,
+                    forwardedNewsletterMessageInfo: {
+                        newsletterJid: '120363290715861418@newsletter',
+                        newsletterName: 'PᴏᴘᴋɪᴅXᴛᴇᴄʜ',
+                        serverMessageId: 143
+                    }
+                }
+            },
+            { quoted: mek }
+        );
+
+        // Send audio
+        await conn.sendMessage(from, {
+            audio: { url: 'https://files.catbox.moe/kxdej4.m4a' },
+            mimetype: 'audio/mp4',
+            ptt: true
+        }, { quoted: mek });
+        
+    } catch (e) {
+        console.log(e);
+        reply(`${e}`);
+    }
+});
