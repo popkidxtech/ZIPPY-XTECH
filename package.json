@@ -1,7 +1,7 @@
 {
   "name": "POPKID-MD",
   "version": "4.0.0",
-  "description": "A WhatsApp Bot Created By popkid",
+  "description": "A WhatsApp Bot Created By POPKID",
   "main": "index.js",
   "scripts": {
     "start": "pm2 start index.js --deep-monitoring --attach --name POPKID-MD",
