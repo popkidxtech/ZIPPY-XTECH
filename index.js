@@ -113,7 +113,25 @@ const port = process.env.PORT || 9090;
   console.log('Plugins installed successful ✅')
   console.log('Bot connected to whatsapp ✅')
   
-  let up = `*Hello there POPKID-MD User! \ud83d\udc4b\ud83c\udffb* \n\n> Simple , Straight Forward But Loaded With Features \ud83c\udf8a, Meet POPKID-MD WhatsApp Bot.\n\n *Thanks for using POPKID-MD \ud83d\udea9* \n\n> Join WhatsApp Channel :- ⤵️\n \nhttps://whatsapp.com/channel/0029VadQrNI8KMqo79BiHr3l\n\n- *YOUR PREFIX:* = ${prefix}\n\nDont forget to give star to repo ⬇️\n\nhttps://github.com/Popkiddevs/POPKID-XTECH\n\n> © Powered BY Popkid \ud83d\udda4`;
+  let up = `╭══════════════⊷
+┃ ⚡𝗣𝗢𝗣𝗞𝗜𝗗 𝗫𝗧𝗘𝗖𝗛 𝗕𝗢𝗧
+╰══════════════⊷
+╭══════════════⊷
+┃ 🪆𝗥𝗘𝗣𝗢
+┃https://github.com/Popkiddevs/POPKID-XTECH
+╰══════════════⊷
+╭══════════════⊷
+┃ ❤️‍🩹𝗦𝗘𝗦𝗦𝗜𝗢𝗡 𝗜𝗗
+┃https://popkidpairfine.onrender.com/pair
+╰══════════════⊷
+╭══════════════⊷
+┃ ғᴏʀᴋ ᴀɴᴅ sᴛᴀʀ ᴏᴜʀ ʀᴇᴘᴏ
+┃ ғᴏʀ ᴄᴏᴜʀᴀɢᴇ ᴘʟᴇᴀsᴇ
+╰══════════════⊷
+╭══════════════⊷
+┃ 𝐏𝐎𝐏𝐊𝐈𝐃
+┃+254732297194
+╰══════════════⊷`;
     conn.sendMessage(conn.user.id, { image: { url: `https://files.catbox.moe/e6rhto.jpg` }, caption: up })
   }
   })
