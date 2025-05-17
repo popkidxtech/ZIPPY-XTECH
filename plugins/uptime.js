@@ -19,17 +19,16 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
         const totalMem = (os.totalmem() / 1024 / 1024).toFixed(2); // Total RAM in MB
         const usedMem = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2); // Used RAM in MB
 
-        // Stylish and detailed system status message
-        const status = `╭───🧊🚀*𝐏𝐎𝐏𝐊𝐈𝐃 𝐗𝐓𝐄𝐂𝐇*🚀🧊──┈⊷
-┃ *✨𝖴ᴘᴛɪᴍᴇ* : *${runtime(process.uptime())}*
-┃ *💾 𝖱ᴀᴍ ᴜsᴀɢᴇ* : *${usedMem}MB / ${totalMem}MB*
-┃ *🧑‍💻𝖣ᴇᴘʟᴏʏᴇᴅ ᴏɴ* : *${platform}*
-┃ *👨‍💻𝖮ᴡɴᴇʀ* : *𝐩𝐨𝐩𝐤𝐢𝐝*
-┃ *🧬𝖵ᴇʀsɪᴏɴ* : *𝟣.𝟢.𝟢 𝖡𝖤𝖳𝖠*
-╰──────────────────────┈⊷
-> ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴘᴏᴘᴋɪᴅ xᴛᴇᴄʜ`;
+        // Compact and attractive system status message
+        const status = `┌─〔 *🧊 ᴘᴏᴘᴋɪᴅ xᴛᴇᴄʜ 🚀* 〕─⬣
+│ ⏱ *Uptime:* ${runtime(process.uptime())}
+│ 📦 *RAM:* ${usedMem}MB / ${totalMem}MB
+│ 🖥 *Platform:* ${platform}
+│ 👑 *Owner:* popkid
+│ 🧪 *Version:* 1.0.0 BETA
+└───────────────⬣`;
 
-        // Send image + caption + audio combined
+        // Send image + caption + audio
         await conn.sendMessage(from, { 
             image: { url: `https://files.catbox.moe/lkmvah.jpg` },  
             caption: status,
@@ -45,7 +44,7 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
             }
         }, { quoted: mek });
 
-        // Attach audio within the same "quoted" message for grouping
+        // Send audio
         await conn.sendMessage(from, { 
             audio: { url: 'https://files.catbox.moe/5df4ei.m4v' },
             mimetype: 'audio/mp4',
