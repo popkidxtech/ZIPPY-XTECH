@@ -37,13 +37,13 @@ async (conn, mek, m, { from, reply }) => {
         await conn.sendMessage(from, {
             image: { url: 'https://files.catbox.moe/e6rhto.jpg' },
             caption:
-`┏━━━『 *Bot Owner Info* 』━━━┓
-┃ ✦ *Name:* ${ownerName}
-┃ ✦ *Number:* ${ownerNumber}
-┃ ✦ *Bot Version:* 2.0.0 Beta
-┃ ✦ *Framework:* POPKID XMD
-┗━━━━━━━━━━━━━━━━━━━━━━┛
-_Contact owner only for important queries._`,
+`╭─〔 *OWNER* 〕─╮
+│ 👤 ${ownerName}
+│ ☎️ ${ownerNumber}
+│ ⚙️ v2.0.0 Beta
+│ 🧠 POPKID XMD
+╰──────────────╯
+_Only for important queries._`,
             contextInfo: {
                 mentionedJid: [`${ownerNumber.replace('+', '')}@s.whatsapp.net`],
                 forwardingScore: 999,
