@@ -1,12 +1,12 @@
-Const config = require('../config')
+const config = require('../config')
 const { cmd, commands } = require('../command');
 const os = require("os")
 const {runtime} = require('../lib/functions')
 const axios = require('axios')
 
 cmd({
-    pattern: "popmenu",
-    alias: ["allmenu2","popkid2"],use: '.menu',
+    pattern: "popkidm",
+    alias: ["allmenu","fullmenu"],use: '.menu',
     desc: "menu the bot",
     category: "menu",
     react: "📱",
@@ -266,7 +266,7 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
 
         // Send audio
         await conn.sendMessage(from, {
-            audio: { url: 'https://files.catbox.moe/g097op.mp3' },
+            audio: { url: 'https://files.catbox.moe/kxdej4.m4a' },
             mimetype: 'audio/mp4',
             ptt: true
         }, { quoted: mek });
