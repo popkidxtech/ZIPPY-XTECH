@@ -5,8 +5,8 @@ const {runtime} = require('../lib/functions')
 const axios = require('axios')
 
 cmd({
-    pattern: "popkidm",
-    alias: ["allmenu","fullmenu"],use: '.menu',
+    pattern: "menu",
+    alias: ["allmenu","popkid"],use: '.menu',
     desc: "menu the bot",
     category: "menu",
     react: "📱",
@@ -264,15 +264,16 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
             { quoted: mek }
         );
 
-        // Send audio
-        await conn.sendMessage(from, {
-            audio: { url: 'https://files.catbox.moe/kxdej4.m4a' },
-            mimetype: 'audio/mp4',
-            ptt: true
-        }, { quoted: mek });
-        
-    } catch (e) {
-        console.log(e);
-        reply(`${e}`);
-    }
-});
+        // Function to send menu audio with timeout
+        const sendMenuAudio = async () => {
+            try {
+                await new Promise(resolve => setTimeout(resolve, 1000)); // Small delay after image
+                await conn.sendMessage(from, {
+                    audio: { url: 'https://github.com/Popkiddevs/POP-DATA/raw/refs/heads/main/autovoice/menu.m4a' },
+                    mimetype: 'audio/mp4',
+                    ptt: true,
+                }, { quoted: mek });
+            } catch (e) {
+                console.log('Audio send failed, continuing without it');
+            }
+        };
