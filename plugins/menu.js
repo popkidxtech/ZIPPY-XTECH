@@ -6,7 +6,7 @@ const axios = require('axios')
 
 cmd({
     pattern: "menu",
-    alias: ["allmenu","fullmenu"],use: '.menu',
+    alias: ["allmenu","popkid"],use: '.menu',
     desc: "menu the bot",
     category: "menu",
     react: "📱",
@@ -112,6 +112,7 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
 *├⬡* *.ɢᴊɪᴅ*
 *├⬡* *.ᴘᴀɪʀ*
 *├⬡* *.sᴀᴠᴇ*
+*├⬡* *.ᴘᴏᴘᴋɪᴅ*
 *├🎮* *.ʀᴇꜱᴛᴀʀᴛ*
 *┕───────────────❒*
 *╭────🌸⁠⁠⁠* *GROUP-CMD* *🌸⁠⁠⁠⁠* 
