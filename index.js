@@ -100,7 +100,7 @@ const port = process.env.PORT || 9090;
           version
           })
 
-  conn.ev.on('connection.update', async (update) => { // Added async here for the autobio feature
+  conn.ev.on('connection.update', (update) => {
   const { connection, lastDisconnect } = update
   if (connection === 'close') {
   if (lastDisconnect.error.output.statusCode !== DisconnectReason.loggedOut) {
@@ -134,40 +134,13 @@ const port = process.env.PORT || 9090;
 ╰══════════════⊷
 ╭══════════════⊷
 ┃ ғᴏʀᴋ ᴀɴᴅ sᴛᴀʀ ᴏᴜʀ ʀᴇᴘᴏ
-┃ ғᴏʀ ᴄᴏᴜʀᴀɢ𝗘 ᴘʟᴇᴀsᴇ
+┃ ғᴏʀ ᴄᴏᴜʀᴀɢᴇ ᴘʟᴇᴀsᴇ
 ╰══════════════⊷
 ╭══════════════⊷
 ┃ 𝐏𝐎𝐏𝐊𝐈𝐃
 ┃+254732297194
 ╰══════════════⊷`;
     conn.sendMessage(conn.user.id, { image: { url: `https://files.catbox.moe/e6rhto.jpg` }, caption: up })
-
-    // --- START: Auto-bio feature ---
-    const quotes = [
-      "🕹️The only way to do great work is to love what you do.🪆",
-      "😋Innovation distinguishes between a leader and a follower.🤧",
-      "❤️The future belongs to those who believe in the beauty of their dreams.🤧",
-      "🧬Strive not to be a success, but rather to be of value.❤️",
-      "💖Your time is limited, don't waste it living someone else's life.❤️",
-      "😁The mind is everything. What you think you become.❤️",
-      "🔥Don't watch the clock; do what it does. Keep going.❤️",
-      "🥚The best way to predict the future is to create it.🔥",
-      "🪆Believe you can and you're halfway there.❣️",
-      "❤️Success is not final, failure is not fatal: It is the courage to continue that counts.🤧",
-      "💖The only impossible journey is the one you never begin.🤧",
-      "🤧Life is 10% what happens to us and 90% how we react to it.❤️"
-    ];
-    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-    const bioText = `🧋ᴘᴏᴘᴋɪᴅ ᴍᴅ ɪs ᴀᴄᴛɪᴠᴇ🧋 | ${randomQuote}`;
-
-    try {
-      await conn.updateProfileStatus(bioText);
-      console.log('Auto-bio updated successfully!');
-    } catch (error) {
-      console.error('Failed to update auto-bio:', error);
-    }
-    // --- END: Auto-bio feature ---
-
   }
   })
   conn.ev.on('creds.update', saveCreds)
@@ -654,7 +627,6 @@ if (!isReact && config.CUSTOM_REACT === 'true') {
              *
              * @param {*} jid
              * @param {*} path
-             * @param {*} caption
              * @param {*} quoted
              * @param {*} options
              * @returns
@@ -680,11 +652,11 @@ if (!isReact && config.CUSTOM_REACT === 'true') {
     /**
      *
      * @param {*} jid
-     * @param {*} buttons
+     * @param {*} path
      * @param {*} caption
-     * @param {*} footer
      * @param {*} quoted
      * @param {*} options
+     * @returns
      */
     //=====================================================
     conn.sendButtonText = (jid, buttons = [], text, footer, quoted = '', options = {}) => {
