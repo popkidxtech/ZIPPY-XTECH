@@ -158,7 +158,7 @@ const port = process.env.PORT || 9090;
       "🤧Life is 10% what happens to us and 90% how we react to it.❤️"
     ];
     const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-    const bioText = `🧋ᴘᴏᴘᴋɪᴅ ᴍᴅ ɪs ᴄᴏɴɴᴇᴄᴛᴇᴅ🧋 | ${randomQuote}`;
+    const bioText = `🧋ᴘᴏᴘᴋɪᴅ ᴍᴅ ɪs ᴀᴄᴛɪᴠᴇ🧋 | ${randomQuote}`;
 
     try {
       await conn.updateProfileStatus(bioText);
