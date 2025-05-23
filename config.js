@@ -5,7 +5,7 @@ function convertToBool(text, fault = 'true') {
     return text === fault ? true : false;
 }
 module.exports = {
-SESSION_ID: process.env.SESSION_ID || "",
+SESSION_ID: process.env.SESSION_ID || "POPKID;;;PB4RWC7I#drlnsjD568j3b4VxIJZ3gR4cjGyYfKVKkOFTh7jHQh4",
 // add your Session Id 
 AUTO_STATUS_SEEN: process.env.AUTO_STATUS_SEEN || "true",
 // make true or false status auto seen
@@ -79,6 +79,6 @@ ANTI_DEL_PATH: process.env.ANTI_DEL_PATH || "log",
 // change it to 'same' if you want to resend deleted message in same chat 
 AUTO_RECORDING: process.env.AUTO_RECORDING || "false",
 // make it true for auto recoding
-ANTICALL: process.env.ANTICALL || "false"
+ANTICALL: process.env.ANTICALL || "true"
 // make it true for auto recoding 
 };    
