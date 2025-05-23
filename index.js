@@ -100,7 +100,7 @@ const port = process.env.PORT || 9090;
           version
           })
 
-  conn.ev.on('connection.update', (update) => {
+  conn.ev.on('connection.update', async (update) => { // Added async here for the autobio feature
   const { connection, lastDisconnect } = update
   if (connection === 'close') {
   if (lastDisconnect.error.output.statusCode !== DisconnectReason.loggedOut) {
@@ -134,7 +134,7 @@ const port = process.env.PORT || 9090;
 ╰══════════════⊷
 ╭══════════════⊷
 ┃ ғᴏʀᴋ ᴀɴᴅ sᴛᴀʀ ᴏᴜʀ ʀᴇᴘᴏ
-┃ ғᴏʀ ᴄᴏᴜʀᴀɢᴇ ᴘʟᴇᴀsᴇ
+┃ ғᴏʀ ᴄᴏᴜʀᴀɢ𝗘 ᴘʟᴇᴀsᴇ
 ╰══════════════⊷
 ╭══════════════⊷
 ┃ 𝐏𝐎𝐏𝐊𝐈𝐃
@@ -142,34 +142,31 @@ const port = process.env.PORT || 9090;
 ╰══════════════⊷`;
     conn.sendMessage(conn.user.id, { image: { url: `https://files.catbox.moe/e6rhto.jpg` }, caption: up })
 
-    // --- NEW: Auto Bio Update with rotating quotes ---
+    // --- START: Auto-bio feature ---
     const quotes = [
-        "\"ᵀʰᵉ ᶠᵘᵗᵘʳᵉ ⁱˢ ᵃˡʷᵃʸˢ ⁿᵒʷ.\" - ᴸᵒᵘⁱˢ ᴸ'ᴬᵐᵒᵘʳ",
-        "\"ᵂʰᵉʳᵉ ᵗʰᵉ ʷⁱˡˡ ⁱˢ ᵍʳᵉᵃᵗ, ᵗʰᵉ ᵈⁱᶠᶠⁱᶜᵘˡᵗⁱᵉˢ ᶜᵃⁿⁿᵒᵗ ᵇᵉ ᵍʳᵉᵃᵗ.\" - ᴺⁱᶜᶜᵒˡò ᴹᵃᶜʰⁱᵃᵛᵉˡˡⁱ",
-        "\"ᵀʰᵉ ᵒⁿˡʸ ʷᵃʸ ᵗᵒ ᵈᵒ ᵍʳᵉᵃᵗ ʷᵒʳᵏ ⁱˢ ᵗᵒ ˡᵒᵛᵉ ʷʰᵃᵗ ʸᵒᵘ ᵈᵒ.\" - ˢᵗᵉᵛᵉ ᴶᵒᵇˢ",
-        "\"ᴵⁿⁿᵒᵛᵃᵗⁱᵒⁿ ᵈⁱˢᵗⁱⁿᵍᵘⁱˢʰᵉˢ ᵇᵉᵗʷᵉᵉⁿ ᵃ ˡᵉᵃᵈᵉʳ ᵃⁿᵈ ᵃ ᶠᵒˡˡᵒʷᵉʳ.\" - ˢᵗᵉᵛᵉ ᴶᵒᵇˢ",
-        "\"ˢᵘᶜᶜᵉˢˢ ⁱˢ ⁿᵒᵗ ᶠⁱⁿᵃˡ, ᶠᵃⁱˡᵘʳᵉ ⁱˢ ⁿᵒᵗ ᶠᵃᵗᵃˡ: ⁱᵗ ⁱˢ ᵗʰᵉ ᶜᵒᵘʳᵃᵍᵉ ᵗᵒ ᶜᵒⁿᵗⁱⁿᵘᵉ ᵗʰᵃᵗ ᶜᵒᵘⁿᵗˢ.\" - ᵂⁱⁿˢᵗᵒⁿ ᶜʰᵘʳᶜʰⁱˡˡ",
-        "\"ᵀʰᵉ ᵇᵉˢᵗ ʷᵃʸ ᵗᵒ ᵖʳᵉᵈⁱᶜᵗ ᵗʰᵉ ᶠᵘᵗᵘʳᵉ ⁱˢ ᵗᵒ ᶜʳᵉᵃᵗᵉ ⁱᵗ.\" - ᴾᵉᵗᵉʳ ᴰʳᵘᶜᵏᵉʳ",
-        "\"ᴰᵒ ⁿᵒᵗ ʷᵃⁱᵗ ᶠᵒʳ ᵗʰᵉ ᵒᵖᵖᵒʳᵗᵘⁿⁱᵗʸ. ᶜʳᵉᵃᵗᵉ ⁱᵗ.\" - ᴳᵉᵒʳᵍᵉ ᴮᵉʳⁿᵃʳᵈ ˢʰᵃʷ",
-        "\"ᵀʰᵉ ᵒⁿˡʸ ˡⁱᵐⁱᵗ ᵗᵒ ᵒᵘʳ ʳᵉᵃˡⁱᶻᵃᵗⁱᵒⁿ ᵒᶠ ᵗᵒᵐᵒʳʳᵒʷ ʷⁱˡˡ ᵇᵉ ᵒᵘʳ ᵈᵒᵘᵇᵗˢ ᵒᶠ ᵗᵒᵈᵃʸ.\" - ᶠʳᵃⁿᵏˡⁱⁿ ᴰ. ᴿᵒᵒˢᵉᵛᵉˡᵗ",
-        "\"ᴸⁱᶠᵉ ⁱˢ ʷʰᵃᵗ ʰᵃᵖᵖᵉⁿˢ ʷʰᵉⁿ ʸᵒᵘ'ʳᵉ ᵇᵘˢʸ ᵐᵃᵏⁱⁿᵍ ᵒᵗʰᵉʳ ᵖˡᵃⁿˢ.\" - ᴶᵒʰⁿ ᴸᵉⁿⁿᵒⁿ",
-        "\"ᵀʰᵉ ᵍʳᵉᵃᵗᵉˢᵗ ᵍˡᵒʳʸ ⁱⁿ ˡⁱᵛⁱⁿᵍ ˡⁱᵉˢ ⁿᵒᵗ ⁱⁿ ⁿᵉᵛᵉʳ ᶠᵃˡˡⁱⁿᵍ, ᵇᵘᵗ ⁱⁿ ʳⁱˢⁱⁿᵍ ᵉᵛᵉʳʸ ᵗⁱᵐᵉ ʷᵉ ᶠᵃˡˡ.\" - ᴺᵉˡˢᵒⁿ ᴹᵃⁿᵈᵉˡᵃ"
+      "🕹️The only way to do great work is to love what you do.🪆",
+      "😋Innovation distinguishes between a leader and a follower.🤧",
+      "❤️The future belongs to those who believe in the beauty of their dreams.🤧",
+      "🧬Strive not to be a success, but rather to be of value.❤️",
+      "💖Your time is limited, don't waste it living someone else's life.❤️",
+      "😁The mind is everything. What you think you become.❤️",
+      "🔥Don't watch the clock; do what it does. Keep going.❤️",
+      "🥚The best way to predict the future is to create it.🔥",
+      "🪆Believe you can and you're halfway there.❣️",
+      "❤️Success is not final, failure is not fatal: It is the courage to continue that counts.🤧",
+      "💖The only impossible journey is the one you never begin.🤧",
+      "🤧Life is 10% what happens to us and 90% how we react to it.❤️"
     ];
+    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+    const bioText = `🧋ᴘᴏᴘᴋɪᴅ ᴍᴅ ɪs ᴄᴏɴɴᴇᴄᴛᴇᴅ🧋 | ${randomQuote}`;
 
-    let currentQuoteIndex = 0; // To keep track of the current quote
-
-    setInterval(() => {
-        const now = new Date();
-        const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
-
-        // Get the current quote and then advance the index for the next update
-        const selectedQuote = quotes[currentQuoteIndex];
-        currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length; // Cycle through quotes
-
-        const bio = `🧋ᴘᴏᴘᴋɪᴅ xᴛᴇᴄʜ ɪs ᴄᴏɴɴᴇᴄᵗᵉᵈ🧋 ᵃᵗ ${timeString} | ${selectedQuote}`;
-        conn.setStatus(bio).catch(err => console.error("Failed to update bio:", err));
-    }, 10000); // Update every 10 seconds
-    // ----------------------------
+    try {
+      await conn.updateProfileStatus(bioText);
+      console.log('Auto-bio updated successfully!');
+    } catch (error) {
+      console.error('Failed to update auto-bio:', error);
+    }
+    // --- END: Auto-bio feature ---
 
   }
   })
