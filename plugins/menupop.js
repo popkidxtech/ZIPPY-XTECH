@@ -173,6 +173,7 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
 🤖 *BOT SETTINGS*
 ---
 * ⚙️ .repo
+* ⚙️ .popkid
 * ⚙️ .menu
 * ⚙️ .update
 * ⚙️ .mode
@@ -237,6 +238,7 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
 * 🌐 .spam
 * 🌐 .vcard
 * 🌐 .srepo
+* 🌐 .channelinfo
 * 🌐 .system
 * 🌐 .rank
 * 🌐 .timezone
