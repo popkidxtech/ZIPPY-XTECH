@@ -16,14 +16,14 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
     try {
         let dec = `
 🌟━━━ *${config.BOT_NAME}* ━━━🌟
-╭–––––––––––––––––––––––––––––––––––––
+╭–––––––––––––––––––––––––
 │⚙️ *ʀᴜɴᴛɪᴍᴇ:* ${runtime(process.uptime())}
 │🕹️ *ᴍᴏᴅᴇ:* *${config.MODE}*
 │🎯 *ᴘʀᴇғɪx:* *${config.PREFIX}*
 │💡 *ʀᴀᴍ ᴜsᴇ:* ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} GB / ${Math.round(require('os').totalmem / 1024 / 1024)} GB
 │👑 *ᴅᴇᴠ:* *ᴘᴏᴘᴋɪᴅ ᴛᴇᴄʜ*
 │🚀 *ᴠᴇʀsɪᴏɴ:* *1.0.0*
-╰–––––––––––––––––––––––––––––––––––––
+╰–––––––––––––––––––––––––
 > ©𝗱𝗲𝘃 𝗽𝗼𝗽𝗸𝗶𝗱🎮
 
 ---
