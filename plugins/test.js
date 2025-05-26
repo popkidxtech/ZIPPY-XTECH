@@ -1,35 +1,41 @@
-const fs = require('fs');
-const path = require('path');
 const { cmd } = require('../command');
 
 cmd({
     pattern: "test",
     alias: [],
     use: '.test',
-    desc: "Send a random song audio.",
+    desc: "Send a random voice note from URL.",
     category: "fun",
-    react: "🎶",
+    react: "🎙️",
     filename: __filename
 },
 async (conn, mek, m, { from, quoted, sender, reply }) => {
     try {
-        // Folder where audio files are stored
-        const songDir = path.join(__dirname, '../media/songs');
+        const songUrls = [
+            "https://example.com/audio/song1.mp3",
+            "https://example.com/audio/song2.mp3",
+            "https://example.com/audio/song3.mp3"
+            // Add more direct URLs here
+        ];
 
-        // Get all mp3 files in the folder
-        const files = fs.readdirSync(songDir).filter(file => file.endsWith('.mp3'));
+        if (!songUrls.length) return reply("No song URLs configured.");
 
-        if (!files.length) return reply("No songs found in media/songs folder.");
+        const randomUrl = songUrls[Math.floor(Math.random() * songUrls.length)];
 
-        // Pick a random song
-        const randomFile = files[Math.floor(Math.random() * files.length)];
-        const filePath = path.join(songDir, randomFile);
-
-        // Send the audio
         await conn.sendMessage(from, {
-            audio: fs.readFileSync(filePath),
+            audio: { url: randomUrl },
             mimetype: 'audio/mp4',
-            ptt: false  // set to true if you want it to be a voice note
+            ptt: true, // Voice note style
+            contextInfo: {
+                mentionedJid: [sender],
+                forwardingScore: 999,
+                isForwarded: true,
+                forwardedNewsletterMessageInfo: {
+                    newsletterJid: '120363290715861418@newsletter',
+                    newsletterName: "PopkidXtech",
+                    serverMessageId: 143
+                }
+            }
         }, { quoted: mek });
 
     } catch (e) {
