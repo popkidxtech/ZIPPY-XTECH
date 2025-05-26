@@ -12,9 +12,9 @@ cmd({
 async (conn, mek, m, { from, quoted, sender, reply }) => {
     try {
         const songUrls = [
-            "https://example.com/audio/song1.mp3",
-            "https://example.com/audio/song2.mp3",
-            "https://example.com/audio/song3.mp3"
+            "https://files.catbox.moe/igdgw1.m4a",
+            "https://files.catbox.moe/65csuc.m4a",
+            "https://files.catbox.moe/lzgyrl.m4a"
             // Add more direct URLs here
         ];
 
