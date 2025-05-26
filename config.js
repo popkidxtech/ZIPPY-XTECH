@@ -79,6 +79,8 @@ ANTI_DEL_PATH: process.env.ANTI_DEL_PATH || "log",
 // change it to 'same' if you want to resend deleted message in same chat 
 AUTO_RECORDING: process.env.AUTO_RECORDING || "false",
 // make it true for auto recoding
-ANTICALL: process.env.ANTICALL || "false"
+ANTICALL: process.env.ANTICALL || "false",
 // make it true for auto recoding 
+OPENAI_API_KEY: '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'
+//other
 };    
