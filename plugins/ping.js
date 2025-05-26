@@ -1,71 +1,50 @@
-const axios = require('axios');
+const config = require('../config'); const { cmd, commands } = require('../command');
 
-// Global chatbot toggle (true = on, false = off)
-let chatbotEnabled = true;
+cmd({ pattern: "ping", alias: ["speed","pong"],use: '.ping', desc: "Check bot's response time.", category: "main", react: "⚡", filename: __filename }, async (conn, mek, m, { from, quoted, sender, reply }) => { try { const start = new Date().getTime();
 
-cmd({
-    pattern: "chatbot",
-    alias: ["cbot", "ask"],
-    use: ".chatbot <message | toggle>",
-    desc: "Chat with OpenAI GPT or toggle chatbot",
-    category: "main",
-    react: "🤖",
-    filename: __filename
-},
-async (conn, mek, m, { from, quoted, sender, q, isOwner, reply }) => {
-    try {
-        const input = q.trim();
+const reactionEmojis = ['🔥', '⚡', '🚀', '💨', '🎯', '🎉', '🌟', '💥', '🕐', '🔹'];
+    const textEmojis = ['💎', '🏆', '⚡️', '🚀', '🎶', '🌠', '🌀', '🔱', '🛡️', '✨'];
 
-        if (!input) return reply("❓ *Usage:* .chatbot <message | toggle>");
+    const reactionEmoji = reactionEmojis[Math.floor(Math.random() * reactionEmojis.length)];
+    let textEmoji = textEmojis[Math.floor(Math.random() * textEmojis.length)];
 
-        // Toggle mode (only owner can toggle)
-        if (input.toLowerCase() === "toggle") {
-            if (!isOwner) return reply("❌ Only *owner* can toggle the chatbot.");
-            chatbotEnabled = !chatbotEnabled;
-            return reply(`✅ Chatbot is now *${chatbotEnabled ? "ENABLED" : "DISABLED"}*`);
-        }
-
-        // Check if chatbot is disabled
-        if (!chatbotEnabled) return reply("⚠️ Chatbot is currently *disabled*.");
-
-        await conn.sendPresenceUpdate('composing', from); // Typing...
-
-        // OpenAI API call
-        const res = await axios.post("https://api.openai.com/v1/chat/completions", {
-            model: "gpt-3.5-turbo",
-            messages: [
-                { role: "system", content: "You are a helpful WhatsApp assistant called POPKID-XTECH." },
-                { role: "user", content: input }
-            ],
-            temperature: 0.7
-        }, {
-            headers: {
-                Authorization: `Bearer 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`,
-                'Content-Type': 'application/json'
-            }
-        });
-
-        const replyText = res.data.choices[0]?.message?.content?.trim();
-        if (!replyText) return reply("⚠️ No response from GPT.");
-
-        // React with emoji
-        const emojis = ['✨', '🧠', '🤖', '💡'];
-        const emoji = emojis[Math.floor(Math.random() * emojis.length)];
-
-        await conn.sendMessage(from, {
-            react: { text: emoji, key: mek.key }
-        });
-
-        // Send the GPT reply
-        await conn.sendMessage(from, {
-            text: replyText,
-            contextInfo: {
-                mentionedJid: [sender]
-            }
-        }, { quoted: mek });
-
-    } catch (err) {
-        console.error("Chatbot error:", err);
-        reply(`❌ Error: ${err.message}`);
+    // Ensure reaction and text emojis are different
+    while (textEmoji === reactionEmoji) {
+        textEmoji = textEmojis[Math.floor(Math.random() * textEmojis.length)];
     }
+
+    // Send reaction using conn.sendMessage()
+    await conn.sendMessage(from, {
+        react: { text: textEmoji, key: mek.key }
+    });
+
+    const end = new Date().getTime();
+    const responseTime = (end - start) / 1000;
+
+    const text = `> *POPKID-XTECH SPEED: ${responseTime.toFixed(2)}ms ${reactionEmoji}*`;
+
+    await conn.sendMessage(from, {
+        text,
+        contextInfo: {
+            mentionedJid: [sender],
+            forwardingScore: 999,
+            isForwarded: true,
+            forwardedNewsletterMessageInfo: {
+                newsletterJid: '120363290715861418@newsletter',
+                newsletterName: "PopkidXtech",
+                serverMessageId: 143
+            }
+        }
+    }, { quoted: mek });
+
+} catch (e) {
+    console.error("Error in ping command:", e);
+    reply(`An error occurred: ${e.message}`);
+}
+
 });
+
+// ping2
+
+cmd({ pattern: "ping2", desc: "Check bot's response time.", category: "main", react: "🍂", filename: __filename }, async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => { try { const startTime = Date.now() const message = await conn.sendMessage(from, { text: 'PINGING...' }) const endTime = Date.now() const ping = endTime - startTime await conn.sendMessage(from, { text: *🔥 POPKID-MD SPEED : ${ping}ms* }, { quoted: message }) } catch (e) { console.log(e) reply(${e}) } })
+
