@@ -65,7 +65,7 @@ async (conn, mek, m, {
 
     // Send image with caption and newsletter forward style
     await conn.sendMessage(from, {
-      image: { url: `https://files.catbox.moe/lkmvah.jpg` },
+      image: { url: `https://files.catbox.moe/xcc71k.png` },
       caption: status,
       contextInfo: newsletterContext
     }, { quoted: mek });
