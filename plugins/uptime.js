@@ -74,14 +74,9 @@ async (conn, mek, m, {
     await conn.sendMessage(from, { delete: tempMsg.key });
 
     // Send the voice note
-    await conn.sendMessage(from, {
-      audio: { url: 'https://files.catbox.moe/31j87p.ogg' },
-      mimetype: 'audio/ogg; codecs=opus',
-      ptt: true
-    });
-
-  } catch (e) {
-    console.error("Error in alive command:", e);
-    reply(`🚨 *An error occurred:* ${e.message}`);
-  }
-});
+    // Send song player voice (audio clip)
+await conn.sendMessage(from, {
+  audio: { url: 'https://files.catbox.moe/jcnrxu.mp3' }, // Replace with your own hosted MP3 file if desired
+  mimetype: 'audio/mp4',
+  ptt: true, // This makes it send as a push-to-talk voice note
+}, { quoted: mek });
