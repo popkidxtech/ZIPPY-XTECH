@@ -1,77 +1,81 @@
-const { cmd, commands } = require('../command');
+const { cmd } = require('../command');
 const os = require("os");
-const { runtime } = require('../lib/functions');
+const process = require("process");
 
-function formatUptime(seconds) {
-  const days = Math.floor(seconds / (3600 * 24));
-  const hrs = Math.floor((seconds % (3600 * 24)) / 3600);
-  const mins = Math.floor((seconds % 3600) / 60);
-  const secs = Math.floor(seconds % 60);
-  return `${days}d ${hrs}h ${mins}m ${secs}s`;
+// Fancy uptime formatter
+function fancyUptime(seconds) {
+    seconds = Number(seconds);
+    const d = Math.floor(seconds / (3600 * 24));
+    const h = Math.floor((seconds % (3600 * 24)) / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = Math.floor(seconds % 60);
+
+    const dayStr = d > 0 ? `${d}d ` : "";
+    const hourStr = h > 0 ? `${h}h ` : "";
+    const minStr = m > 0 ? `${m}m ` : "";
+    const secStr = s > 0 ? `${s}s` : "";
+
+    return `${dayStr}${hourStr}${minStr}${secStr}`.trim() || "0s";
 }
 
 cmd({
-  pattern: "alive",
-  alias: ["av", "runtime", "uptime"],
-  desc: "Check uptime and system status",
-  category: "main",
-  react: "📟",
-  filename: __filename
+    pattern: "alive",
+    alias: ["av", "runtime", "uptime"],
+    desc: "Check uptime and system status",
+    category: "main",
+    react: "📟",
+    filename: __filename
 },
-async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
-  try {
-    const platform = "Heroku Platform";
-    const release = os.release();
-    const cpuModel = os.cpus()[0].model;
-    const totalMem = (os.totalmem() / 1024 / 1024).toFixed(2);
-    const usedMem = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2);
-
-    let totalGroups = 0;
+async (conn, mek, m, { from, reply, botNumber, pushname }) => {
     try {
-      totalGroups = conn.chats.array ? conn.chats.array().filter(c => c.jid.endsWith('@g.us')).length : 0;
-    } catch {}
+        const platform = "Heroku Platform";
+        const release = os.release();
+        const cpuModel = os.cpus()[0].model;
+        const totalMem = (os.totalmem() / 1024 / 1024).toFixed(2);
+        const usedMem = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2);
+        const cpuCores = os.cpus().length;
+        const arch = os.arch();
+        const nodeVersion = process.version;
+        const botName = pushname || "POPKID BOT";
+        const owner = "popkid";
 
-    const up = formatUptime(process.uptime());
+        // Stylish header - no box lines
+        const header = `✨🌌  𝓟𝓞𝓟𝓚𝓘𝓓 𝓧𝓣𝓔𝓒𝓗 𝓐𝓛𝓘𝓥𝓔 🚀✨`;
 
-    const statusMsg = `
-🚀 *POPKID XTECH BOT* 🚀
+        const status = `
+${header}
 
-👤 *Owner:* popkid
-📱 *Bot Number:* +${botNumber.replace(/\D/g, '')}
-👥 *Groups:* ${totalGroups}
+🤖 𝗕𝗼𝘁 𝗡𝗮𝗺𝗲   :: ${botName}
+🆔 𝗕𝗼𝘁 𝗜𝗗     :: @${botNumber.replace(/@.+/, "")}
+👑 𝗢𝘄𝗻𝗲𝗿      :: ${owner}
 
-⏳ *Uptime:* ${up}
-💻 *Platform:* ${platform} (${release})
-🧠 *CPU:* ${cpuModel}
-💾 *RAM Usage:* ${usedMem}MB / ${totalMem}MB
+⏳ 𝗨𝗽𝘁𝗶𝗺𝗲      :: ${fancyUptime(process.uptime())}
+💾 𝗥𝗔𝗠 Usage  :: ${usedMem} MB / ${totalMem} MB
+🖥️ 𝗣𝗹𝗮𝘁𝗳𝗼𝗿𝗺  :: ${platform} (v${release}) [${arch}]
+⚙️ 𝗖𝗣𝗨        :: ${cpuModel} (${cpuCores} cores)
+🟢 𝗡𝗼𝗱𝗲 𝗩𝗲𝗿𝘀𝗶𝗼𝗻  :: ${nodeVersion}
+🧪 𝗩𝗲𝗿𝘀𝗶𝗼𝗻    :: 1.0.0 BETA
 
-⚙️ *Version:* 1.0.0 BETA
-🟢 *Status:* Online & Active
+───────────────
+▶️ Stay tuned for more updates!
+        `;
 
-_Thank you for using POPKID XTECH!_
-`;
+        await conn.sendMessage(from, {
+            image: { url: "https://files.catbox.moe/lkmvah.jpg" },
+            caption: status,
+            contextInfo: {
+                mentionedJid: [m.sender],
+            }
+        }, { quoted: mek });
 
-    const buttons = [
-      { buttonId: "ping", buttonText: { displayText: "⚡ Ping" }, type: 1 },
-      { buttonId: "menu", buttonText: { displayText: "❓ Help" }, type: 1 }
-    ];
+        await conn.sendMessage(from, {
+            audio: { url: "https://files.catbox.moe/5df4ei.m4v" },
+            mimetype: "audio/mp4",
+            ptt: true,
+        }, { quoted: mek });
 
-    await conn.sendMessage(from, {
-      image: { url: 'https://files.catbox.moe/lkmvah.jpg' },
-      caption: statusMsg,
-      footer: "👾 Powered by POPKID-XTECH",
-      buttons,
-      headerType: 4
-    }, { quoted: mek });
-
-    await conn.sendMessage(from, {
-      audio: { url: 'https://files.catbox.moe/5df4ei.m4v' },
-      mimetype: 'audio/mp4',
-      ptt: true
-    }, { quoted: mek });
-
-  } catch (e) {
-    console.error("Error in alive command:", e);
-    reply(`🚨 *An error occurred:* ${e.message}`);
-  }
+    } catch (e) {
+        console.error("Error in alive command:", e);
+        reply(`🚨 *An error occurred:* ${e.message}`);
+    }
 });
