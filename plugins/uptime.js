@@ -15,9 +15,9 @@ async (conn, mek, m, { from, reply }) => {
     try {
         const startTime = performance.now();
 
-        const platform = "Heroku Platform";
+        const platform = os.platform();
         const release = os.release();
-        const cpu = os.cpus()[0].model;
+        const cpu = os.cpus()[0].model.split(" @")[0];
         const totalMem = (os.totalmem() / 1024 / 1024 / 1024).toFixed(2);
         const usedMem = (process.memoryUsage().heapUsed / 1024 / 1024 / 1024).toFixed(2);
         const uptime = runtime(process.uptime());
@@ -37,16 +37,16 @@ async (conn, mek, m, { from, reply }) => {
 │
 └──────────────[ 💀 TERMINAL ACTIVE ]`;
 
+        // Send image with template buttons
         await conn.sendMessage(from, {
-            image: { url: 'https://i.imgur.com/KN9rDBU.jpeg' }, // Hacker-style image
+            image: { url: 'https://i.imgur.com/U9FqgLn.jpeg' }, // Smaller, fast-loading image
             caption: status,
-            buttons: [
-                { buttonId: 'menu', buttonText: { displayText: '📂 MENU' }, type: 1 },
-                { buttonId: 'info', buttonText: { displayText: 'ℹ️ SYSTEM INFO' }, type: 1 },
-                { buttonId: 'support', buttonText: { displayText: '🧰 SUPPORT' }, type: 1 }
-            ],
             footer: '👾 PopkidBot Terminal Interface',
-            headerType: 4,
+            templateButtons: [
+                { index: 1, quickReplyButton: { displayText: '📂 MENU', id: 'menu' } },
+                { index: 2, quickReplyButton: { displayText: 'ℹ️ SYSTEM INFO', id: 'info' } },
+                { index: 3, quickReplyButton: { displayText: '🧰 SUPPORT', id: 'support' } }
+            ],
             contextInfo: {
                 mentionedJid: [m.sender],
                 forwardingScore: 999,
@@ -54,8 +54,12 @@ async (conn, mek, m, { from, reply }) => {
             }
         }, { quoted: mek });
 
+        // Wait 1 second to avoid 429 error
+        await new Promise(res => setTimeout(res, 1000));
+
+        // Send voice note
         await conn.sendMessage(from, {
-            audio: { url: 'https://files.catbox.moe/5df4ei.m4v' },
+            audio: { url: 'https://github.com/whiskeysockets/bot-audios/raw/main/hacker_voice.mp3' },
             mimetype: 'audio/mp4',
             ptt: true
         }, { quoted: mek });
