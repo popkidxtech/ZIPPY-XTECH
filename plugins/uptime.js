@@ -12,10 +12,7 @@ cmd({
   filename: __filename
 },
 async (conn, mek, m, {
-  from, quoted, body, isCmd, command, args, q, isGroup,
-  sender, senderNumber, botNumber2, botNumber, pushname,
-  isMe, isOwner, groupMetadata, groupName, participants,
-  groupAdmins, isBotAdmins, isAdmins, reply
+  from, quoted, senderNumber, reply
 }) => {
   try {
     // Uptime
@@ -23,7 +20,7 @@ async (conn, mek, m, {
 
     // Speed test
     const start = performance.now();
-    const tempMsg = await conn.sendMessage(from, { text: '𝑾𝒂𝒊𝒕𝒊𝒏𝒈 𝒇𝒐𝒓 𝒔𝒚𝒔𝒕𝒆𝒎 𝒔𝒕𝒂𝒕𝒖𝒔...' }, { quoted: mek });
+    const tempMsg = await conn.sendMessage(from, { text: '🔄 Checking bot status...' }, { quoted: mek });
     const end = performance.now();
     const speed = (end - start).toFixed(2);
 
@@ -33,8 +30,8 @@ async (conn, mek, m, {
     const totalMem = (os.totalmem() / 1024 / 1024).toFixed(2);
     const usedMem = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2);
 
-    // Stylish Alive Message
-    const status = `🧊╭[ 𝗣𝗢𝗣𝗞𝗜𝗗 𝗫𝗧𝗘𝗖𝗛 ⚙️-➤
+    // Alive Message
+    const status = `🧊╭────[ *𝗣𝗢𝗣𝗞𝗜𝗗 𝗫𝗧𝗘𝗖𝗛 ⚙️* ]────➤
 
 👤 *Bot Name:* Popkid-XTech
 📟 *Status:* ✅ Online
@@ -50,34 +47,38 @@ async (conn, mek, m, {
 📁 *Framework:* Baileys-MD
 🔧 *NodeJS:* ${process.version}
 
-📌 Use *menu* to see all commands.
+📌 Type *menu* to explore commands.
 
 ╰──────────────◆`;
 
-    // Send Image + Caption
+    // Newsletter context
+    const newsletterContext = {
+      mentionedJid: [m.sender],
+      forwardingScore: 999,
+      isForwarded: true,
+      forwardedNewsletterMessageInfo: {
+        newsletterJid: '120363290715861418@newsletter',
+        newsletterName: 'its popkid👻❤️',
+        serverMessageId: 143
+      }
+    };
+
+    // Send image with caption and newsletter forward style
     await conn.sendMessage(from, {
       image: { url: `https://files.catbox.moe/lkmvah.jpg` },
       caption: status,
-      contextInfo: {
-        mentionedJid: [m.sender],
-        forwardingScore: 999,
-        isForwarded: true,
-        forwardedNewsletterMessageInfo: {
-          newsletterJid: '120363290715861418@newsletter',
-          newsletterName: '𝐏𝐎𝐏𝐊𝐈𝐃 𝐀𝐋𝐈𝐕𝐄🩷',
-          serverMessageId: 143
-        }
-      }
+      contextInfo: newsletterContext
     }, { quoted: mek });
 
-    // Send Voice Note (PTT)
+    // Send audio as voice note with newsletter forward style
     await conn.sendMessage(from, {
-      audio: { url: 'https://files.catbox.moe/mz5kbv.opus' }, // 👈 Hacker-style voice note
-      mimetype: 'audio/ogg; codecs=opus',
-      ptt: true
+      audio: { url: 'https://files.catbox.moe/5df4ei.m4a' }, // Replace with .ogg if desired
+      mimetype: 'audio/mp4',
+      ptt: true,
+      contextInfo: newsletterContext
     }, { quoted: mek });
 
-    // Delete temp message
+    // Delete temporary "checking status" message
     await conn.sendMessage(from, { delete: tempMsg.key });
 
   } catch (e) {
