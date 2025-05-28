@@ -76,7 +76,7 @@ async (conn, mek, m, {
     // Send the voice note
     // Send song player voice (audio clip)
 await conn.sendMessage(from, {
-  audio: { url: 'https://files.catbox.moe/jcnrxu.mp3' }, // Replace with your own hosted MP3 file if desired
+  audio: { url: 'https://files.catbox.moe/31j87p.m4a' }, // Replace with your own hosted MP3 file if desired
   mimetype: 'audio/mp4',
   ptt: true, // This makes it send as a push-to-talk voice note
 }, { quoted: mek });
