@@ -31,7 +31,7 @@ async (conn, mek, m, {
     const usedMem = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2);
 
     // Alive Message
-    const status = `🧊╭────[ *𝗣𝗢𝗣𝗞𝗜𝗗 𝗫𝗧𝗘𝗖𝗛 ⚙️* ]────➤
+    const status = `🧊╭[ *𝗣𝗢𝗣𝗞𝗜𝗗 𝗫𝗧𝗘𝗖𝗛 ⚙️* ]-➤
 
 👤 *Bot Name:* Popkid-XTech
 📟 *Status:* ✅ Online
