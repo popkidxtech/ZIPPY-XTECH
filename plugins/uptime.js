@@ -1,71 +1,82 @@
-const { cmd } = require('../command');
+const { cmd, commands } = require('../command');
 const os = require("os");
-const { performance } = require('perf_hooks');
 const { runtime } = require('../lib/functions');
+const { performance } = require("perf_hooks");
 
 cmd({
-    pattern: "alive",
-    alias: ["av", "runtime", "uptime"],
-    desc: "Check uptime and system status",
-    category: "main",
-    react: "👨‍💻",
-    filename: __filename
+pattern: "alive",
+alias: ["av", "runtime", "uptime"],
+desc: "Check uptime and system status",
+category: "main",
+react: "📟",
+filename: __filename
 },
-async (conn, mek, m, { from, reply }) => {
-    try {
-        const startTime = performance.now();
+async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
+try {
+    // Uptime
+    const uptime = runtime(process.uptime());
 
-        const platform = os.platform();
-        const release = os.release();
-        const cpu = os.cpus()[0].model.split(" @")[0];
-        const totalMem = (os.totalmem() / 1024 / 1024 / 1024).toFixed(2);
-        const usedMem = (process.memoryUsage().heapUsed / 1024 / 1024 / 1024).toFixed(2);
-        const uptime = runtime(process.uptime());
-        const ping = (performance.now() - startTime).toFixed(2);
+    // Speed test
+    const start = performance.now();
+    const tempMsg = await conn.sendMessage(from, { text: '𝑾𝒂𝒊𝒕𝒊𝒏𝒈 𝒇𝒐𝒓 𝒔𝒚𝒔𝒕𝒆𝒎 𝒔𝒕𝒂𝒕𝒖𝒔...' }, { quoted: mek });
+    const end = performance.now();
+    const speed = (end - start).toFixed(2);
 
-        const status = `┌─[ 🧊 ᴘᴏᴘᴋɪᴅ xᴛᴇᴄʜ - SYSTEM STATUS ]
-│ 
-├ 🟢 STATUS    : ONLINE & STABLE
-├ ⏱️ UPTIME    : ${uptime}
-├ ⚡ PING      : ${ping}ms
-├ 💾 RAM USAGE: ${usedMem}GB / ${totalMem}GB
-├ 💻 CPU       : ${cpu}
-├ 🖥️ PLATFORM  : ${platform}
-├ 🛠️ OS        : ${release}
-├ 👑 OWNER     : POPKID
-├ 🧪 VERSION   : 1.0.0 BETA
-│
-└──────────────[ 💀 TERMINAL ACTIVE ]`;
+    // System Info
+    const platform = "Heroku Platform";
+    const cpuModel = os.cpus()?.[0]?.model || "Unknown CPU";
+    const totalMem = (os.totalmem() / 1024 / 1024).toFixed(2);
+    const usedMem = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2);
 
-        // Send image with template buttons
-        await conn.sendMessage(from, {
-            image: { url: 'https://i.imgur.com/U9FqgLn.jpeg' }, // Smaller, fast-loading image
-            caption: status,
-            footer: '👾 PopkidBot Terminal Interface',
-            templateButtons: [
-                { index: 1, quickReplyButton: { displayText: '📂 MENU', id: 'menu' } },
-                { index: 2, quickReplyButton: { displayText: 'ℹ️ SYSTEM INFO', id: 'info' } },
-                { index: 3, quickReplyButton: { displayText: '🧰 SUPPORT', id: 'support' } }
-            ],
-            contextInfo: {
-                mentionedJid: [m.sender],
-                forwardingScore: 999,
-                isForwarded: true
+    // Stylish Alive Message
+    const status = `🧊╭────[ 𝗣𝗢𝗣𝗞𝗜𝗗 𝗫𝗧𝗘𝗖𝗛 ⚙️ ]────➤
+
+👤 *Bot Name:* Popkid-XTech
+📟 *Status:* ✅ Online
+🔋 *Uptime:* ${uptime}
+📶 *Speed:* ${speed} ms
+
+💻 *Platform:* ${platform}
+🧠 *CPU:* ${cpuModel}
+🗂️ *RAM:* ${usedMem}MB / ${totalMem}MB
+
+👑 *Owner:* @${senderNumber}
+📡 *Version:* 1.0.0 BETA
+📁 *Framework:* Baileys-MD
+🔧 *NodeJS:* ${process.version}
+
+📌 Use *menu* to see all commands.
+
+╰──────────────◆`;
+
+    // Send Image + Caption
+    await conn.sendMessage(from, {
+        image: { url: `https://files.catbox.moe/lkmvah.jpg` },
+        caption: status,
+        contextInfo: {
+            mentionedJid: [m.sender],
+            forwardingScore: 999,
+            isForwarded: true,
+            forwardedNewsletterMessageInfo: {
+                newsletterJid: '120363290715861418@newsletter',
+                newsletterName: '𝐏𝐎𝐏𝐊𝐈𝐃 𝐀𝐋𝐈𝐕𝐄🩷',
+                serverMessageId: 143
             }
-        }, { quoted: mek });
+        }
+    }, { quoted: mek });
 
-        // Wait 1 second to avoid 429 error
-        await new Promise(res => setTimeout(res, 1000));
+    // Send Audio
+    await conn.sendMessage(from, {
+        audio: { url: 'https://files.catbox.moe/5df4ei.m4a' },
+        mimetype: 'audio/ogg',
+        ptt: true
+    }, { quoted: mek });
 
-        // Send voice note
-        await conn.sendMessage(from, {
-            audio: { url: 'https://github.com/whiskeysockets/bot-audios/raw/main/hacker_voice.mp3' },
-            mimetype: 'audio/mp4',
-            ptt: true
-        }, { quoted: mek });
+    // Delete temp message
+    await conn.sendMessage(from, { delete: tempMsg.key });
 
-    } catch (e) {
-        console.error("Alive command error:", e);
-        reply(`❌ *Error:* ${e.message}`);
-    }
+} catch (e) {
+    console.error("Error in alive command:", e);
+    reply(`🚨 *An error occurred:* ${e.message}`);
+}
 });
