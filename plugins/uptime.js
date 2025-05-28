@@ -75,7 +75,7 @@ await conn.sendMessage(from, { delete: tempMsg.key });
 
 // Send the voice note  
 await conn.sendMessage(from, {  
-  audio: { url: 'https://files.catbox.moe/q2oqin.m4a' },  
+  audio: { url: 'https://files.catbox.moe/oxga11.m4a' },  
   mimetype: 'audio/mp4;  
   ptt: true  
 });
