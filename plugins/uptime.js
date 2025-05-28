@@ -75,7 +75,7 @@ async (conn, mek, m, {
 
     // Send the voice note
     await conn.sendMessage(from, {
-      audio: { url: 'https://files.catbox.moe/q2oqin.ogg' },
+      audio: { url: 'https://files.catbox.moe/31j87p.ogg' },
       mimetype: 'audio/ogg; codecs=opus',
       ptt: true
     });
