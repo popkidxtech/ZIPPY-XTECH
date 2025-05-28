@@ -67,7 +67,7 @@ try {
 
     // Send Audio
     await conn.sendMessage(from, {
-        audio: { url: 'https://files.catbox.moe/5df4ei.m4a' },
+        audio: { url: 'https://files.catbox.moe/5df4ei.m4a.ogg' },
         mimetype: 'audio/ogg',
         ptt: true
     }, { quoted: mek });
