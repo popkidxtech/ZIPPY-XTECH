@@ -4,79 +4,78 @@ const { runtime } = require('../lib/functions');
 const { performance } = require("perf_hooks");
 
 cmd({
-  pattern: "alive",
-  alias: ["av", "runtime", "uptime"],
-  desc: "Check uptime and system status",
-  category: "main",
-  react: "📟",
-  filename: __filename
+pattern: "alive",
+alias: ["av", "runtime", "uptime"],
+desc: "Check uptime and system status",
+category: "main",
+react: "📟",
+filename: __filename
 },
 async (conn, mek, m, {
-  from, quoted, senderNumber, reply
+from, quoted, senderNumber, reply
 }) => {
-  try {
-    // Uptime
-    const uptime = runtime(process.uptime());
+try {
+// Uptime
+const uptime = runtime(process.uptime());
 
-    // Speed test
-    const start = performance.now();
-    const tempMsg = await conn.sendMessage(from, { text: '🔄 Checking bot status...' }, { quoted: mek });
-    const end = performance.now();
-    const speed = (end - start).toFixed(2);
+// Speed test  
+const start = performance.now();  
+const tempMsg = await conn.sendMessage(from, { text: '🔄 Checking bot status...' }, { quoted: mek });  
+const end = performance.now();  
+const speed = (end - start).toFixed(2);  
 
-    // System Info
-    const platform = "Heroku Platform";
-    const cpuModel = os.cpus()?.[0]?.model || "Unknown CPU";
-    const totalMem = (os.totalmem() / 1024 / 1024).toFixed(2);
-    const usedMem = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2);
+// System Info  
+const platform = "Heroku Platform";  
+const cpuModel = os.cpus()?.[0]?.model || "Unknown CPU";  
+const totalMem = (os.totalmem() / 1024 / 1024).toFixed(2);  
+const usedMem = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2);  
 
-    // Alive Message
-    const status = `🧊╭[ *𝗣𝗢𝗣𝗞𝗜𝗗 𝗫𝗧𝗘𝗖𝗛 ⚙️* ]-➤
+// Alive Message  
+const status = `🧊╭[ *𝗣𝗢𝗣𝗞𝗜𝗗 𝗫𝗧𝗘𝗖𝗛 ⚙️* ]─➤
 
-👤 *Bot Name:* Popkid-XTech
-📟 *Status:* ✅ Online
-🔋 *Uptime:* ${uptime}
-📶 *Speed:* ${speed} ms
+👤 Bot Name: Popkid-XTech
+📟 Status: ✅ Online
+🔋 Uptime: ${uptime}
+📶 Speed: ${speed} ms
 
-💻 *Platform:* ${platform}
-🧠 *CPU:* ${cpuModel}
-🗂️ *RAM:* ${usedMem}MB / ${totalMem}MB
+💻 Platform: ${platform}
+🧠 CPU: ${cpuModel}
+🗂️ RAM: ${usedMem}MB / ${totalMem}MB
 
-👑 *Owner:* @${senderNumber}
-📡 *Version:* 1.0.0 BETA
-📁 *Framework:* Baileys-MD
-🔧 *NodeJS:* ${process.version}
+👑 Owner: @${senderNumber}
+📡 Version: 1.0.0 BETA
+📁 Framework: Baileys-MD
+🔧 NodeJS: ${process.version}
 
-📌 Type *menu* to explore commands.
+📌 Type menu to explore commands.
 
 ╰──────────────◆`;
 
-    // Newsletter context
-    const newsletterContext = {
-      mentionedJid: [m.sender],
-      forwardingScore: 999,
-      isForwarded: true,
-      forwardedNewsletterMessageInfo: {
-        newsletterJid: '120363290715861418@newsletter',
-        newsletterName: '𝐏𝐎𝐏𝐊𝐈𝐃 𝐀𝐋𝐈𝐕𝐄🩷',
-        serverMessageId: 143
-      }
-    };
+// Newsletter context  
+const newsletterContext = {  
+  mentionedJid: [m.sender],  
+  forwardingScore: 999,  
+  isForwarded: true,  
+  forwardedNewsletterMessageInfo: {  
+    newsletterJid: '120363290715861418@newsletter',  
+    newsletterName: '𝐏𝐎𝐏𝐊𝐈𝐃 𝐀𝐋𝐈𝐕𝐄🩷',  
+    serverMessageId: 143  
+  }  
+};  
 
-    // Send image with caption and newsletter forward style
-    await conn.sendMessage(from, {
-      image: { url: `https://files.catbox.moe/xcc71k.png` },
-      caption: status,
-      contextInfo: newsletterContext
-    }, { quoted: mek });
+// Send image with caption and newsletter forward style  
+await conn.sendMessage(from, {  
+  image: { url: `https://files.catbox.moe/31j87p` },  
+  caption: status,  
+  contextInfo: newsletterContext  
+}, { quoted: mek });  
 
-    // Delete temporary "checking status" message
-    await conn.sendMessage(from, { delete: tempMsg.key });
+// Delete temporary "checking status" message  
+await conn.sendMessage(from, { delete: tempMsg.key });
 
-    // Send the voice note
-    // Send song player voice (audio clip)
-await conn.sendMessage(from, {
-  audio: { url: 'https://files.catbox.moe/31j87p.m4a' }, // Replace with your own hosted MP3 file if desired
-  mimetype: 'audio/mp4',
-  ptt: true, // This makes it send as a push-to-talk voice note
-}, { quoted: mek });
+} catch (e) {
+console.error("Error in alive command:", e);
+reply(🚨 *An error occurred:* ${e.message});
+}
+});
+
