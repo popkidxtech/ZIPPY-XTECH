@@ -4,15 +4,20 @@ const { runtime } = require('../lib/functions');
 const { performance } = require("perf_hooks");
 
 cmd({
-pattern: "alive",
-alias: ["av", "runtime", "uptime"],
-desc: "Check uptime and system status",
-category: "main",
-react: "📟",
-filename: __filename
+  pattern: "alive",
+  alias: ["av", "runtime", "uptime"],
+  desc: "Check uptime and system status",
+  category: "main",
+  react: "📟",
+  filename: __filename
 },
-async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
-try {
+async (conn, mek, m, {
+  from, quoted, body, isCmd, command, args, q, isGroup,
+  sender, senderNumber, botNumber2, botNumber, pushname,
+  isMe, isOwner, groupMetadata, groupName, participants,
+  groupAdmins, isBotAdmins, isAdmins, reply
+}) => {
+  try {
     // Uptime
     const uptime = runtime(process.uptime());
 
@@ -29,7 +34,7 @@ try {
     const usedMem = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2);
 
     // Stylish Alive Message
-    const status = `🧊╭────[ 𝗣𝗢𝗣𝗞𝗜𝗗 𝗫𝗧𝗘𝗖𝗛 ⚙️ ]────➤
+    const status = `🧊╭[ 𝗣𝗢𝗣𝗞𝗜𝗗 𝗫𝗧𝗘𝗖𝗛 ⚙️-➤
 
 👤 *Bot Name:* Popkid-XTech
 📟 *Status:* ✅ Online
@@ -51,32 +56,32 @@ try {
 
     // Send Image + Caption
     await conn.sendMessage(from, {
-        image: { url: `https://files.catbox.moe/lkmvah.jpg` },
-        caption: status,
-        contextInfo: {
-            mentionedJid: [m.sender],
-            forwardingScore: 999,
-            isForwarded: true,
-            forwardedNewsletterMessageInfo: {
-                newsletterJid: '120363290715861418@newsletter',
-                newsletterName: '𝐏𝐎𝐏𝐊𝐈𝐃 𝐀𝐋𝐈𝐕𝐄🩷',
-                serverMessageId: 143
-            }
+      image: { url: `https://files.catbox.moe/lkmvah.jpg` },
+      caption: status,
+      contextInfo: {
+        mentionedJid: [m.sender],
+        forwardingScore: 999,
+        isForwarded: true,
+        forwardedNewsletterMessageInfo: {
+          newsletterJid: '120363290715861418@newsletter',
+          newsletterName: '𝐏𝐎𝐏𝐊𝐈𝐃 𝐀𝐋𝐈𝐕𝐄🩷',
+          serverMessageId: 143
         }
+      }
     }, { quoted: mek });
 
-    // Send Audio
+    // Send Voice Note (PTT)
     await conn.sendMessage(from, {
-        audio: { url: 'https://files.catbox.moe/5df4ei.m4a.ogg' },
-        mimetype: 'audio/ogg',
-        ptt: true
+      audio: { url: 'https://files.catbox.moe/mz5kbv.opus' }, // 👈 Hacker-style voice note
+      mimetype: 'audio/ogg; codecs=opus',
+      ptt: true
     }, { quoted: mek });
 
     // Delete temp message
     await conn.sendMessage(from, { delete: tempMsg.key });
 
-} catch (e) {
+  } catch (e) {
     console.error("Error in alive command:", e);
     reply(`🚨 *An error occurred:* ${e.message}`);
-}
+  }
 });
