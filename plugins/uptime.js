@@ -1,5 +1,6 @@
-const { cmd, commands } = require('../command');
+const { cmd } = require('../command');
 const os = require("os");
+const { performance } = require('perf_hooks');
 const { runtime } = require('../lib/functions');
 
 cmd({
@@ -7,52 +8,60 @@ cmd({
     alias: ["av", "runtime", "uptime"],
     desc: "Check uptime and system status",
     category: "main",
-    react: "📟",
+    react: "👨‍💻",
     filename: __filename
 },
-async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
+async (conn, mek, m, { from, reply }) => {
     try {
-        // Get system info
-        const platform = "Heroku Platform"; // Fixed deployment platform
-        const release = os.release(); // OS version
-        const cpuModel = os.cpus()[0].model; // CPU info
-        const totalMem = (os.totalmem() / 1024 / 1024).toFixed(2); // Total RAM in MB
-        const usedMem = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2); // Used RAM in MB
+        const startTime = performance.now();
 
-        // Compact and attractive system status message
-        const status = `┌─〔 *🧊 ᴘᴏᴘᴋɪᴅ xᴛᴇᴄʜ 🚀* 〕─⬣
-│ ⏱ *Uptime:* ${runtime(process.uptime())}
-│ 📦 *RAM:* ${usedMem}MB / ${totalMem}MB
-│ 🖥 *Platform:* ${platform}
-│ 👑 *Owner:* popkid
-│ 🧪 *Version:* 1.0.0 BETA
-└───────────────⬣`;
+        const platform = "Heroku Platform";
+        const release = os.release();
+        const cpu = os.cpus()[0].model;
+        const totalMem = (os.totalmem() / 1024 / 1024 / 1024).toFixed(2);
+        const usedMem = (process.memoryUsage().heapUsed / 1024 / 1024 / 1024).toFixed(2);
+        const uptime = runtime(process.uptime());
+        const ping = (performance.now() - startTime).toFixed(2);
 
-        // Send image + caption + audio
-        await conn.sendMessage(from, { 
-            image: { url: `https://files.catbox.moe/lkmvah.jpg` },  
+        const status = `┌─[ 🧊 ᴘᴏᴘᴋɪᴅ xᴛᴇᴄʜ - SYSTEM STATUS ]
+│ 
+├ 🟢 STATUS    : ONLINE & STABLE
+├ ⏱️ UPTIME    : ${uptime}
+├ ⚡ PING      : ${ping}ms
+├ 💾 RAM USAGE: ${usedMem}GB / ${totalMem}GB
+├ 💻 CPU       : ${cpu}
+├ 🖥️ PLATFORM  : ${platform}
+├ 🛠️ OS        : ${release}
+├ 👑 OWNER     : POPKID
+├ 🧪 VERSION   : 1.0.0 BETA
+│
+└──────────────[ 💀 TERMINAL ACTIVE ]`;
+
+        await conn.sendMessage(from, {
+            image: { url: 'https://i.imgur.com/KN9rDBU.jpeg' }, // Hacker-style image
             caption: status,
+            buttons: [
+                { buttonId: 'menu', buttonText: { displayText: '📂 MENU' }, type: 1 },
+                { buttonId: 'info', buttonText: { displayText: 'ℹ️ SYSTEM INFO' }, type: 1 },
+                { buttonId: 'support', buttonText: { displayText: '🧰 SUPPORT' }, type: 1 }
+            ],
+            footer: '👾 PopkidBot Terminal Interface',
+            headerType: 4,
             contextInfo: {
                 mentionedJid: [m.sender],
                 forwardingScore: 999,
-                isForwarded: true,
-                forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363290715861418@newsletter',
-                    newsletterName: '𝐏𝐎𝐏𝐊𝐈𝐃 𝐀𝐋𝐈𝐕𝐄🩷',
-                    serverMessageId: 143
-                }
+                isForwarded: true
             }
         }, { quoted: mek });
 
-        // Send audio
-        await conn.sendMessage(from, { 
+        await conn.sendMessage(from, {
             audio: { url: 'https://files.catbox.moe/5df4ei.m4v' },
             mimetype: 'audio/mp4',
-            ptt: true 
+            ptt: true
         }, { quoted: mek });
 
     } catch (e) {
-        console.error("Error in alive command:", e);
-        reply(`🚨 *An error occurred:* ${e.message}`);
+        console.error("Alive command error:", e);
+        reply(`❌ *Error:* ${e.message}`);
     }
 });
