@@ -58,7 +58,7 @@ async (conn, mek, m, {
       isForwarded: true,
       forwardedNewsletterMessageInfo: {
         newsletterJid: '120363290715861418@newsletter',
-        newsletterName: 'its popkid👻❤️',
+        newsletterName: '𝐏𝐎𝐏𝐊𝐈𝐃 𝐀𝐋𝐈𝐕𝐄🩷',
         serverMessageId: 143
       }
     };
@@ -70,16 +70,15 @@ async (conn, mek, m, {
       contextInfo: newsletterContext
     }, { quoted: mek });
 
-    // Send audio as voice note with newsletter forward style
-    await conn.sendMessage(from, {
-      audio: { url: 'https://files.catbox.moe/5df4ei.m4a' }, // Replace with .ogg if desired
-      mimetype: 'audio/mp4',
-      ptt: true,
-      contextInfo: newsletterContext
-    }, { quoted: mek });
-
     // Delete temporary "checking status" message
     await conn.sendMessage(from, { delete: tempMsg.key });
+
+    // Send the voice note
+    await conn.sendMessage(from, {
+      audio: { url: 'https://files.catbox.moe/q2oqin.ogg' },
+      mimetype: 'audio/ogg; codecs=opus',
+      ptt: true
+    });
 
   } catch (e) {
     console.error("Error in alive command:", e);
