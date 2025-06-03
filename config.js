@@ -1,77 +1,87 @@
-// config.js
+const fs = require('fs');
+if (fs.existsSync('config.env')) require('dotenv').config({ path: './config.env' });
 
-// This file holds your bot's configuration settings.
-// Make sure to fill in all the required details.
-
+function convertToBool(text, fault = 'true') {
+    return text === fault ? true : false;
+}
 module.exports = {
-    // Command Prefix: The character(s) your bot will use to recognize commands.
-    // For example, if PREFIX is '.', a command would be '.help'.
-    PREFIX: '.',
-
-    // Bot Mode: Controls where your bot responds to messages.
-    // 'public': Responds in both private chats and groups. (Recommended for your goal)
-    // 'groups': Responds only in groups (for non-owner messages).
-    // 'inbox': Responds only in private chats (for non-owner messages).
-    // 'private': Responds only to the owner's messages (in any chat).
-    MODE: 'public', // Set this to 'public' to enable responses in all groups
-
-    // Auto Status Seen: Set to 'true' to automatically view all status updates.
-    AUTO_STATUS_SEEN: 'true',
-
-    // Auto Status React: Set to 'true' to automatically react to status updates.
-    AUTO_STATUS_REACT: 'true',
-
-    // Auto Status Reply: Set to 'true' to automatically reply to status updates.
-    AUTO_STATUS_REPLY: 'false', // Be careful with this, it can be spammy.
-
-    // Custom Status Message: The message to send when AUTO_STATUS_REPLY is 'true'.
-    AUTO_STATUS_MSG: 'Hey there! Your status is awesome!',
-
-    // Auto React to all messages: Set to 'true' to make the bot react to every message it sees.
-    AUTO_REACT: 'false', // This can make your bot very chatty!
-
-    // Custom React Emojis: If AUTO_REACT is 'true' or CUSTOM_REACT is 'true',
-    // use these emojis (comma-separated) for reactions.
-    CUSTOM_REACT_EMOJIS: '🥲,😂,👍🏻,🙂,😔', // Example: '❤️,🔥,💯'
-
-    // Custom React based on settings: Set to 'true' to use CUSTOM_REACT_EMOJIS for reactions.
-    CUSTOM_REACT: 'false', // If you want custom emojis but not on ALL messages, manage this in your command logic.
-
-    // Read Message: Set to 'true' to automatically mark messages as read.
-    READ_MESSAGE: 'true',
-
-    // Session ID: Your WhatsApp session data.
-    // This is crucial for the bot to connect.
-    SESSION_ID: 'POPKID;;;YOUR_MEGA_FILE_ID_HERE', // !! IMPORTANT: Replace with your actual Mega file ID !!
-
-    // Anti-Call Feature: Set to 'true' to automatically reject incoming calls.
-    ANTICALL: 'true', // Recommended to prevent your bot from being spammed by calls.
-
-    // Developer Number: A number for special dev commands.
-    // This should be your own WhatsApp number in international format (e.g., 2547XXXXXXXX).
-    DEV: '2547XXXXXXXX', // !! IMPORTANT: Replace with your actual developer number !!
-
-    // Owner Name: The name displayed as the bot's owner.
-    OwnerName: 'POPKID',
-
-    // Bot Name: The name of your bot.
-    BotName: 'POPKID-XTECH',
-
-    // Global E-mail: An email address (optional, for vcard).
-    email: 'popkiddevs@gmail.com',
-
-    // GitHub Username: Your GitHub username (optional, for vcard).
-    github: 'Popkiddevs',
-
-    // Location: Your location (optional, for vcard).
-    location: 'Kenya, Africa',
-
-    // Message for 'About' or 'Info' command.
-    WELCOME_MESSAGE: 'Hello there! Welcome to the group! I\'m Popkid Xtech, your helpful assistant. Use .help to see my commands.',
-
-    // Farewell message for 'Bye' command.
-    GOODBYE_MESSAGE: 'Goodbye! We\'ll miss you!',
-
-    // Database path (leave as is unless you have a specific need to change it).
-    DATABASE_PATH: './data/database.json',
-};
+SESSION_ID: process.env.SESSION_ID || "POPKID;;;TIZS1bRB#tdEuL2kc47iAhItPKKQ_XaqkKLXp8zcqfR9_BoFxsQ8",
+// add your Session Id 
+AUTO_STATUS_SEEN: process.env.AUTO_STATUS_SEEN || "true",
+// make true or false status auto seen
+AUTO_STATUS_REPLY: process.env.AUTO_STATUS_REPLY || "false",
+// make true if you want auto reply on status 
+AUTO_STATUS_REACT: process.env.AUTO_STATUS_REACT || "true",
+// make true if you want auto reply on status 
+AUTO_STATUS_MSG: process.env.AUTO_STATUS_MSG || "*SEEN YOUR STATUS BY POPKID-MD 🤍*",
+// set the auto reply massage on status reply  
+WELCOME: process.env.WELCOME || "true",
+// true if want welcome and goodbye msg in groups    
+ADMIN_EVENTS: process.env.ADMIN_EVENTS || "false",
+// make true to know who dismiss or promoted a member in group
+ANTI_LINK: process.env.ANTI_LINK || "true",
+// make anti link true,false for groups 
+MENTION_REPLY: process.env.MENTION_REPLY || "false",
+// make true if want auto voice reply if someone menetion you 
+MENU_IMAGE_URL: process.env.MENU_IMAGE_URL || "https://files||.catbox.moe/e6rhto.jpg",
+// add custom menu and mention reply image url
+PREFIX: process.env.PREFIX || ".",
+// add your prifix for bot   
+BOT_NAME: process.env.BOT_NAME || "POPKID-MD",
+// add bot namw here for menu
+STICKER_NAME: process.env.STICKER_NAME || "POPKID-MD",
+// type sticker pack name 
+CUSTOM_REACT: process.env.CUSTOM_REACT || "false",
+// make this true for custum emoji react    
+CUSTOM_REACT_EMOJIS: process.env.CUSTOM_REACT_EMOJIS || "💝,💖,💗,❤️‍🩹,❤️,🧡,💛,💚,💙,💜,🤎,🖤,🤍",
+// chose custom react emojis by yourself 
+DELETE_LINKS: process.env.DELETE_LINKS || "false",
+// automatic delete links witho remove member 
+OWNER_NUMBER: process.env.OWNER_NUMBER || "254732297194",
+// add your bot owner number
+OWNER_NAME: process.env.OWNER_NAME || "Popkid Xtech",
+// add bot owner name
+DESCRIPTION: process.env.DESCRIPTION || "*© powered by popkid*",
+// add bot owner name    
+ALIVE_IMG: process.env.ALIVE_IMG || "https://files.catbox.moe/149k8x.jpg",
+// add img for alive msg
+LIVE_MSG: process.env.LIVE_MSG || "> AM ACTIVE *POPKID-MD*⚡",
+// add alive msg here 
+READ_MESSAGE: process.env.READ_MESSAGE || "false",
+// Turn true or false for automatic read msgs
+AUTO_REACT: process.env.AUTO_REACT || "false",
+// make this true or false for auto react on all msgs
+ANTI_BAD: process.env.ANTI_BAD || "false",
+// false or true for anti bad words  
+MODE: process.env.MODE || "public",
+// make bot public-private-inbox-group 
+ANTI_LINK_KICK: process.env.ANTI_LINK_KICK || "false",
+// make anti link true,false for groups 
+AUTO_VOICE: process.env.AUTO_VOICE || "false",
+// make true for send automatic voices
+AUTO_STICKER: process.env.AUTO_STICKER || "false",
+// make true for automatic stickers 
+AUTO_REPLY: process.env.AUTO_REPLY || "false",
+// make true or false automatic text reply 
+ALWAYS_ONLINE: process.env.ALWAYS_ONLINE || "false",
+// maks true for always online 
+PUBLIC_MODE: process.env.PUBLIC_MODE || "true",
+// make false if want private mod
+AUTO_TYPING: process.env.AUTO_TYPING || "false",
+// true for automatic show typing   
+READ_CMD: process.env.READ_CMD || "false",
+// true if want mark commands as read 
+DEV: process.env.DEV || "254732297195",
+//replace with your whatsapp number        
+ANTI_VV: process.env.ANTI_VV || "true",
+// true for anti once view 
+ANTI_DEL_PATH: process.env.ANTI_DEL_PATH || "log", 
+// change it to 'same' if you want to resend deleted message in same chat 
+AUTO_RECORDING: process.env.AUTO_RECORDING || "false",
+// make it true for auto recoding
+ANTICALL: process.env.ANTICALL || "false",
+// make it true for auto recoding 
+OPENAI_API_KEY: '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'
+//other
+};    
+    
