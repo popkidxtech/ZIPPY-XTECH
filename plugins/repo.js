@@ -1,55 +1,56 @@
 const axios = require('axios');
 const { cmd } = require('../command');
 
-// Repo info
 cmd({
     pattern: "repo",
     alias: ["sc", "script", "info"],
-    desc: "Info about the bot repository",
+    desc: "Display bot repository information",
     category: "main",
-    react: "👨‍💻",
+    react: "💀",
     filename: __filename
 },
 async (conn, mek, m, { from, quoted, reply }) => {
     try {
-        // Fetch repository data from GitHub API
-        const repoResponse = await axios.get('https://api.github.com/repos/Popkiddevs/POPKID-XTECH');
-        const { stargazers_count, forks_count } = repoResponse.data;
-        const userCount = forks_count * 5; // Estimate user count based on forks
+        const repo = await axios.get('https://api.github.com/repos/Popkiddevs/POPKID-XTECH');
+        const { stargazers_count, forks_count } = repo.data;
+        const userCount = forks_count * 5;
 
-        // Construct the message
-        const message = `
-╭───〔 *POPKID MD REPOSITORY* 〕───◆
+        const hackerMessage = `
+┌──⧉『 💻 𝙍𝙀𝙋𝙊 𝙈𝙊𝘿𝙐𝙇𝙀 』⧉──┐
 │
-├ 👋 *Hello, Popkid User!*
+│  ☠️ 𝙃𝙚𝙡𝙡𝙤, 𝙃𝙖𝙘𝙠𝙚𝙧!
 │
-├ 💻 *Repository Info*
-│   ├ ⭐ Stars: ${stargazers_count}
-│   ├ 🍴 Forks: ${forks_count}
-│   └ 👥 Estimated Users: ${userCount}
+│  📂 *Repository:* POPKID-XTECH
+│  ────────────────
+│  ⭐ Stars       : ${stargazers_count}
+│  🍴 Forks       : ${forks_count}
+│  👥 Users       : ~${userCount}+ 
 │
-├ 🔗 *Repo Link*
-│   └ https://github.com/Popkiddevs/POPKID-XTECH
+│  🔗 Repo URL:
+│  github.com/Popkiddevs/POPKID-XTECH
 │
-├ ✨ *About*
-│   └ Popkid WhatsApp Bot – Simple. Smart. Feature-packed.
+│  🧠 About Bot:
+│  A smart, modular, and 
+│  lightweight WhatsApp MD Bot.
 │
-├ 🎊 Elevate your WhatsApp experience with cutting-edge bot tech!
+│  🧬 Status: ACTIVE
+│  🛠️ Dev: Popkid Devs
 │
-├ 💡 *Tip:* Fork the repo & star it to support development!
+│  💡 Tip:
+│  Star + Fork = ❤️ Support
 │
-╰───〔 *Thanks for using Popkid MD!* 〕───◆
+└──────────────────────────┘
         `;
 
-        // Send the repository info as a text message
-        await conn.sendMessage(from, { text: message }, { quoted: mek });
+        // Send hacker-styled repo info
+        await conn.sendMessage(from, { text: hackerMessage }, { quoted: mek });
 
-        // Send a related image with additional newsletter forwarding context
+        // Send hacker image with context
         await conn.sendMessage(
             from,
             {
                 image: { url: `https://files.catbox.moe/e6rhto.jpg` },
-                caption: message,
+                caption: hackerMessage,
                 contextInfo: {
                     mentionedJid: [m.sender],
                     forwardingScore: 999,
@@ -64,7 +65,7 @@ async (conn, mek, m, { from, quoted, reply }) => {
             { quoted: mek }
         );
 
-        // Send an audio response (PTT voice note)
+        // Send voice note (PTT) hacker-style
         await conn.sendMessage(from, {
             audio: { url: 'https://files.catbox.moe/hpwsi2.mp3' },
             mimetype: 'audio/mp4',
@@ -72,7 +73,7 @@ async (conn, mek, m, { from, quoted, reply }) => {
         }, { quoted: mek });
 
     } catch (error) {
-        console.error('Error fetching repository data:', error);
-        reply(`❌ *Error fetching repository data:* ${error.message}`);
+        console.error('❌ Repo Fetch Error:', error.message);
+        await reply(`🛑 *Failed to fetch repository info!*\n> ${error.message}`);
     }
 });
