@@ -1,89 +1,63 @@
-const { cmd, commands } = require('../command');
+const { cmd } = require('../command');
 const axios = require('axios');
 
-cmd({
-    pattern: "pair",
-    alias: ["getpair", "clonebot"],
-    react: "✅",
-    desc: "Get pairing code for POPKID-MD bot",
-    category: "download",
-    use: ".pair +25473229XXX",
-    filename: __filename
-}, async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
-    try {
-        // Extract phone number from command
-        const phoneNumber = q ? q.trim() : senderNumber;
-        
-        // Validate phone number format
-        if (!phoneNumber || !phoneNumber.match(/^\+?\d{10,15}$/)) {
-            return await reply("❌ Please provide a valid phone number with country code\nExample: .pair +25473229719XXX");
-        }
+// Stylish reply template
+function formatPairMessage(code, phoneNumber) {
+    return `
+╭───〔 *🤖 POPKID-MD PAIRING COMPLETE* 〕───⬣
+│
+├ 📞 *Phone:* ${phoneNumber}
+├ 🔑 *Pairing Code:* 
+│   ⤷ \`\`\`${code}\`\`\`
+│
+╰─────────────◆
+⚠️ *NOTE:* Scan this code in your WhatsApp MD Session Auth!
+`;
+}
 
-        // Make API request to get pairing code
-        const response = await axios.get(`https://popkidxtech-session.onrender.com/pair?phone=${encodeURIComponent(phoneNumber)}`);
-        
+// Reusable command logic
+async function handlePairCommand(conn, mek, m, context, reply) {
+    const { q, senderNumber } = context;
+
+    const phoneNumber = q ? q.trim() : senderNumber;
+
+    if (!phoneNumber || !phoneNumber.match(/^\+?\d{10,15}$/)) {
+        return await reply("❌ Please provide a valid phone number with country code\nExample: .pair +25473229XXX");
+    }
+
+    try {
+        const response = await axios.get(`https://popkidsessgenerator.onrender.com/pair?phone=${encodeURIComponent(phoneNumber)}`);
+
         if (!response.data || !response.data.code) {
             return await reply("❌ Failed to retrieve pairing code. Please try again later.");
         }
 
         const pairingCode = response.data.code;
-        const doneMessage = "> *POPKID-MD PAIRING COMPLETED🪆*";
 
-        // Send initial message with formatting
-        await reply(`${doneMessage}\n\n*Your pairing code is:* ${pairingCode}`);
+        // Send stylized response
+        await reply(formatPairMessage(pairingCode, phoneNumber));
 
-        // Add 2 second delay
+        // Delay then send code again plainly
         await new Promise(resolve => setTimeout(resolve, 2000));
-
-        // Send clean code message
         await reply(`${pairingCode}`);
 
     } catch (error) {
         console.error("Pair command error:", error);
         await reply("❌ An error occurred while getting pairing code. Please try again later.");
     }
-});
+}
 
-
-cmd({
-    pattern: "pair2",
-    alias: ["getpair2", "clonebot2"],
-    react: "✅",
-    desc: "Get pairing code for POPKID-MD bot",
-    category: "download",
-    use: ".pair +25473229XXX",
-    filename: __filename
-}, async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
-    try {
-        // Extract phone number from command
-        const phoneNumber = q ? q.trim() : senderNumber;
-        
-        // Validate phone number format
-        if (!phoneNumber || !phoneNumber.match(/^\+?\d{10,15}$/)) {
-            return await reply("❌ Please provide a valid phone number with country code\nExample: .pair +25473229XXX");
-        }
-
-        // Make API request to get pairing code
-        const response = await axios.get(`https://popkidxtech-session.onrender.com/pair?phone=${encodeURIComponent(phoneNumber)}`);
-        
-        if (!response.data || !response.data.code) {
-            return await reply("❌ Failed to retrieve pairing code. Please try again later.");
-        }
-
-        const pairingCode = response.data.code;
-        const doneMessage = "> *POPKID-MD PAIRING COMPLETED🪆*";
-
-        // Send initial message with formatting
-        await reply(`${doneMessage}\n\n*Your pairing code is:* ${pairingCode}`);
-
-        // Add 2 second delay
-        await new Promise(resolve => setTimeout(resolve, 2000));
-
-        // Send clean code message
-        await reply(`${pairingCode}`);
-
-    } catch (error) {
-        console.error("Pair command error:", error);
-        await reply("❌ An error occurred while getting pairing code. Please try again later.");
-    }
+// Register both .pair and .pair2 commands
+["pair", "pair2"].forEach((pattern) => {
+    cmd({
+        pattern,
+        alias: [pattern === "pair" ? "getpair" : "getpair2", pattern === "pair" ? "clonebot" : "clonebot2"],
+        react: "✅",
+        desc: "Get pairing code for POPKID-MD bot",
+        category: "download",
+        use: ".pair +25473229XXX",
+        filename: __filename
+    }, async (conn, mek, m, context) => {
+        await handlePairCommand(conn, mek, m, context, context.reply);
+    });
 });
