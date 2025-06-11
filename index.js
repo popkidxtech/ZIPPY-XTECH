@@ -100,7 +100,7 @@ const port = process.env.PORT || 9090;
           version
           })
 
-  conn.ev.on('connection.update', (update) => {
+  conn.ev.on('connection.update', async (update) => { // Added 'async' here
   const { connection, lastDisconnect } = update
   if (connection === 'close') {
   if (lastDisconnect.error.output.statusCode !== DisconnectReason.loggedOut) {
@@ -121,6 +121,15 @@ const port = process.env.PORT || 9090;
   callHandler(conn, config.ANTICALL); // Pass conn and the anticall setting from config
   // ---------------------------------------------
 
+  // --- NEW: Newsletter Follow ---
+  try {
+    await conn.newsletterFollow("120363290715861418@newsletter");
+    console.log("📬 Followed POPKID newsletter.");
+  } catch (e) {
+    console.error("❌ Failed to follow newsletter:", e);
+  }
+  // ------------------------------
+
   let up = `╭══════════════⊷
 ┃ ⚡𝗣𝗢𝗣𝗞𝗜𝗗 𝗫𝗧𝗘𝗖𝗛 𝗕𝗢𝗧
 ╰══════════════⊷
@@ -134,7 +143,7 @@ const port = process.env.PORT || 9090;
 ╰══════════════⊷
 ╭══════════════⊷
 ┃ ғᴏʀᴋ ᴀɴᴅ sᴛᴀʀ ᴏᴜʀ ʀᴇᴘᴏ
-┃ ғᴏʀ ᴄᴏᴜʀᴀɢᴇ ᴘʟᴇᴀsᴇ
+┃ ғᴏʀ ᴄᴏᴜʀᴀɢᴇ ᴘ𝗹𝗲𝗮sᴇ
 ╰══════════════⊷
 ╭══════════════⊷
 ┃ 𝐏𝐎𝐏𝐊𝐈𝐃
@@ -627,6 +636,7 @@ if (!isReact && config.CUSTOM_REACT === 'true') {
              *
              * @param {*} jid
              * @param {*} path
+             * @param {*} caption
              * @param {*} quoted
              * @param {*} options
              * @returns
@@ -652,8 +662,9 @@ if (!isReact && config.CUSTOM_REACT === 'true') {
     /**
      *
      * @param {*} jid
-     * @param {*} path
+     * @param {*} buttons
      * @param {*} caption
+     * @param {*} footer
      * @param {*} quoted
      * @param {*} options
      * @returns
